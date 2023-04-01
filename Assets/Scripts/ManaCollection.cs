@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ManaCollection : MonoBehaviour
+{
+    public GameObject ManaManager;
+    public ManaManager manager;
+
+    private void Start()
+    {
+        ManaManager = GameObject.Find("ManaManager");
+        manager = ManaManager.GetComponent<ManaManager>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            gameObject.SetActive(false);
+            manager.addMana(50);
+        }
+    }
+}
