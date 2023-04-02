@@ -24,11 +24,15 @@ public class LevelCreator : EditorWindow
     {
         EditorGUILayout.BeginVertical();
         EditorGUILayout.Space();
+        EditorGUI.BeginChangeCheck();
         pathManager = (PathManager)EditorGUILayout.ObjectField("Path Manager", pathManager, typeof(PathManager), true);
         if (pathManager != null)
         {
-            SetInitialValues();
-            
+            if (EditorGUI.EndChangeCheck())
+            {
+                SetInitialValues();
+            }
+
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 50;
