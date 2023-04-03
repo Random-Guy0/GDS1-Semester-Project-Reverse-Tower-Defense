@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float health;
-    public float maxHealth;
+    public int health;
+    public int maxHealth;
+    public HPBar healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 100f;
+        maxHealth = 100;
         health = maxHealth;
+        healthBar.SetMaxHP(maxHealth);
     }
 
     // Update is called once per frame
@@ -20,9 +22,10 @@ public class PlayerHealth : MonoBehaviour
         
     }
 
-    public void DamageTake(float damage)
+    public void DamageTake(int damage)
     {
         health -= damage;
+        healthBar.SetHP(health);
     }
 
     private void OnTriggerEnter(Collider other)
