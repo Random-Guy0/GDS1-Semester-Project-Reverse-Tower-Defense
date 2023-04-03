@@ -7,12 +7,12 @@ public class PathManager : MonoBehaviour
 {
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
-    [SerializeField] private int gridSize;
+    [SerializeField] private float gridSize;
     [SerializeField] private GridTile[] grid;
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
 
-    private GameObject levelParent;
+    [SerializeField] private GameObject levelParent;
 
     //create the new grid to be used for this level
     public void CreateGrid(int newWidth, int newDepth, GridTile[] newGrid)
@@ -21,6 +21,7 @@ public class PathManager : MonoBehaviour
         levelWidth = newWidth;
         levelDepth = newDepth;
         grid = newGrid;
+        gridGameobjects = new GameObject[grid.Length];
 
         levelParent = new GameObject("Level Parent Object");
         for (int i = 0; i < levelWidth; i++)
@@ -29,7 +30,7 @@ public class PathManager : MonoBehaviour
             {
                 int index = (levelDepth - j - 1) * levelWidth + i;
                 Vector3 position = new Vector3(i * gridSize, 0, j * gridSize);
-                Instantiate(tilePrefabs[(int)grid[index]], position, Quaternion.identity, levelParent.transform);
+                gridGameobjects[index] = Instantiate(tilePrefabs[(int)grid[index]], position, Quaternion.identity, levelParent.transform);
             }
         }
 
@@ -76,6 +77,40 @@ public class PathManager : MonoBehaviour
     public GridTile[] GetGrid()
     {
         return grid;
+    }
+
+    //uses a world position to get a point from the grid
+    public GridTile GetGridPoint(Vector3 position)
+    {
+        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
+        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        return grid[z * levelWidth + x];
+    }
+
+    //uses a world position to set a point in the grid
+    private void SetGridPoint(Vector3 position, GridTile newGridTile)
+    {
+        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
+        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        int index = z * levelWidth + x;
+        Destroy(gridGameobjects[index]);
+        grid[index] = newGridTile;
+        gridGameobjects[index] = Instantiate(tilePrefabs[(int)newGridTile], new Vector3(x * gridSize, 0, (levelDepth - z - 1) * gridSize),
+            Quaternion.identity, levelParent.transform);
+    }
+
+    //place a section of the path, returning if it was placed or not
+    public bool PlacePath(Vector3 position)
+    {
+        if (GetGridPoint(position) == GridTile.Ground)
+        {
+            SetGridPoint(position, GridTile.Path);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
