@@ -14,6 +14,17 @@ public class PathManager : MonoBehaviour
 
     [SerializeField] private GameObject levelParent;
 
+    private bool[] manaPositions;
+
+    private void Awake()
+    {
+        manaPositions = new bool[grid.Length];
+        for (int i = 0; i < manaPositions.Length; i++)
+        {
+            manaPositions[i] = grid[i] != GridTile.Mountain;
+        }
+    }
+
     //create the new grid to be used for this level
     public void CreateGrid(int newWidth, int newDepth, GridTile[] newGrid)
     {
@@ -111,6 +122,25 @@ public class PathManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public List<Vector3> GetValidManaPositions()
+    {
+        List<Vector3> validManaPositions = new List<Vector3>();
+
+        for (int i = 0; i < levelWidth; i++)
+        {
+            for (int j = 0; j < levelDepth; j++)
+            {
+                int index = (levelDepth - j - 1) * levelWidth + i;
+                if (manaPositions[index])
+                {
+                    validManaPositions.Add(new Vector3(i * gridSize, 1.5f, j * gridSize));
+                }
+            }
+        }
+
+        return validManaPositions;
     }
 }
 
