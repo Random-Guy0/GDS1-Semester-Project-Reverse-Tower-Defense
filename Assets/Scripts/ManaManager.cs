@@ -63,6 +63,7 @@ public class ManaManager : MonoBehaviour
     public void costMana(int cost)
     {
         currentMana -= cost;
+        currentManaCount.text = "Mana: " + currentMana.ToString();
     }
 
     public bool ableToCost(int cost)
