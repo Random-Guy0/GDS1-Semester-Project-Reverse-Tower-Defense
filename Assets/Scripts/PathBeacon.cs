@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class PathBeacon : MonoBehaviour
 {
+    [SerializeField] private int pathCost;
+    [SerializeField] private PathManager pathManager;
+    [SerializeField] private ManaManager manaManager;
+    
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            //place the beacon to make path
-            Debug.Log("Put down the beacon");
+            if (manaManager.ableToCost(pathCost) && pathManager.PlacePath(transform.position))
+            {
+                manaManager.costMana(pathCost);
+            }
         }
     }
 }
