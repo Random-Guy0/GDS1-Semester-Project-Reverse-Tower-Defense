@@ -17,8 +17,8 @@ public class ManaCollection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
-            manager.addMana(50);
+            manager.CollectMana(transform.position);
+            Destroy(gameObject);
         }
     }
 }
