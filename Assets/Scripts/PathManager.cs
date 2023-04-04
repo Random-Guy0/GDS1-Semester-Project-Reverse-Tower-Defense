@@ -189,25 +189,25 @@ public class PathManager : MonoBehaviour
     private void SetConnectedPathSegments(int pathSegmentX, int pathSegmentZ)
     {
         PathSegment pathSegment = pathSegments[pathSegmentZ * levelWidth + pathSegmentX];
-        if (pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1] != null)
+        if (pathSegmentX + 1 < levelWidth && pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1] != null)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1]);
             pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1] != null)
+        if (pathSegmentX - 1 >= 0 && pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1] != null)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1]);
             pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX] != null)
+        if (pathSegmentZ + 1 < levelDepth && pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX] != null)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX]);
             pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX] != null)
+        if (pathSegmentZ - 1 >= 0 && pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX] != null)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX]);
             pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX].AddConnectedPathSegment(pathSegment);
