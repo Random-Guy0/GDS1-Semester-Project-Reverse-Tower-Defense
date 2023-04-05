@@ -31,14 +31,7 @@ public class Explosion : MonoBehaviour
                 if (!hitTargets.Contains(entity.transform.gameObject))
                 {
                     hitTargets.Add(entity.transform.gameObject);
-                    if (entity.transform.CompareTag("Player"))
-                    {
-                        entity.transform.GetComponent<PlayerHealth>().DamageTake(damage);
-                    }
-                    else if (entity.transform.CompareTag("Summon"))
-                    {
-
-                    }
+                    entity.transform.GetComponent<PlayerHealth>().DamageTake(damage);
                     curTargets++;
                     if (maxTargets != 0 && curTargets >= maxTargets)
                     {

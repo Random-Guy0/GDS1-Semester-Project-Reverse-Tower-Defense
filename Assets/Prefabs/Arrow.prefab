@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 2
+  damage: 20
   lifeTime: 1
   pericing: 1
   HitEffect: {fileID: 0}

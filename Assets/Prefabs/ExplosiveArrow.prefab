@@ -10018,7 +10018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 2
+  damage: 10
   lifeTime: 1
   pericing: 0
   HitEffect: {fileID: 0}

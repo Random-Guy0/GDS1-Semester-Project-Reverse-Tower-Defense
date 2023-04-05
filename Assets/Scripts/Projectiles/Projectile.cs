@@ -53,14 +53,7 @@ public class Projectile : MonoBehaviour
             if (!hitTargets.Contains(collision.transform.gameObject))
             {
                 hitTargets.Add(collision.transform.gameObject);
-                if (collision.transform.CompareTag("Player"))
-                {
-                    collision.transform.GetComponent<PlayerHealth>().DamageTake(damage);
-                }
-                else if (collision.transform.CompareTag("Summon"))
-                {
-
-                }
+                collision.transform.GetComponent<PlayerHealth>().DamageTake(damage);
                 if (HitEffect != null)
                 {
                     ActivateOnHit();
