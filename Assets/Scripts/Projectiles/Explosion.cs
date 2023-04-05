@@ -26,7 +26,7 @@ public class Explosion : MonoBehaviour
         entities = Physics.SphereCastAll(transform.position, radius, Vector3.forward, 0, mask);
         foreach (RaycastHit entity in entities)
         {
-            if (entity.transform.CompareTag("Player") || entity.transform.CompareTag("Summon"))
+            if (entity.transform.CompareTag("Player") || entity.transform.CompareTag("Monster"))
             {
                 if (!hitTargets.Contains(entity.transform.gameObject))
                 {
