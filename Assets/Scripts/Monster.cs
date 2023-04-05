@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    
     [SerializeField] private float speed;
 
     private PathManager path;
@@ -30,10 +29,11 @@ public class Monster : MonoBehaviour
         {
             Vector3 targetPos = target.transform.position;
             targetPos.y = transform.position.y;
-            transform.position =
-                Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+            transform.LookAt(targetPos);
+            Vector3 moveDirection = (targetPos - transform.position).normalized;
+            transform.position += speed * Time.deltaTime * moveDirection;
 
-            if (transform.position.Equals(targetPos))
+            if (Vector3.Distance(transform.position, targetPos) < 0.05)
             {
                 previous = current;
                 current = target;
@@ -51,13 +51,17 @@ public class Monster : MonoBehaviour
             PathSegment selectedOption = options[0];
             for (int i = 0; i < options.Length; i++)
             {
-                if (options[i] != previous &&
+                if (!options[i].Equals(previous) &&
                     Vector3.Distance(options[i].transform.position, path.GetEnd().transform.position) <
-                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position))
+                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position) &&
+                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position) >
+                    Vector3.Distance(current.transform.position, path.GetEnd().transform.position))
                 {
                     selectedOption = options[i];
                 }
             }
+
+            target = selectedOption;
         }
     }
 }

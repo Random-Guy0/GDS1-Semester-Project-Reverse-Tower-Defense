@@ -17,8 +17,6 @@ public class PathManager : MonoBehaviour
 
     [SerializeField] private GameObject levelParent;
 
-    public List<Vector3> waypoints = new List<Vector3>();
-
     private bool[] manaPositions;
 
     private void Awake()
@@ -125,7 +123,6 @@ public class PathManager : MonoBehaviour
         grid[index] = newGridTile;
         gridGameobjects[index] = Instantiate(tilePrefabs[(int)newGridTile], new Vector3(x * gridSize, 0, (levelDepth - z - 1) * gridSize),
             Quaternion.identity, levelParent.transform);
-        waypoints.Add(gridGameobjects[index].transform.position);
         if (grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End)
         {
             pathSegments[index] = gridGameobjects[index].GetComponent<PathSegment>();

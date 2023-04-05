@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MonsterOne : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    /*public float moveSpeed = 5f;
     private int currentWaypointLength = 0;
     public int currentWaypointIndex = 0;
     private PathManager pathManager;
@@ -55,5 +55,5 @@ public class MonsterOne : MonoBehaviour
         {
             // We've reached the end of the path, do something here
         }
-    }
+    }*/
 }
