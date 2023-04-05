@@ -13,6 +13,7 @@ public class MonsterManager : MonoBehaviour
     {
         if (manaManager.ableToCost(monsterCost))
         {
+            manaManager.costMana(monsterCost);
             Vector3 spawnPos = pathManager.GetStart().transform.position;
             spawnPos.y = 1.5f;
             Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
