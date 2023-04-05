@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     public GameObject NextPhase;
 
     private Rigidbody rb;
+    private List<GameObject> hitTargets = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -45,21 +46,33 @@ public class Projectile : MonoBehaviour
         }
         Destroy(gameObject);
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Summon"))
         {
-            if (HitEffect != null)
+            if (!hitTargets.Contains(collision.transform.gameObject))
             {
-                ActivateOnHit();
-            }
-            if (pericing <= 0)
-            {
-                ActivateOnDestroy();
-            }
-            else
-            {
-                pericing--;
+                hitTargets.Add(collision.transform.gameObject);
+                if (collision.transform.CompareTag("Player"))
+                {
+                    collision.transform.GetComponent<PlayerHealth>().DamageTake(damage);
+                }
+                else if (collision.transform.CompareTag("Summon"))
+                {
+
+                }
+                if (HitEffect != null)
+                {
+                    ActivateOnHit();
+                }
+                if (pericing <= 0)
+                {
+                    ActivateOnDestroy();
+                }
+                else
+                {
+                    pericing--;
+                }
             }
         }
         else
