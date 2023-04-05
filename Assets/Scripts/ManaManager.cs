@@ -79,6 +79,7 @@ public class ManaManager : MonoBehaviour
             Vector3 chosenPosition = validManaSpawns[chosenIndex];
             validManaSpawns.RemoveAt(chosenIndex);
             Instantiate(manaPrefab, chosenPosition, Quaternion.identity);
+            numberCurrentlySpawned++;
         }
         
         Invoke("SpawnMana", timeToSpawn);
