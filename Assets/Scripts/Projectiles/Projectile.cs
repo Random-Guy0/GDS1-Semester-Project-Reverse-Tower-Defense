@@ -48,7 +48,7 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Summon"))
+        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Monster"))
         {
             if (!hitTargets.Contains(collision.transform.gameObject))
             {
