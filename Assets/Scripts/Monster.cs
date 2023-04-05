@@ -61,15 +61,15 @@ public class Monster : MonoBehaviour
             {
                 if (!options[i].Equals(previous) &&
                     Vector3.Distance(options[i].transform.position, path.GetEnd().transform.position) <
-                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position) &&
-                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position) >
-                    Vector3.Distance(current.transform.position, path.GetEnd().transform.position))
+                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position))
                 {
                     selectedOption = options[i];
                 }
             }
 
-            if (!selectedOption.Equals(previous))
+            if (!selectedOption.Equals(previous) && 
+                Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position) <
+                Vector3.Distance(current.transform.position, path.GetEnd().transform.position))
             {
                 target = selectedOption;
             }
