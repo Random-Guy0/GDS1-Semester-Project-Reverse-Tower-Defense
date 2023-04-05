@@ -35,9 +35,17 @@ public class Monster : MonoBehaviour
 
             if (Vector3.Distance(transform.position, targetPos) < 0.05)
             {
-                previous = current;
-                current = target;
-                target = null;
+                if (target.Equals(path.GetEnd()))
+                {
+                    FindObjectOfType<GameManager>().TakeDamage();
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    previous = current;
+                    current = target;
+                    target = null;
+                }
             }
         }
     }
@@ -61,7 +69,10 @@ public class Monster : MonoBehaviour
                 }
             }
 
-            target = selectedOption;
+            if (!selectedOption.Equals(previous))
+            {
+                target = selectedOption;
+            }
         }
     }
 }
