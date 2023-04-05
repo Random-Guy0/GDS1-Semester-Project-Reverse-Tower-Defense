@@ -21,7 +21,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            if (gameObject.CompareTag("Monster"))
+            {
+                Destroy(gameObject);
+            }
+            if (gameObject.CompareTag("Player"))
+            {
+                Application.Quit();
+            }
         }
     }
 
