@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
     [Tooltip("When Projectile hits a target, the next phase will be instatiated. This field is NOT maditory")]
     public GameObject NextPhase;
 
+    private bool shouldBeDead = false;
     private Rigidbody rb;
     private List<GameObject> hitTargets = new List<GameObject>();
     // Start is called before the first frame update
@@ -19,8 +20,7 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
-        StartCoroutine("LifeSpan", lifeTime);
-        
+        StartCoroutine("LifeSpan", lifeTime);        
     }
     public IEnumerator LifeSpan(float duration)
     {
@@ -44,10 +44,15 @@ public class Projectile : MonoBehaviour
         {
             Instantiate(NextPhase,transform.position,transform.rotation);           
         }
+        shouldBeDead = true;
         Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider collision)
     {
+        if (shouldBeDead)
+        {
+            return;
+        }
         if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Monster"))
         {
             if (!hitTargets.Contains(collision.transform.gameObject))
