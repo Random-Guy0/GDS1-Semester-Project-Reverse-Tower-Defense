@@ -11,7 +11,11 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 100;
+        //maxHealth = 100;
+        if(maxHealth==0)
+        {
+            maxHealth = 100;
+        }
         health = maxHealth;
         healthBar.SetMaxHP(maxHealth);
     }
@@ -19,7 +23,17 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (health <= 0)
+        {
+            if (gameObject.CompareTag("Monster"))
+            {
+                Destroy(gameObject);
+            }
+            if (gameObject.CompareTag("Player"))
+            {
+                Application.Quit();
+            }
+        }
     }
 
     public void DamageTake(int damage)

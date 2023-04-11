@@ -56,19 +56,7 @@ public class PathManager : MonoBehaviour
             {
                 int index = (levelDepth - j - 1) * levelWidth + i;
                 Vector3 position = new Vector3(i * gridSize, 0, j * gridSize);
-                gridGameobjects[index] = Instantiate(tilePrefabs[(int)grid[index]], position, Quaternion.identity, levelParent.transform);
-                if (grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End)
-                {
-                    pathSegments[index] = gridGameobjects[index].GetComponent<PathSegment>();
-                    if (grid[index] == GridTile.Start)
-                    {
-                        start = pathSegments[index];
-                    }
-                    else if (grid[index] == GridTile.End)
-                    {
-                        end = pathSegments[index];
-                    }
-                }
+                SetGridPoint(position, grid[index]);
             }
         }
 
@@ -131,11 +119,10 @@ public class PathManager : MonoBehaviour
         int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
         int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
         int index = z * levelWidth + x;
-        Destroy(gridGameobjects[index]);
+        DestroyImmediate(gridGameobjects[index]);
         grid[index] = newGridTile;
         gridGameobjects[index] = Instantiate(tilePrefabs[(int)newGridTile], new Vector3(x * gridSize, 0, (levelDepth - z - 1) * gridSize),
             Quaternion.identity, levelParent.transform);
-        
         if (grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End)
         {
             pathSegments[index] = gridGameobjects[index].GetComponent<PathSegment>();

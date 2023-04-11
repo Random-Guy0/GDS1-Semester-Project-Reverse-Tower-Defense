@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e94bf438850034797ad24ff18f0845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
+  possOffset: {x: 0, y: 0, z: 0}
+  damage: 25
   maxTargets: 0
-  radius: 2.5
+  radius: 5
   delay: 0.1
   mask:
     serializedVersion: 2
@@ -307,7 +308,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2

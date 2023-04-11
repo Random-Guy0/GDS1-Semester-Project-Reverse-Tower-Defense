@@ -15,6 +15,8 @@ public class ManaManager : MonoBehaviour
     public int maxMana;
     public int minMana;
 
+    [SerializeField] private int manaPerCollection;
+
     [SerializeField] private PathManager pathManager;
     [SerializeField] private GameObject manaPrefab;
     [SerializeField] private float timeToSpawn;
@@ -25,8 +27,6 @@ public class ManaManager : MonoBehaviour
 
     private void Awake()
     {
-        maxMana = 100;
-        minMana = 0;
         instance = this;
     }
     void Start()
@@ -44,7 +44,7 @@ public class ManaManager : MonoBehaviour
     public void CollectMana(Vector3 position)
     {
         validManaSpawns.Add(position);
-        addMana(50);
+        addMana(manaPerCollection);
         numberCurrentlySpawned--;
     }
     
@@ -79,6 +79,7 @@ public class ManaManager : MonoBehaviour
             Vector3 chosenPosition = validManaSpawns[chosenIndex];
             validManaSpawns.RemoveAt(chosenIndex);
             Instantiate(manaPrefab, chosenPosition, Quaternion.identity);
+            numberCurrentlySpawned++;
         }
         
         Invoke("SpawnMana", timeToSpawn);

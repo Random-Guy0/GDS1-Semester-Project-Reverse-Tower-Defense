@@ -12,10 +12,15 @@ public class PathBeacon : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if (manaManager.ableToCost(pathCost) && pathManager.PlacePath(transform.position))
-            {
-                manaManager.costMana(pathCost);
-            }
+            PlacePath();
+        }
+    }
+
+    public void PlacePath()
+    {
+        if (manaManager.ableToCost(pathCost) && pathManager.PlacePath(transform.position))
+        {
+            manaManager.costMana(pathCost);
         }
     }
 }
