@@ -568,9 +568,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b1f7ca653033848b266e5f50e9dabe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  damage: 20
-  lifeTime: 1
+  speed: 60
+  damage: 35
+  lifeTime: 0.2
   pericing: 1
   HitEffect: {fileID: 0}
   NextPhase: {fileID: 0}

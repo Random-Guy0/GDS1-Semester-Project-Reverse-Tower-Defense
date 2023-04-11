@@ -10019,7 +10019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 10
-  lifeTime: 1
+  lifeTime: 2
   pericing: 0
   HitEffect: {fileID: 0}
   NextPhase: {fileID: 7522811426880674583, guid: 7ecd3df6db706594dae80a910b966af5, type: 3}
