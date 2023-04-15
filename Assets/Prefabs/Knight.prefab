@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDelay: 1
   projectile: {fileID: 1272660704425954138, guid: 3e10a0485a78ab84995b24499985e354, type: 3}
+  movementDelay: 60
 --- !u!114 &2827855833560561702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbc33461fa48a74999c7772eb7fa35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 3.5
+  viewRadius: 5
   viewAngle: 360
   targetMask:
     serializedVersion: 2

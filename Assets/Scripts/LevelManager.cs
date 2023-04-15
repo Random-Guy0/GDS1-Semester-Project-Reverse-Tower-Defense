@@ -24,6 +24,10 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene("Level 4");
     }
+    public void SelectLevel5Scene()
+    {
+        SceneManager.LoadScene("Level 5");
+    }
     public void SelectMainMenu()
     {
         SceneManager.LoadScene("Main Menu");
