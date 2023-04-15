@@ -73,6 +73,10 @@ public class Projectile : MonoBehaviour
                 }
             }
         }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Collectable"))
+        {
+
+        }
         else
         {
             ActivateOnDestroy();

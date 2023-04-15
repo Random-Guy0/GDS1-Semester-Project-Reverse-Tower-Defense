@@ -6,6 +6,7 @@ public class Tower : MonoBehaviour
 {
     public float fireDelay = 1.0f;
     public GameObject projectile;
+    public float movementDelay = 60f;
 
     private FieldOfView fov;
     private Transform shootPoint;
@@ -23,6 +24,7 @@ public class Tower : MonoBehaviour
     {
 
     }
+
     void TargetFirst()
     {
         if (fov.visibleTargets.Count > 0 && fov.visibleTargets[0] != null)
