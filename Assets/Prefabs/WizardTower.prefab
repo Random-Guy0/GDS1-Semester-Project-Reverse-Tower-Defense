@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardTower
       objectReference: {fileID: 0}
+    - target: {fileID: 8616530830505130032, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: m_TagString
+      value: Tower
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

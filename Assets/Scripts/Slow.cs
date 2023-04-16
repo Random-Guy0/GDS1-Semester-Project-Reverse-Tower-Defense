@@ -27,7 +27,7 @@ public class Slow : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-         if (other.gameObject.name == "Knight")
+         if (other.gameObject.CompareTag("Tower"))
          {
             other.GetComponent<Tower>().fireDelay = 5;
          }

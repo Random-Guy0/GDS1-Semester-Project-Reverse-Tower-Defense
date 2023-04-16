@@ -31,16 +31,16 @@ public class Movement : MonoBehaviour
         switch (cameraS)
         {
             case "AngleOne":
-                move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
                 break;
             case "AngleTwo":
-                move = new Vector3(-Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
+                move = new Vector3(-Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal")).normalized;
                 break;
             case "AngleThree":
-                move = new Vector3(-Input.GetAxis("Horizontal"), 0, -Input.GetAxis("Vertical"));
+                move = new Vector3(-Input.GetAxis("Horizontal"), 0, -Input.GetAxis("Vertical")).normalized;
                 break;
             case "AngleFour":
-                move = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
+                move = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")).normalized;
                 break;
         }
         controller.Move(move * Time.deltaTime * playerSpeed);
