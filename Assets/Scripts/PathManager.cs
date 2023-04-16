@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
+    [SerializeField] private Material groundMat;
+    [SerializeField] private Material groundOutlineMat;
+    [SerializeField] private Material pathMat;
+    [SerializeField] private Material pathOutlineMat;
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
     [SerializeField] private float gridSize;
@@ -18,6 +22,8 @@ public class PathManager : MonoBehaviour
     [SerializeField] private GameObject levelParent;
 
     private bool[] manaPositions;
+
+    private int selectedTileIndex = 0;
 
     private void Awake()
     {
@@ -108,9 +114,7 @@ public class PathManager : MonoBehaviour
     //uses a world position to get a point from the grid
     public GridTile GetGridPoint(Vector3 position)
     {
-        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
-        return grid[z * levelWidth + x];
+        return grid[GetIndexFromPosition(position)];
     }
 
     //uses a world position to set a point in the grid
@@ -203,9 +207,14 @@ public class PathManager : MonoBehaviour
 
     public PathSegment GetPathSegmentAtPosition(Vector3 position)
     {
+        return pathSegments[GetIndexFromPosition(position)];
+    }
+
+    private int GetIndexFromPosition(Vector3 position)
+    {
         int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
         int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
-        return pathSegments[z * levelWidth + x];
+        return z * levelWidth + x;
     }
 
     public PathSegment GetStart()
@@ -216,6 +225,36 @@ public class PathManager : MonoBehaviour
     public PathSegment GetEnd()
     {
         return end;
+    }
+
+    public void SetSelectedTile(Vector3 position)
+    {
+        int newIndex = GetIndexFromPosition(position);
+        
+        if (gridGameobjects[selectedTileIndex] != null)
+        {
+            if (grid[selectedTileIndex] == GridTile.Ground)
+            {
+                gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>().material = groundMat;
+            }
+            else if (grid[selectedTileIndex] == GridTile.Path || grid[selectedTileIndex] == GridTile.Start ||
+                     grid[selectedTileIndex] == GridTile.End)
+            {
+                gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>().material = pathMat;
+            }
+        }
+        
+        if (grid[newIndex] == GridTile.Ground)
+        {
+            gridGameobjects[newIndex].GetComponent<MeshRenderer>().material = groundOutlineMat;
+        }
+        else if (grid[newIndex] == GridTile.Path || grid[newIndex] == GridTile.Start ||
+                 grid[newIndex] == GridTile.End)
+        {
+            gridGameobjects[newIndex].GetComponent<MeshRenderer>().material = pathOutlineMat;
+        }
+
+        selectedTileIndex = newIndex;
     }
 }
 

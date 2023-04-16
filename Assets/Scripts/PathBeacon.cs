@@ -10,6 +10,7 @@ public class PathBeacon : MonoBehaviour
     
     void Update()
     {
+        pathManager.SetSelectedTile(transform.position);
         if(Input.GetKeyDown(KeyCode.Space))
         {
             PlacePath();
