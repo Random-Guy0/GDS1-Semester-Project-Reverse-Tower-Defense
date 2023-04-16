@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
+    [SerializeField] private int pathPiecesAvailable;
     [SerializeField] private Material groundMat;
     [SerializeField] private Material groundOutlineMat;
     [SerializeField] private Material pathMat;
@@ -142,20 +143,24 @@ public class PathManager : MonoBehaviour
     }
 
     //place a section of the path, returning if it was placed or not
-    public bool PlacePath(Vector3 position)
+    public void PlacePath(Vector3 position)
     {
-        if (GetGridPoint(position) == GridTile.Ground)
+        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
+        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        if (GetGridPoint(position) == GridTile.Ground && pathPiecesAvailable > 0)
         {
+            pathPiecesAvailable--;
             SetGridPoint(position, GridTile.Path);
-            int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-            int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
             SetConnectedPathSegments(x, z);
-            return true;
         }
-        else
+        else if (GetGridPoint(position) == GridTile.Path)
         {
-            return false;
+            pathPiecesAvailable++;
+            RemovePathSegment(x, z);
+            SetGridPoint(position, GridTile.Ground);
         }
+        
+        Debug.Log("Path pieces left: " + pathPiecesAvailable);
     }
 
     public List<Vector3> GetValidManaPositions()
@@ -177,31 +182,62 @@ public class PathManager : MonoBehaviour
         return validManaPositions;
     }
 
-    private void SetConnectedPathSegments(int pathSegmentX, int pathSegmentZ)
+    private void SetConnectedPathSegments(int x, int z)
     {
-        PathSegment pathSegment = pathSegments[pathSegmentZ * levelWidth + pathSegmentX];
-        if (pathSegmentX + 1 < levelWidth && pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1] != null)
+        PathSegment pathSegment = pathSegments[z * levelWidth + x];
+        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1]);
-            pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[z * levelWidth + x + 1]);
+            pathSegments[z * levelWidth + x + 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegmentX - 1 >= 0 && pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1] != null)
+        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1]);
-            pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[z * levelWidth + x - 1]);
+            pathSegments[z * levelWidth + x - 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegmentZ + 1 < levelDepth && pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX] != null)
+        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX]);
-            pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[(z + 1) * levelWidth + x]);
+            pathSegments[(z + 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegmentZ - 1 >= 0 && pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX] != null)
+        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX]);
-            pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
+            pathSegments[(z - 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
+        }
+
+        pathSegments[z * levelWidth + x] = null;
+    }
+
+    private void RemovePathSegment(int x, int z)
+    {
+        PathSegment pathSegment = pathSegments[x * levelWidth + z];
+        
+        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[z * levelWidth + x + 1]);
+            pathSegments[z * levelWidth + x + 1].RemoveConnectedPathSegment(pathSegment);
+        }
+        
+        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[z * levelWidth + x - 1]);
+            pathSegments[z * levelWidth + x - 1].RemoveConnectedPathSegment(pathSegment);
+        }
+        
+        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[(z + 1) * levelWidth + x]);
+            pathSegments[(z + 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
+        }
+        
+        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
+            pathSegments[(z - 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
         }
     }
 

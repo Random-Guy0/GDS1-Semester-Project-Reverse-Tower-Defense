@@ -11,17 +11,14 @@ public class PathBeacon : MonoBehaviour
     void Update()
     {
         pathManager.SetSelectedTile(transform.position);
-        if(Input.GetKeyDown(KeyCode.Space))
+        /*if(Input.GetKeyDown(KeyCode.Space))
         {
             PlacePath();
-        }
+        }*/
     }
 
     public void PlacePath()
     {
-        if (manaManager.ableToCost(pathCost) && pathManager.PlacePath(transform.position))
-        {
-            manaManager.costMana(pathCost);
-        }
+        pathManager.PlacePath(transform.position);
     }
 }

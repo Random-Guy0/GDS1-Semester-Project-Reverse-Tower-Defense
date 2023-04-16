@@ -12,6 +12,11 @@ public class PathSegment : MonoBehaviour
         connectedPathSegments.Add(pathSegment);
     }
 
+    public void RemoveConnectedPathSegment(PathSegment pathSegment)
+    {
+        connectedPathSegments.Remove(pathSegment);
+    }
+
     public PathSegment[] GetConnectedPathSegments()
     {
         return connectedPathSegments.ToArray();
