@@ -21,6 +21,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] private PathSegment end;
 
     [SerializeField] private GameObject levelParent;
+    [SerializeField] private MonsterManager monsterManager;
 
     private bool[] manaPositions;
 
@@ -152,12 +153,14 @@ public class PathManager : MonoBehaviour
             pathPiecesAvailable--;
             SetGridPoint(position, GridTile.Path);
             SetConnectedPathSegments(x, z);
+            monsterManager.PathChange();
         }
         else if (GetGridPoint(position) == GridTile.Path)
         {
             pathPiecesAvailable++;
             RemovePathSegment(x, z);
             SetGridPoint(position, GridTile.Ground);
+            monsterManager.PathChange();
         }
         
         Debug.Log("Path pieces left: " + pathPiecesAvailable);
@@ -208,13 +211,11 @@ public class PathManager : MonoBehaviour
             pathSegment.AddConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
             pathSegments[(z - 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
         }
-
-        pathSegments[z * levelWidth + x] = null;
     }
 
     private void RemovePathSegment(int x, int z)
     {
-        PathSegment pathSegment = pathSegments[x * levelWidth + z];
+        PathSegment pathSegment = pathSegments[z * levelWidth + x];
         
         if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
         {
@@ -239,6 +240,7 @@ public class PathManager : MonoBehaviour
             pathSegment.RemoveConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
             pathSegments[(z - 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
         }
+        pathSegments[z * levelWidth + x] = null;
     }
 
     public PathSegment GetPathSegmentAtPosition(Vector3 position)
@@ -291,6 +293,11 @@ public class PathManager : MonoBehaviour
         }
 
         selectedTileIndex = newIndex;
+    }
+
+    public PathSegment[] GetPathSegments()
+    {
+        return pathSegments;
     }
 }
 

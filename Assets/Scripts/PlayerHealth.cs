@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
         {
             if (gameObject.CompareTag("Monster"))
             {
+                FindObjectOfType<MonsterManager>().MonsterDeath(GetComponent<Monster>());
                 Destroy(gameObject);
             }
             if (gameObject.CompareTag("Player"))

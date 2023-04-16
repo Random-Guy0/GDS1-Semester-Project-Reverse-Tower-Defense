@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PathSegment : MonoBehaviour
 {
+    public float h;
+    public float g;
+    public PathSegment cameFrom;
     private List<PathSegment> connectedPathSegments = new List<PathSegment>();
 
     public void AddConnectedPathSegment(PathSegment pathSegment)
@@ -20,5 +23,10 @@ public class PathSegment : MonoBehaviour
     public PathSegment[] GetConnectedPathSegments()
     {
         return connectedPathSegments.ToArray();
+    }
+
+    public float F()
+    {
+        return g + h;
     }
 }
