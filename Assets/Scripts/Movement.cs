@@ -9,21 +9,40 @@ public class Movement : MonoBehaviour
     private bool groundedPlayer;
     private float playerSpeed =10.0f;
     private float gravityValue = -9.81f;
+    public GameObject Camera;
+    public string cameraS;
+    public Vector3 move;
 
     private void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
+        cameraS = Camera.GetComponent<camera>().getCurrentCamera();
     }
 
     void Update()
     {
+        cameraS = Camera.GetComponent<camera>().getCurrentCamera();
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        switch (cameraS)
+        {
+            case "AngleOne":
+                move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                break;
+            case "AngleTwo":
+                move = new Vector3(-Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
+                break;
+            case "AngleThree":
+                move = new Vector3(-Input.GetAxis("Horizontal"), 0, -Input.GetAxis("Vertical"));
+                break;
+            case "AngleFour":
+                move = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal"));
+                break;
+        }
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (move != Vector3.zero)
@@ -34,4 +53,6 @@ public class Movement : MonoBehaviour
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
+
+
 }
