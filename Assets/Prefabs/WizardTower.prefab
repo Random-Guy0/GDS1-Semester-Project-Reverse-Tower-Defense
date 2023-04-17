@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 5037885833375721976, guid: 77289cdf1b1bef64d8945962cb56d404, type: 3}
+    - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: viewRadius
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8247074120228449864, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -59,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 8616530830505130032, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_Name
       value: WizardTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616530830505130032, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: m_TagString
+      value: Tower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
