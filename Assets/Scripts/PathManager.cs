@@ -299,6 +299,21 @@ public class PathManager : MonoBehaviour
     {
         return pathSegments;
     }
+
+    public int GetPathSegmentIndex(PathSegment pathSegment)
+    {
+        int index = -1;
+        for (int i = 0; i < pathSegments.Length; i++)
+        {
+            if (pathSegment.Equals(pathSegments[i]))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
 }
 
 public enum GridTile

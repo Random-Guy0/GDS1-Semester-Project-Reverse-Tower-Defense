@@ -9,15 +9,14 @@ public class Monster : MonoBehaviour
 
     private PathManager pathManager;
     private List<PathSegment> pathToFollow;
-    private List<PathSegment> pathFollowed;
+    private int lastIndex;
 
     private void Start()
     {
         pathManager = FindObjectOfType<PathManager>();
         pathToFollow = new List<PathSegment>();
-        pathFollowed = new List<PathSegment>();
-        pathFollowed.Add(pathManager.GetStart());
-        
+        lastIndex = pathManager.GetPathSegmentIndex(pathManager.GetStart());
+
         GeneratePath();
     }
 
@@ -40,7 +39,7 @@ public class Monster : MonoBehaviour
                 }
                 else
                 {
-                    pathFollowed.Add(pathToFollow[0]);
+                    lastIndex = pathManager.GetPathSegmentIndex(pathToFollow[0]);
                     pathToFollow.RemoveAt(0);
                 }
             }
@@ -50,7 +49,7 @@ public class Monster : MonoBehaviour
     public void GeneratePath()
     {
         PathSegment[] pathSegments = pathManager.GetPathSegments();
-        PathSegment start = pathFollowed[pathFollowed.Count - 1];
+        PathSegment start = pathSegments[lastIndex];
         if (start == null)
         {
             return;
@@ -83,7 +82,7 @@ public class Monster : MonoBehaviour
                 }
             }
 
-            if (Vector3.Distance(current.transform.position, end.transform.position) <
+            if (Vector3.Distance(current.transform.position, end.transform.position) <=
                 Vector3.Distance(closestToEnd.transform.position, end.transform.position))
             {
                 closestToEnd = current;
