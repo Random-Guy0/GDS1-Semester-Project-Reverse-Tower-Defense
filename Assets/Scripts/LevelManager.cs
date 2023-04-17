@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
     }
     public void SelectMainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
 
     }
     public void QuitGame()
