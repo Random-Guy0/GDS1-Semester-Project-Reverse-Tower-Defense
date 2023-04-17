@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string levelHealthTextPrefix;
     [SerializeField] private TMP_Text levelHealthText;
     [SerializeField] private GameObject winText;
     [SerializeField] private int levelHealth;
@@ -34,6 +33,6 @@ public class GameManager : MonoBehaviour
 
     private void SetHealthText()
     {
-        levelHealthText.SetText(levelHealthTextPrefix + ": " + levelHealth);
+        levelHealthText.SetText(levelHealth.ToString());
     }
 }
