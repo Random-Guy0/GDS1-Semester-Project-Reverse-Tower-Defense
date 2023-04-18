@@ -54,7 +54,7 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
-        Debug.Log((NoHitLayerMask.value >> collision.gameObject.layer) % 2);
+        //Debug.Log((NoHitLayerMask.value >> collision.gameObject.layer) % 2);
         if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Monster"))
         {
             if (!hitTargets.Contains(collision.transform.gameObject))

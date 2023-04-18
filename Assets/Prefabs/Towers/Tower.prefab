@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 2007901858}
   - component: {fileID: 2007901861}
   - component: {fileID: 2007901860}
-  - component: {fileID: 2007901859}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -115,29 +114,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2007901859
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007901857}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4407240380075646983
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +125,6 @@ GameObject:
   - component: {fileID: 16423242135586668}
   - component: {fileID: 8726489549968709054}
   - component: {fileID: 1199498663784676082}
-  - component: {fileID: 6883354240324652701}
   m_Layer: 0
   m_Name: Capsule (1)
   m_TagString: Untagged
@@ -222,29 +197,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6883354240324652701
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4407240380075646983}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8231289063292935948
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,8 +302,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireDelay: 1
+  shootStartUp: 0
   projectile: {fileID: 7549686427651435528, guid: f34fc91281a8f924fab1c88465ea76ad, type: 3}
-  movementDelay: 60
+  movementDelay: 30
   spawnTime: 0
   presitgeClass: {fileID: 0}
   prestigeTime: 100
