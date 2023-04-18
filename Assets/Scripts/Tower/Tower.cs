@@ -15,9 +15,9 @@ public class Tower : MonoBehaviour
     private FieldOfView fov;
     private Transform shootPoint;
     private Transform curTarget;
-    private bool firing;
-    private bool moving;
-    private bool state;
+    private bool firing = true;
+    private bool moving = true;
+    private bool state = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,7 @@ public class Tower : MonoBehaviour
             StartCoroutine("SpawnWithDelay", spawnTime);
         }
         StartCoroutine("FindTargetsWithDelay");
+        StartCoroutine("MoveWithDelay");
     }
     public IEnumerator SpawnWithDelay(float duration)
     {
