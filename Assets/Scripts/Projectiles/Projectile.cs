@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     public GameObject HitEffect;
     [Tooltip("When Projectile hits a target, the next phase will be instatiated. This field is NOT maditory")]
     public GameObject NextPhase;
+    public LayerMask NoHitLayerMask;
 
     private bool shouldBeDead = false;
     private Rigidbody rb;
@@ -53,6 +54,7 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
+        //Debug.Log((NoHitLayerMask.value >> collision.gameObject.layer) % 2);
         if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("Monster"))
         {
             if (!hitTargets.Contains(collision.transform.gameObject))
@@ -73,7 +75,7 @@ public class Projectile : MonoBehaviour
                 }
             }
         }
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Collectable"))
+        else if ((NoHitLayerMask.value >> collision.gameObject.layer)%2 == 1)
         {
 
         }

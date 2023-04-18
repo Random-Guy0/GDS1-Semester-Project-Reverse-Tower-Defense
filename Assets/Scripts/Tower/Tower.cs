@@ -5,8 +5,10 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     public float fireDelay = 1.0f;
+    public float shootStartUp = 0f;
     public GameObject projectile;
     public float movementDelay = 60f;
+    public bool immovable = false;
     public float spawnTime = 0f;
     public GameObject presitgeClass;
     public float prestigeTime = 120f;
@@ -15,9 +17,9 @@ public class Tower : MonoBehaviour
     private FieldOfView fov;
     private Transform shootPoint;
     private Transform curTarget;
-    private bool firing;
-    private bool moving;
-    private bool state;
+    private bool firing = true;
+    private bool moving = true;
+    private bool state = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,10 @@ public class Tower : MonoBehaviour
             StartCoroutine("SpawnWithDelay", spawnTime);
         }
         StartCoroutine("FindTargetsWithDelay");
+        if (!immovable)
+        {
+            StartCoroutine("MoveWithDelay");
+        }   
     }
     public IEnumerator SpawnWithDelay(float duration)
     {
@@ -105,11 +111,18 @@ public class Tower : MonoBehaviour
     {
         while (true)
         {
-            TargetFirstEnemy();           
+            TargetFirstEnemy();
             if (firing && curTarget != null)
             {
-                ShootVisableTarget();
-                yield return new WaitForSeconds(fireDelay);
+                transform.LookAt(curTarget);
+                yield return new WaitForSeconds(shootStartUp);
+                curTarget = null;
+                TargetFirstEnemy();
+                if (curTarget != null)
+                {
+                    ShootVisableTarget();
+                    yield return new WaitForSeconds(fireDelay);
+                }
             }
             else if (!firing)
             {
