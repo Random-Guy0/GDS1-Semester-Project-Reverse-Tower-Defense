@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour
@@ -22,6 +23,8 @@ public class PathManager : MonoBehaviour
 
     [SerializeField] private GameObject levelParent;
     [SerializeField] private MonsterManager monsterManager;
+
+    [SerializeField] private TMP_Text pathSegmentText;
 
     private bool[] manaPositions;
 
@@ -45,6 +48,11 @@ public class PathManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void Start()
+    {
+        SetPathSegmentText();
     }
 
     //create the new grid to be used for this level
@@ -163,7 +171,7 @@ public class PathManager : MonoBehaviour
             monsterManager.PathChange();
         }
         
-        Debug.Log("Path pieces left: " + pathPiecesAvailable);
+        SetPathSegmentText();
     }
 
     public List<Vector3> GetValidManaPositions()
@@ -248,7 +256,7 @@ public class PathManager : MonoBehaviour
         return pathSegments[GetIndexFromPosition(position)];
     }
 
-    private int GetIndexFromPosition(Vector3 position)
+    public int GetIndexFromPosition(Vector3 position)
     {
         int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
         int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
@@ -313,6 +321,11 @@ public class PathManager : MonoBehaviour
         }
 
         return index;
+    }
+
+    public void SetPathSegmentText()
+    {
+        pathSegmentText.SetText(pathPiecesAvailable.ToString());
     }
 }
 
