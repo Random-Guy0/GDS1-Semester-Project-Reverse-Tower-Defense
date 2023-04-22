@@ -32,21 +32,18 @@ public class Movement : MonoBehaviour
         {
             case "AngleOne":
                 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-                controller.Move(move * Time.deltaTime * playerSpeed);
                 break;
             case "AngleTwo":
                 move = new Vector3(-Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal")).normalized;
-                controller.Move(move * Time.deltaTime * playerSpeed);
                 break;
             case "AngleThree":
                 move = new Vector3(-Input.GetAxis("Horizontal"), 0, -Input.GetAxis("Vertical")).normalized;
-                controller.Move(move * Time.deltaTime * playerSpeed);
                 break;
             case "AngleFour":
                 move = new Vector3(Input.GetAxis("Vertical"), 0, -Input.GetAxis("Horizontal")).normalized;
-                controller.Move(move * Time.deltaTime * playerSpeed);
                 break;
         }
+        controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (move != Vector3.zero)
         {

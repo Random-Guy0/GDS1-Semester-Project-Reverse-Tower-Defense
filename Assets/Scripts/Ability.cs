@@ -6,7 +6,6 @@ public class Ability : MonoBehaviour
 {
     public GameObject slow;
     [SerializeField] private ManaManager manaManager;
-    [SerializeField] private PlayerHealth PlayerHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +21,6 @@ public class Ability : MonoBehaviour
             {
                 manaManager.costMana(20);
                 Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.H))
-        {
-            if (manaManager.ableToCost(50))
-            {
-                manaManager.costMana(50);
-                PlayerHealth.health = PlayerHealth.maxHealth;
             }
         }
     }
