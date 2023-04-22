@@ -27,7 +27,6 @@ public class camera : MonoBehaviour
             {
                 currentNum = 0;
             }
-            setCamera();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -40,15 +39,15 @@ public class camera : MonoBehaviour
             {
                 currentNum = 3;
             }
-            setCamera();
         }
+        setCamera();
     }
 
     void setCamera()
     {
         currentCamera = cameras[currentNum];
-        gameObject.transform.position = currentCamera.transform.position;
-        gameObject.transform.rotation = currentCamera.transform.rotation;
+        transform.position = Vector3.MoveTowards(transform.position, currentCamera.transform.position, 50f * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, currentCamera.transform.rotation, 10f * Time.deltaTime);
     }
 
     public string getCurrentCamera()
