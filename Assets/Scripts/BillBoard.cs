@@ -7,8 +7,6 @@ public class BillBoard : MonoBehaviour
 {
     public Transform cameraP;
 
-    private Quaternion originalRotation;
-
     private void Start()
     {
         cameraP = Camera.main.transform;

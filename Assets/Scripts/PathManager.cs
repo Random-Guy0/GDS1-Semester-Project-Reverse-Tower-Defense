@@ -1,10 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
+    [SerializeField] private int pathPiecesAvailable;
+    [SerializeField] private Material groundMat;
+    [SerializeField] private Material groundOutlineMat;
+    [SerializeField] private Material pathMat;
+    [SerializeField] private Material pathOutlineMat;
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
     [SerializeField] private float gridSize;
@@ -16,8 +22,13 @@ public class PathManager : MonoBehaviour
     [SerializeField] private PathSegment end;
 
     [SerializeField] private GameObject levelParent;
+    [SerializeField] private MonsterManager monsterManager;
+
+    [SerializeField] private TMP_Text pathSegmentText;
 
     private bool[] manaPositions;
+
+    private int selectedTileIndex = 0;
 
     private void Awake()
     {
@@ -37,6 +48,11 @@ public class PathManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void Start()
+    {
+        SetPathSegmentText();
     }
 
     //create the new grid to be used for this level
@@ -108,9 +124,7 @@ public class PathManager : MonoBehaviour
     //uses a world position to get a point from the grid
     public GridTile GetGridPoint(Vector3 position)
     {
-        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
-        return grid[z * levelWidth + x];
+        return grid[GetIndexFromPosition(position)];
     }
 
     //uses a world position to set a point in the grid
@@ -138,20 +152,26 @@ public class PathManager : MonoBehaviour
     }
 
     //place a section of the path, returning if it was placed or not
-    public bool PlacePath(Vector3 position)
+    public void PlacePath(Vector3 position)
     {
-        if (GetGridPoint(position) == GridTile.Ground)
+        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
+        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        if (GetGridPoint(position) == GridTile.Ground && pathPiecesAvailable > 0)
         {
+            pathPiecesAvailable--;
             SetGridPoint(position, GridTile.Path);
-            int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-            int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
             SetConnectedPathSegments(x, z);
-            return true;
+            monsterManager.PathChange();
         }
-        else
+        else if (GetGridPoint(position) == GridTile.Path)
         {
-            return false;
+            pathPiecesAvailable++;
+            RemovePathSegment(x, z);
+            SetGridPoint(position, GridTile.Ground);
+            monsterManager.PathChange();
         }
+        
+        SetPathSegmentText();
     }
 
     public List<Vector3> GetValidManaPositions()
@@ -173,39 +193,74 @@ public class PathManager : MonoBehaviour
         return validManaPositions;
     }
 
-    private void SetConnectedPathSegments(int pathSegmentX, int pathSegmentZ)
+    private void SetConnectedPathSegments(int x, int z)
     {
-        PathSegment pathSegment = pathSegments[pathSegmentZ * levelWidth + pathSegmentX];
-        if (pathSegmentX + 1 < levelWidth && pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1] != null)
+        PathSegment pathSegment = pathSegments[z * levelWidth + x];
+        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1]);
-            pathSegments[pathSegmentZ * levelWidth + pathSegmentX + 1].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[z * levelWidth + x + 1]);
+            pathSegments[z * levelWidth + x + 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegmentX - 1 >= 0 && pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1] != null)
+        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1]);
-            pathSegments[pathSegmentZ * levelWidth + pathSegmentX - 1].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[z * levelWidth + x - 1]);
+            pathSegments[z * levelWidth + x - 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegmentZ + 1 < levelDepth && pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX] != null)
+        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX]);
-            pathSegments[(pathSegmentZ + 1) * levelWidth + pathSegmentX].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[(z + 1) * levelWidth + x]);
+            pathSegments[(z + 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
         }
         
-        if (pathSegmentZ - 1 >= 0 && pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX] != null)
+        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null)
         {
-            pathSegment.AddConnectedPathSegment(pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX]);
-            pathSegments[(pathSegmentZ - 1) * levelWidth + pathSegmentX].AddConnectedPathSegment(pathSegment);
+            pathSegment.AddConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
+            pathSegments[(z - 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
         }
+    }
+
+    private void RemovePathSegment(int x, int z)
+    {
+        PathSegment pathSegment = pathSegments[z * levelWidth + x];
+        
+        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[z * levelWidth + x + 1]);
+            pathSegments[z * levelWidth + x + 1].RemoveConnectedPathSegment(pathSegment);
+        }
+        
+        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[z * levelWidth + x - 1]);
+            pathSegments[z * levelWidth + x - 1].RemoveConnectedPathSegment(pathSegment);
+        }
+        
+        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[(z + 1) * levelWidth + x]);
+            pathSegments[(z + 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
+        }
+        
+        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null)
+        {
+            pathSegment.RemoveConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
+            pathSegments[(z - 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
+        }
+        pathSegments[z * levelWidth + x] = null;
     }
 
     public PathSegment GetPathSegmentAtPosition(Vector3 position)
     {
+        return pathSegments[GetIndexFromPosition(position)];
+    }
+
+    public int GetIndexFromPosition(Vector3 position)
+    {
         int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
         int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
-        return pathSegments[z * levelWidth + x];
+        return z * levelWidth + x;
     }
 
     public PathSegment GetStart()
@@ -216,6 +271,61 @@ public class PathManager : MonoBehaviour
     public PathSegment GetEnd()
     {
         return end;
+    }
+
+    public void SetSelectedTile(Vector3 position)
+    {
+        int newIndex = GetIndexFromPosition(position);
+        
+        if (gridGameobjects[selectedTileIndex] != null)
+        {
+            if (grid[selectedTileIndex] == GridTile.Ground)
+            {
+                gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>().material = groundMat;
+            }
+            else if (grid[selectedTileIndex] == GridTile.Path || grid[selectedTileIndex] == GridTile.Start ||
+                     grid[selectedTileIndex] == GridTile.End)
+            {
+                gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>().material = pathMat;
+            }
+        }
+        
+        if (grid[newIndex] == GridTile.Ground)
+        {
+            gridGameobjects[newIndex].GetComponent<MeshRenderer>().material = groundOutlineMat;
+        }
+        else if (grid[newIndex] == GridTile.Path || grid[newIndex] == GridTile.Start ||
+                 grid[newIndex] == GridTile.End)
+        {
+            gridGameobjects[newIndex].GetComponent<MeshRenderer>().material = pathOutlineMat;
+        }
+
+        selectedTileIndex = newIndex;
+    }
+
+    public PathSegment[] GetPathSegments()
+    {
+        return pathSegments;
+    }
+
+    public int GetPathSegmentIndex(PathSegment pathSegment)
+    {
+        int index = -1;
+        for (int i = 0; i < pathSegments.Length; i++)
+        {
+            if (pathSegment.Equals(pathSegments[i]))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public void SetPathSegmentText()
+    {
+        pathSegmentText.SetText(pathPiecesAvailable.ToString());
     }
 }
 
