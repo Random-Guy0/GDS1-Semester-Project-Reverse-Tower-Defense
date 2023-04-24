@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
         {
             if (gameObject.CompareTag("Monster"))
             {
+                FindObjectOfType<MonsterManager>().MonsterDeath(GetComponent<Monster>());
                 Destroy(gameObject);
             }
             if (gameObject.CompareTag("Player"))
@@ -34,12 +35,12 @@ public class PlayerHealth : MonoBehaviour
                 Application.Quit();
             }
         }
+        healthBar.SetHP(health);
     }
 
     public void DamageTake(int damage)
     {
         health -= damage;
-        healthBar.SetHP(health);
     }
 
     private void OnTriggerEnter(Collider other)
