@@ -47,7 +47,7 @@ public class camera : MonoBehaviour
     {
         currentCamera = cameras[currentNum];
         transform.position = Vector3.MoveTowards(transform.position, currentCamera.transform.position, 50f*Time.deltaTime);
-        gameObject.transform.rotation = currentCamera.transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, currentCamera.transform.rotation, 8f * Time.deltaTime);
     }
 
     public string getCurrentCamera()
