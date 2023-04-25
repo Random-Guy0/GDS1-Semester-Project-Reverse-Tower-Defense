@@ -174,7 +174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.04, y: 0.7}
+  m_AnchoredPosition: {x: -0.04, y: 1.595}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5722577682929248780
@@ -286,9 +286,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5722577682929248781}
-  - {fileID: 4055045040623798621}
+  - {fileID: 5856856001092235536}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5722577683324988589
 Rigidbody:
@@ -332,6 +332,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   cameraS: 
   move: {x: 0, y: 0, z: 0}
+  animator: {fileID: 551575866422487914}
 --- !u!114 &5722577683324988590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slow: {fileID: 9013102331826236116, guid: bea1b85b46e55da4aa7d28b223bc552d, type: 3}
   manaManager: {fileID: 0}
+  PlayerHealth: {fileID: 5722577683324988591}
+  animator: {fileID: 551575866422487914}
 --- !u!1 &5722577683516980376
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,6 +615,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5722577683324988588}
     m_Modifications:
+    - target: {fileID: 2174417928175582219, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174417928175582219, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174417928175582219, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358176358956518961, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
+      propertyPath: m_Name
+      value: KayKit Animated Character
+      objectReference: {fileID: 0}
     - target: {fileID: 8587458421299971142, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -665,8 +684,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
---- !u!4 &4055045040623798621 stripped
+--- !u!95 &551575866422487914 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5245912093623363185, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
+  m_PrefabInstance: {fileID: 5722577683080203547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5856856001092235536 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8587458421299971142, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2174417928175582219, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
   m_PrefabInstance: {fileID: 5722577683080203547}
   m_PrefabAsset: {fileID: 0}

@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
     public GameObject Camera;
     public string cameraS;
     public Vector3 move;
+    public Animator animator;
+    public float health;
 
     private void Start()
     {
@@ -21,12 +23,20 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        health = GetComponent<PlayerHealth>().health;
         cameraS = Camera.GetComponent<camera>().getCurrentCamera();
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
+
+        if(health <= 0)
+        {
+            animator.SetTrigger("Death");
+        }
+
+
 
         switch (cameraS)
         {
@@ -50,11 +60,24 @@ public class Movement : MonoBehaviour
 
         if (move != Vector3.zero)
         {
+            animator.SetBool("IsMove", true);
             gameObject.transform.forward = move;
+        }
+        else if(move == Vector3.zero)
+        {
+            animator.SetBool("IsMove", false);
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Mana"))
+        {
+            animator.SetBool("IsPickUp", true);
+        }
     }
 
 

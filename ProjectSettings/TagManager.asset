@@ -7,6 +7,7 @@ TagManager:
   - Summon
   - Monster
   - Tower
+  - Mana
   layers:
   - Default
   - TransparentFX
