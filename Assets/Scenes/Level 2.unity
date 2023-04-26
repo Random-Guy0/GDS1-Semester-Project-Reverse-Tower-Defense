@@ -4362,6 +4362,10 @@ PrefabInstance:
       propertyPath: Speedy
       value: 
       objectReference: {fileID: 1439967907736636425}
+    - target: {fileID: 4049605857945829890, guid: 322ce0a2fc224464f94e2fc61ebd7765, type: 3}
+      propertyPath: inputActions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: c900c91f3ab15cf40a0ba5b55d0dd17c, type: 3}
     - target: {fileID: 4049605857945829891, guid: 322ce0a2fc224464f94e2fc61ebd7765, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -9574,7 +9578,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelHealthText: {fileID: 1439967907310615042}
-  winText: {fileID: 0}
   levelHealth: 5
 --- !u!4 &1470944271
 Transform:
