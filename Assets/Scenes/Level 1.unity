@@ -12393,6 +12393,38 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SpawnMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 932596508573714293, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 932596508573714293, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4446786447519212043}
+    - target: {fileID: 932596508573714293, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StopAbility
+      objectReference: {fileID: 0}
+    - target: {fileID: 932596508573714293, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ability, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359961046306885803, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359961046306885803, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4446786447519212043}
+    - target: {fileID: 2359961046306885803, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HealAbility
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359961046306885803, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Ability, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4597232751791770793, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -15982,6 +16014,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fdff3e37f098044592c4896d58bd052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4446786447519212043 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5722577683324988592, guid: f17bee49d032b364491ba094693b0279, type: 3}
+  m_PrefabInstance: {fileID: 713318184}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de7a1ed860ae0d4090bb4f10c84f600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &6195017513682720712
