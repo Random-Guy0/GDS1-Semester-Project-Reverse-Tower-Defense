@@ -9530,13 +9530,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentManaCount: {fileID: 1199211931}
-  currentMana: 100
+  currentMana: 150
   maxMana: 500
   minMana: 0
   manaPerCollection: 20
   pathManager: {fileID: 4376931925939605402}
   manaPrefab: {fileID: 7238413195012913397, guid: f9befe9da55f71d4eb4e61d0a4da3fbd, type: 3}
-  timeToSpawn: 5
+  timeToSpawn: 2.5
   maxToSpawn: 20
 --- !u!4 &1265316274
 Transform:
