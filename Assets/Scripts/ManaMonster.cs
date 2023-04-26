@@ -79,6 +79,15 @@ public class ManaMonster : Monster
         return connectedNodes;
     }
 
+    protected override void Update()
+    {
+        if (pathToFollow.Count == 0)
+        {
+            GeneratePath();
+        }
+        base.Update();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Mana"))
