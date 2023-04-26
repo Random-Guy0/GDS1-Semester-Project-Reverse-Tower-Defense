@@ -327,6 +327,35 @@ public class PathManager : MonoBehaviour
     {
         pathSegmentText.SetText(pathPiecesAvailable.ToString());
     }
+
+    public Vector3[] ValidMovePositions(Vector3 position)
+    {
+        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
+        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        List<Vector3> validPositions = new List<Vector3>();
+        
+        if (x + 1 < levelWidth && grid[z * levelWidth + x + 1] != GridTile.Mountain)
+        {
+            validPositions.Add(gridGameobjects[z * levelWidth + x + 1].transform.position);
+        }
+        
+        if (x - 1 >= 0 && grid[z * levelWidth + x - 1] != GridTile.Mountain)
+        {
+            validPositions.Add(gridGameobjects[z * levelWidth + x - 1].transform.position);
+        }
+        
+        if (z + 1 < levelDepth && grid[(z + 1) * levelWidth + x] != GridTile.Mountain)
+        {
+            validPositions.Add(gridGameobjects[(z + 1) * levelWidth + x].transform.position);
+        }
+        
+        if (z - 1 >= 0 && grid[(z - 1) * levelWidth + x] != GridTile.Mountain)
+        {
+            validPositions.Add(gridGameobjects[(z - 1) * levelWidth + x].transform.position);
+        }
+
+        return validPositions.ToArray();
+    }
 }
 
 public enum GridTile
