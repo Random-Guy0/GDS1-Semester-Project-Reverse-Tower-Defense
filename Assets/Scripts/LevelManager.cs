@@ -37,6 +37,13 @@ public class LevelManager : MonoBehaviour
     {
         Application.Quit();
     }
-    // Update is called once per frame
 
+    public void TryAgain()
+    {
+        SceneInfo levelToTryAgain = FindObjectOfType<SceneInfo>();
+        SceneManager.sceneLoaded -= levelToTryAgain.OnSceneLoad;
+        int index = levelToTryAgain.SceneIndex;
+        Destroy(levelToTryAgain.gameObject);
+        SceneManager.LoadScene(index);
+    }
 }

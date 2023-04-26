@@ -9,6 +9,7 @@ public class KeybindMon : MonoBehaviour
     public Button Speedy;
     public Button Tanky;
     public Button Path;
+    public Button ManaCollector;
 
     public InputActionAsset inputActions;
 
@@ -17,6 +18,7 @@ public class KeybindMon : MonoBehaviour
     private InputAction speedyAction;
     private InputAction tankyAction;
     private InputAction pathAction;
+    private InputAction manaCollectorAction;
 
     private void Awake()
     {
@@ -28,12 +30,14 @@ public class KeybindMon : MonoBehaviour
         speedyAction = monsterSpawnActionMap.FindAction("Speedy");
         tankyAction = monsterSpawnActionMap.FindAction("Tanky");
         pathAction = monsterSpawnActionMap.FindAction("Path");
+        manaCollectorAction = monsterSpawnActionMap.FindAction("ManaCollector");
 
         // Register the callback methods
         normalAction.performed += OnNormal;
         speedyAction.performed += OnSpeedy;
         tankyAction.performed += OnTanky;
         pathAction.performed += OnPath;
+        manaCollectorAction.performed += OnManaCollector;
     }
 
     private void OnEnable()
@@ -70,5 +74,11 @@ public class KeybindMon : MonoBehaviour
     {
         Debug.Log("Path action was performed");
         ExecuteEvents.Execute(Path.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+    }
+
+    private void OnManaCollector(InputAction.CallbackContext context)
+    {
+        Debug.Log("Mana Collector was performed");
+        ExecuteEvents.Execute(ManaCollector.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
     }
 }

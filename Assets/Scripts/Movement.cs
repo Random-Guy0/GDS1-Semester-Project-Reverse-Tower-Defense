@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
+        Camera = GameObject.Find("Main Camera");
         controller = gameObject.AddComponent<CharacterController>();
         cameraS = Camera.GetComponent<camera>().getCurrentCamera();
     }

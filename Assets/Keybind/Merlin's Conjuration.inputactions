@@ -811,6 +811,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ManaCollector",
+                    "type": "Button",
+                    "id": "d4363fa0-45b2-4fe8-b1ce-3b10368c2f82",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -855,6 +864,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Path",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "929c216c-e35d-49e4-a276-ff6ff257f367",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ManaCollector",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
