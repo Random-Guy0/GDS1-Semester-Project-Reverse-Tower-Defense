@@ -7,7 +7,7 @@ public class ManaCollection : MonoBehaviour
     public GameObject ManaManager;
     public ManaManager manager;
 
-    private void Start()
+    private void Awake()
     {
         ManaManager = GameObject.Find("ManaManager");
         manager = ManaManager.GetComponent<ManaManager>();
