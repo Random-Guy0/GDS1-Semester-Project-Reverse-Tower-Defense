@@ -23,8 +23,8 @@ public class ManaCollection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
             Collect();
-			other.gameObject.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
         }
     }
 }
