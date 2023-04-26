@@ -19,7 +19,7 @@ public class Ability : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            if (manaManager.ableToCost(20))
+            if (manaManager.ableToCost(50))
             {
                 manaManager.costMana(50);
                 Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
@@ -40,6 +40,23 @@ public class Ability : MonoBehaviour
         }else if (Input.GetKeyUp(KeyCode.H))
         {
             animator.ResetTrigger("Ability");
+        }
+    }
+    public void HealAbility()
+    {
+        if (manaManager.ableToCost(50))
+        {
+            manaManager.costMana(50);
+            PlayerHealth.health = PlayerHealth.maxHealth;
+        }
+    }
+
+    public void StopAbility()
+    {
+        if (manaManager.ableToCost(20))
+        {
+            manaManager.costMana(50);
+            Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
         }
     }
 }
