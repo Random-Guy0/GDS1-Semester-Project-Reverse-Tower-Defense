@@ -7,18 +7,24 @@ public class ManaCollection : MonoBehaviour
     public GameObject ManaManager;
     public ManaManager manager;
 
-    private void Start()
+    private void Awake()
     {
         ManaManager = GameObject.Find("ManaManager");
         manager = ManaManager.GetComponent<ManaManager>();
     }
+    
+    public void Collect()
+    {
+        manager.CollectMana(transform.position);
+        Destroy(gameObject);
+    }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            manager.CollectMana(transform.position);
-            Destroy(gameObject);
+            other.gameObject.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
+            Collect();
         }
     }
 }

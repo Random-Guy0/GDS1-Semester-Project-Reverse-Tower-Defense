@@ -7,27 +7,24 @@ public class Monster : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    private PathManager path;
-    private PathSegment current;
-    private PathSegment target = null;
-    private PathSegment previous;
+    protected PathManager pathManager;
+    protected List<Vector3> pathToFollow;
+    protected int lastIndex;
 
     private void Start()
     {
-        path = FindObjectOfType<PathManager>();
-        current = path.GetStart();
-        previous = current;
+        pathManager = FindObjectOfType<PathManager>();
+        pathToFollow = new List<Vector3>();
+        lastIndex = pathManager.GetPathSegmentIndex(pathManager.GetStart());
+
+        GeneratePath();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
-        if (target == null)
+        if(pathToFollow.Count > 0)
         {
-            SetNextTarget();
-        }
-        else
-        {
-            Vector3 targetPos = target.transform.position;
+            Vector3 targetPos = pathToFollow[0];
             targetPos.y = transform.position.y;
             transform.LookAt(targetPos);
             Vector3 moveDirection = (targetPos - transform.position).normalized;
@@ -35,44 +32,155 @@ public class Monster : MonoBehaviour
 
             if (Vector3.Distance(transform.position, targetPos) < 0.05)
             {
-                if (target.Equals(path.GetEnd()))
-                {
-                    FindObjectOfType<GameManager>().TakeDamage();
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    previous = current;
-                    current = target;
-                    target = null;
-                }
+                ReachTarget();
             }
         }
     }
 
-    private void SetNextTarget()
+    protected virtual void ReachTarget()
     {
-        PathSegment[] options = current.GetConnectedPathSegments();
-
-        if (options.Length > 0)
+        if (pathToFollow[0].Equals(pathManager.GetEnd().navigationNode.position))
         {
-            PathSegment selectedOption = options[0];
-            for (int i = 0; i < options.Length; i++)
+            FindObjectOfType<GameManager>().TakeDamage();
+            Destroy(gameObject);
+        }
+        else
+        {
+            lastIndex = pathManager.GetIndexFromPosition(pathToFollow[0]);
+            pathToFollow.RemoveAt(0);
+        }
+    }
+
+    protected virtual NavigationNode GetStart()
+    {
+        PathSegment[] pathSegments = pathManager.GetPathSegments();
+        PathSegment start = pathSegments[lastIndex];
+        if (start != null)
+        {
+            return start.navigationNode;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    protected virtual NavigationNode GetEnd()
+    {
+        return pathManager.GetEnd().navigationNode;
+    }
+
+    protected virtual NavigationNode[] GetAllNodes()
+    {
+        PathSegment[] pathSegments = pathManager.GetPathSegments();
+        List<NavigationNode> allNodes = new List<NavigationNode>();
+        foreach (PathSegment pathSegment in pathSegments)
+        {
+            if (pathSegment != null)
             {
-                if (!options[i].Equals(previous) &&
-                    Vector3.Distance(options[i].transform.position, path.GetEnd().transform.position) <
-                    Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position))
+                allNodes.Add(pathSegment.navigationNode);
+            }
+        }
+
+        return allNodes.ToArray();
+    }
+
+    protected virtual NavigationNode[] GetConnectedNodes(NavigationNode current)
+    {
+        return current.connectedNodes.ToArray();
+    }
+
+    public void GeneratePath()
+    {
+        NavigationNode[] allNodes = GetAllNodes();
+        NavigationNode start = GetStart();
+        if (start == null)
+        {
+            return;
+        }
+        NavigationNode end = GetEnd();
+        if (end == null)
+        {
+            return;
+        }
+
+        List<NavigationNode> openSet = new List<NavigationNode>();
+        openSet.Add(start);
+        
+        foreach(NavigationNode node in allNodes)
+        {
+            if (node != null)
+            {
+                node.g = float.PositiveInfinity;
+            }
+        }
+
+        start.g = 0;
+        start.h = Vector3.Distance(start.position, end.position);
+
+        NavigationNode closestToEnd = openSet[0];
+        while (openSet.Count > 0)
+        {
+            NavigationNode current = openSet[0];
+            for (int i = 1; i < openSet.Count; i++)
+            {
+                if (openSet[i].F() < current.F())
                 {
-                    selectedOption = options[i];
+                    current = openSet[i];
                 }
             }
 
-            if (!selectedOption.Equals(previous) && 
-                Vector3.Distance(selectedOption.transform.position, path.GetEnd().transform.position) <
-                Vector3.Distance(current.transform.position, path.GetEnd().transform.position))
+            if (Vector3.Distance(current.position, end.position) <=
+                Vector3.Distance(closestToEnd.position, end.position))
             {
-                target = selectedOption;
+                closestToEnd = current;
+            }
+
+            openSet.Remove(current);
+
+            if (current.Equals(end))
+            {
+                pathToFollow = ReconstructPath(start, end);
+                return;
+            }
+
+            NavigationNode[] connectedNodes = GetConnectedNodes(current);
+            
+            foreach (NavigationNode connectedNode in connectedNodes)
+            {
+                float tentativeGScore = current.g +
+                                        Vector3.Distance(current.position, connectedNode.position);
+
+                if (tentativeGScore < connectedNode.g)
+                {
+                    connectedNode.cameFrom = current;
+                    connectedNode.g = tentativeGScore;
+                    connectedNode.h = Vector3.Distance(connectedNode.position, end.position);
+                    if (!openSet.Contains(connectedNode))
+                    {
+                        openSet.Add(connectedNode);
+                    }
+                }
             }
         }
+
+        pathToFollow = ReconstructPath(start, closestToEnd);
+    }
+
+    private List<Vector3> ReconstructPath(NavigationNode start, NavigationNode end)
+    {
+        List<Vector3> path = new List<Vector3>();
+        path.Add(end.position);
+        NavigationNode current = end;
+        while (!current.Equals(start))
+        {
+            current = current.cameFrom;
+            path.Add(current.position);
+        }
+        
+        path.Reverse();
+        path.Remove(start.position);
+
+        return path;
     }
 }

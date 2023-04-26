@@ -31,7 +31,7 @@ public class ManaManager : MonoBehaviour
     }
     void Start()
     {
-    	currentManaCount.text = "Mana: " + currentMana.ToString();
+    	currentManaCount.text = "" + currentMana.ToString();
         validManaSpawns = pathManager.GetValidManaPositions();
         SpawnMana();
     }
@@ -53,17 +53,17 @@ public class ManaManager : MonoBehaviour
         if (currentMana + mana >= maxMana)
         {
             currentMana = maxMana;
-            currentManaCount.text = "Mana: " + currentMana.ToString();
+            currentManaCount.text = "" + currentMana.ToString();
             return;
         }
         currentMana = currentMana + mana;
-        currentManaCount.text = "Mana: " + currentMana.ToString();
+        currentManaCount.text = "" + currentMana.ToString();
     }
 
     public void costMana(int cost)
     {
         currentMana -= cost;
-        currentManaCount.text = "Mana: " + currentMana.ToString();
+        currentManaCount.text = "" + currentMana.ToString();
     }
 
     public bool ableToCost(int cost)

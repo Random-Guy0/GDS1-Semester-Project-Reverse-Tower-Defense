@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 100;
+        //maxHealth = 100;
         health = maxHealth;
         healthBar.SetMaxHP(maxHealth);
     }
@@ -23,19 +24,20 @@ public class PlayerHealth : MonoBehaviour
         {
             if (gameObject.CompareTag("Monster"))
             {
+                FindObjectOfType<MonsterManager>().MonsterDeath(GetComponent<Monster>());
                 Destroy(gameObject);
             }
             if (gameObject.CompareTag("Player"))
             {
-                Application.Quit();
+                SceneManager.LoadScene("LoseScreen");
             }
         }
+        healthBar.SetHP(health);
     }
 
     public void DamageTake(int damage)
     {
         health -= damage;
-        healthBar.SetHP(health);
     }
 
     private void OnTriggerEnter(Collider other)
