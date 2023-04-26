@@ -15,17 +15,22 @@ public class Tower : MonoBehaviour
     public Animator animator;
     public GameObject warningSign;
     public float warningSignTime = 30f;
+    public ParticleSystem wakeParticles;
 
     private Transform Model;
     private FieldOfView fov;
     private Transform shootPoint;
     private Transform curTarget;
+    private PathManager pm;
     private bool firing = true;
     private bool moving = true;
     private bool state = true;
+    private PathSegment[] ps;
+    private GridTile TilePos;
     // Start is called before the first frame update
     void Start()
     {
+        pm = GameObject.Find("Path Manager").GetComponent<PathManager>();
         Model = transform.GetChild(1);      
         shootPoint = transform.GetChild(0);
         fov = GetComponent<FieldOfView>();
@@ -57,6 +62,7 @@ public class Tower : MonoBehaviour
         if (gameObject != null)
         {
             warningSign.SetActive(false);
+            wakeParticles.Play();
             TowerActive(true);
         }
     }
@@ -79,7 +85,12 @@ public class Tower : MonoBehaviour
     {
         while (true)
         {
-            // Targetspot
+            // Collect Path tiles
+            //ps = pm.GetPathSegments();
+            // Collect nearby walkable tiles
+            //pm.GetGridPoint(transform.position);
+            // Calculate which tiles cover the most path considering range
+            // Set that tile to your closest tile.
             if (moving && curTarget != null)
             {
                 // move to spot
