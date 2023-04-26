@@ -817,10 +817,10 @@
                 {
                     "name": "",
                     "id": "770febfe-2922-4006-8e6b-e206b98f8fad",
-                    "path": "o",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Speedy",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -828,10 +828,10 @@
                 {
                     "name": "",
                     "id": "04a315d1-a997-45eb-ae1e-cc0e4c7a4166",
-                    "path": "i",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Normal",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -839,10 +839,10 @@
                 {
                     "name": "",
                     "id": "01e89629-05d1-4931-b141-7bbef75229a3",
-                    "path": "p",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Tanky",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -850,10 +850,10 @@
                 {
                     "name": "",
                     "id": "e2e7ddd6-086b-418c-a82e-1f725f94c752",
-                    "path": " ",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Path",
                     "isComposite": false,
                     "isPartOfComposite": false

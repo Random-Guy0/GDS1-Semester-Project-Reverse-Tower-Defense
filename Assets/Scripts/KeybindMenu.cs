@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class KeybindMenu : MonoBehaviour
 {
@@ -17,11 +16,27 @@ public class KeybindMenu : MonoBehaviour
     // A flag to indicate if we are rebinding a key
     private bool isRebinding;
 
-    // A method that is called when the user clicks on a keybind button
-    public void OnKeybindButtonClicked(InputAction action)
+    // Action Map string location
+    public string actionMap;
+
+    // A reference to the Text component that displays the current key binding
+    public TextMeshProUGUI keybindText;
+
+    private void Awake()
     {
-        // Set the current action to the selected action
-        currentAction = action;
+        // Get the MonsterSpawn action map
+        currentActionMap = inputActions.FindActionMap(actionMap);
+
+    }
+
+
+    // A method that is called when the user clicks on a keybind button
+    public void OnKeybindTextClicked(string actionName)
+    {
+        // Update the keybind text
+        keybindText.text = "Press a new key...";
+
+        currentAction = currentActionMap.FindAction(actionName);
 
         // Start rebinding the current action
         StartRebinding();
@@ -51,35 +66,12 @@ public class KeybindMenu : MonoBehaviour
         isRebinding = false;
 
         // Apply the new binding to the current action
-        operation.ApplyBindingOverride(0, "<Keyboard>/# (g)");
+        currentAction.ApplyBindingOverride(operation.selectedControl.path);
+
+        // Update the keybind text
+        keybindText.text = currentAction.GetBindingDisplayString();
 
         // Enable all actions in the current action map
         currentActionMap.Enable();
     }
-
-    // A method that is called when the user presses Esc key
-    [MenuItem("Keybinds/Cancel Rebinding _Escape")]
-    private static void CancelRebinding()
-    {
-        // Check if we are rebinding a key
-        if (isRebinding)
-        {
-            // Cancel the rebind operation on the current action
-            currentAction.CancelInteractiveRebinding();
-
-            // Enable all actions in the current action map
-            currentActionMap.Enable();
-        }
-    }
-
-    // A method that is called when the script is enabled
-    private void OnEnable()
-    {
-        // Get the default input action map from the input action asset
-        currentActionMap = inputActions.FindActionMap("Default");
-
-        // Enable all actions in the current action map
-        currentActionMap.Enable();
-    }
-
 }
