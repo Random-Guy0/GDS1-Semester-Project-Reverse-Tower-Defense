@@ -3339,7 +3339,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Mana Monster (U)
 
-    100 Mana | 100 Health
+    100 Mana | 150 Health
 
     Collects Mana off the
     Ground.'

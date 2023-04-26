@@ -3801,6 +3801,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8732240266443186519, guid: 64230261b92b40e4d9cf40099ad21559, type: 3}
+      propertyPath: spawnTime
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6421,6 +6425,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: spawnTime
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
       value: 10
@@ -10545,7 +10553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelHealthText: {fileID: 1552329720}
-  levelHealth: 5
+  levelHealth: 10
 --- !u!4 &1470944271
 Transform:
   m_ObjectHideFlags: 0
@@ -16122,7 +16130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2003639070cf0174481be7ae5350dbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPiecesAvailable: 40
+  pathPiecesAvailable: 30
   groundMat: {fileID: 2100000, guid: fd7fa89d494e2984fb66fe4c32864dcc, type: 2}
   groundOutlineMat: {fileID: 2100000, guid: 7504a72358ef9a546910e2fb0afc06b8, type: 2}
   pathMat: {fileID: 2100000, guid: 40e881a9673de4740a48b7d084504446, type: 2}

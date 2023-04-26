@@ -333,6 +333,7 @@ MonoBehaviour:
   cameraS: 
   move: {x: 0, y: 0, z: 0}
   animator: {fileID: 551575866422487914}
+  health: 0
 --- !u!114 &5722577683324988590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 0
+  maxHealth: 200
   healthBar: {fileID: 5722577682361750204}
 --- !u!114 &5722577683324988592
 MonoBehaviour:
