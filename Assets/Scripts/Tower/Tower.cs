@@ -13,6 +13,8 @@ public class Tower : MonoBehaviour
     public GameObject presitgeClass;
     public float prestigeTime = 120f;
     public Animator animator;
+    public GameObject warningSign;
+    public float warningSignTime = 30f;
 
     private Transform Model;
     private FieldOfView fov;
@@ -41,9 +43,20 @@ public class Tower : MonoBehaviour
     }
     public IEnumerator SpawnWithDelay(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        if (duration < warningSignTime)
+        {
+            warningSign.SetActive(true);
+            yield return new WaitForSeconds(duration);
+        }
+        else
+        {
+            yield return new WaitForSeconds(duration-warningSignTime);
+            warningSign.SetActive(true);
+            yield return new WaitForSeconds(warningSignTime);
+        }
         if (gameObject != null)
         {
+            warningSign.SetActive(false);
             TowerActive(true);
         }
     }
