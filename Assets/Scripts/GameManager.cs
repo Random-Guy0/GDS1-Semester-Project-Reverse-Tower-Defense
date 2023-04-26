@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,14 +22,8 @@ public class GameManager : MonoBehaviour
         SetHealthText();
         if (levelHealth <= 0)
         {
-            winText.SetActive(true);
-            Invoke("Close", 5.0f);
+            SceneManager.LoadScene("WinScreen");
         }
-    }
-
-    private void Close()
-    {
-        Application.Quit();
     }
 
     private void SetHealthText()
