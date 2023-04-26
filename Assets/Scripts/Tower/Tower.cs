@@ -12,6 +12,10 @@ public class Tower : MonoBehaviour
     public float spawnTime = 0f;
     public GameObject presitgeClass;
     public float prestigeTime = 120f;
+    public Animator animator;
+    public GameObject warningSign;
+    public float warningSignTime = 30f;
+    public ParticleSystem wakeParticles;
 
     private Transform Model;
     private FieldOfView fov;
@@ -36,12 +40,25 @@ public class Tower : MonoBehaviour
         {
             StartCoroutine("MoveWithDelay");
         }   
+        
     }
     public IEnumerator SpawnWithDelay(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        if (duration < warningSignTime)
+        {
+            warningSign.SetActive(true);
+            yield return new WaitForSeconds(duration);
+        }
+        else
+        {
+            yield return new WaitForSeconds(duration-warningSignTime);
+            warningSign.SetActive(true);
+            yield return new WaitForSeconds(warningSignTime);
+        }
         if (gameObject != null)
         {
+            warningSign.SetActive(false);
+            wakeParticles.Play();
             TowerActive(true);
         }
     }
@@ -138,6 +155,7 @@ public class Tower : MonoBehaviour
     void ShootVisableTarget()
     {
         transform.LookAt(curTarget);
+
         Instantiate(projectile,shootPoint.position, shootPoint.rotation);
         curTarget = null;
     }
