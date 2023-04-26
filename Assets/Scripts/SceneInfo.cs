@@ -13,10 +13,11 @@ public class SceneInfo : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoad;
     }
 
-    private void OnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
+    public void OnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (!scene.name.Equals("LoseScreen"))
+        if (scene.buildIndex != 7)
         {
+            SceneManager.sceneLoaded -= OnSceneLoad;
             Destroy(gameObject);
         }
     }

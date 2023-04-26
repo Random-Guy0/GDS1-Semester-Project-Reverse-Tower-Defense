@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text levelHealthText;
-    [SerializeField] private GameObject winText;
     [SerializeField] private int levelHealth;
 
     private void Start()

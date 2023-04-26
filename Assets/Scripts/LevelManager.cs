@@ -41,7 +41,9 @@ public class LevelManager : MonoBehaviour
     public void TryAgain()
     {
         SceneInfo levelToTryAgain = FindObjectOfType<SceneInfo>();
-        SceneManager.LoadScene(levelToTryAgain.SceneIndex);
+        SceneManager.sceneLoaded -= levelToTryAgain.OnSceneLoad;
+        int index = levelToTryAgain.SceneIndex;
         Destroy(levelToTryAgain.gameObject);
+        SceneManager.LoadScene(index);
     }
 }
