@@ -3803,7 +3803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8732240266443186519, guid: 64230261b92b40e4d9cf40099ad21559, type: 3}
       propertyPath: spawnTime
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6427,7 +6427,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: spawnTime
-      value: 15
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
@@ -8574,8 +8574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb1aaed07666623488c92b8364dc5c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 1324053470}
-  clip: {fileID: 8300000, guid: 12e5d5ed97c272c4c8fa9d9c0f65b986, type: 3}
+  volumeSlider: {fileID: 1822309153}
 --- !u!82 &1324053470
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12726,6 +12725,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 8732240266443186519, guid: 64230261b92b40e4d9cf40099ad21559, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13135,6 +13138,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+--- !u!114 &1822309153 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2681175488053575185, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+  m_PrefabInstance: {fileID: 1822309152}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1824332080
 GameObject:
   m_ObjectHideFlags: 0
@@ -14078,6 +14092,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: spawnTime
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
       value: 10
@@ -16130,7 +16148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2003639070cf0174481be7ae5350dbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPiecesAvailable: 30
+  pathPiecesAvailable: 20
   groundMat: {fileID: 2100000, guid: fd7fa89d494e2984fb66fe4c32864dcc, type: 2}
   groundOutlineMat: {fileID: 2100000, guid: 7504a72358ef9a546910e2fb0afc06b8, type: 2}
   pathMat: {fileID: 2100000, guid: 40e881a9673de4740a48b7d084504446, type: 2}

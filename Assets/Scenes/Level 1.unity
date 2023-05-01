@@ -7155,6 +7155,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: spawnTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
       value: 10
@@ -9140,6 +9144,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282703074}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1285958697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2681175488053575185, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+  m_PrefabInstance: {fileID: 1795285883}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1306775542
 GameObject:
   m_ObjectHideFlags: 0
@@ -11374,8 +11389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb1aaed07666623488c92b8364dc5c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 1696604335}
-  clip: {fileID: 8300000, guid: 12e5d5ed97c272c4c8fa9d9c0f65b986, type: 3}
+  volumeSlider: {fileID: 1285958697}
 --- !u!82 &1696604335
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12409,6 +12423,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Ability, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 1039898931164385648, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1039898931164385648, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1039898931164385648, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2359961046306885803, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -12436,6 +12462,14 @@ PrefabInstance:
     - target: {fileID: 4597232751791770793, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880005602851318048, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880005602851318048, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15708,7 +15742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2003639070cf0174481be7ae5350dbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPiecesAvailable: 15
+  pathPiecesAvailable: 10
   groundMat: {fileID: 2100000, guid: fd7fa89d494e2984fb66fe4c32864dcc, type: 2}
   groundOutlineMat: {fileID: 2100000, guid: 7504a72358ef9a546910e2fb0afc06b8, type: 2}
   pathMat: {fileID: 2100000, guid: 40e881a9673de4740a48b7d084504446, type: 2}
