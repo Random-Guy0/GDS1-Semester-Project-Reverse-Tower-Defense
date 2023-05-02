@@ -7,6 +7,7 @@ public class Tutorial : MonoBehaviour
 {
     [SerializeField]
     private GameObject StartTips;
+    public bool finish;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +21,16 @@ public class Tutorial : MonoBehaviour
         {
             Time.timeScale = 0;
         }
-        if (!StartTips.activeSelf)
+        if (finish)
         {
             Time.timeScale = 1;
+            gameObject.SetActive(false);
         }
+
+    }
+
+    public void setFinish()
+    {
+        finish = true;
     }
 }
