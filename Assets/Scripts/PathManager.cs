@@ -15,6 +15,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] private GridTile[] grid;
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
+    [SerializeField] private GameObject[] pathTilePrefabs;
     [SerializeField] private PathSegment[] pathSegments;
     [SerializeField] private PathSegment start;
     [SerializeField] private PathSegment end;
@@ -133,10 +134,19 @@ public class PathManager : MonoBehaviour
         int index = z * levelWidth + x;
         DestroyImmediate(gridGameobjects[index]);
         grid[index] = newGridTile;
-        gridGameobjects[index] = Instantiate(tilePrefabs[(int)newGridTile], new Vector3(x * gridSize, 0, (levelDepth - z - 1) * gridSize),
-            Quaternion.identity, levelParent.transform);
-        if (grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End)
+        if (!(grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End))
         {
+            gridGameobjects[index] = Instantiate(tilePrefabs[(int)newGridTile],
+                new Vector3(x * gridSize, tilePrefabs[(int)newGridTile].transform.position.y,
+                    (levelDepth - z - 1) * gridSize),
+                Quaternion.identity, levelParent.transform);
+        }
+        else
+        {
+            gridGameobjects[index] = Instantiate(pathTilePrefabs[0],
+                new Vector3(x * gridSize, pathTilePrefabs[0].transform.position.y,
+                    (levelDepth - z - 1) * gridSize),
+                Quaternion.identity, levelParent.transform);
             pathSegments[index] = gridGameobjects[index].GetComponent<PathSegment>();
             if (grid[index] == GridTile.Start)
             {
