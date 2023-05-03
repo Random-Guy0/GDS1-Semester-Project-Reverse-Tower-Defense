@@ -6,6 +6,7 @@ public class ManaCollection : MonoBehaviour
 {
     public GameObject ManaManager;
     public ManaManager manager;
+    [SerializeField] private GameObject Player;
 
     private void Awake()
     {
@@ -15,16 +16,17 @@ public class ManaCollection : MonoBehaviour
     
     public void Collect()
     {
+        Player.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
         manager.CollectMana(transform.position);
         Destroy(gameObject);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
-            Collect();
+            Player = other.gameObject;
+            Invoke("Collect", 0.2f);
         }
     }
 }
