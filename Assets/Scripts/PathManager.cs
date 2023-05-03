@@ -94,6 +94,8 @@ public class PathManager : MonoBehaviour
         Vector3 border4Scale = border4.transform.localScale;
         border4Scale.x = levelWidth * gridSize + 2.0f;
         border4.transform.localScale = border4Scale;
+        
+        UpdatePathTiles();
     }
 
     //delete the grid for this level
@@ -159,6 +161,140 @@ public class PathManager : MonoBehaviour
         }
     }
 
+    private void UpdatePathTiles()
+    {
+        for (int i = 0; i < levelWidth; i++)
+        {
+            for (int j = 0; j < levelDepth; j++)
+            {
+                int currentIndex = j * levelWidth + i;
+                if ((int)grid[currentIndex] >= 2)
+                {
+                    Vector3 position = gridGameobjects[currentIndex].transform.position;
+                    DestroyImmediate(gridGameobjects[currentIndex]);
+
+                    bool top = j + 1 < levelDepth && (int)grid[(j + 1) * levelWidth + i] >= 2;
+                    bool bottom = j - 1 >= 0 && (int)grid[(j - 1) * levelWidth + i] >= 2;
+                    bool left = i - 1 >= 0 && (int)grid[j * levelWidth + i - 1] >= 2;
+                    bool right = i + 1 < levelWidth && (int)grid[j * levelWidth + i + 1] >= 2;
+
+                    int countTrue = 0;
+                    if (top)
+                    {
+                        countTrue++;
+                    }
+
+                    if (bottom)
+                    {
+                        countTrue++;
+                    }
+
+                    if (left)
+                    {
+                        countTrue++;
+                    }
+
+                    if (right)
+                    {
+                        countTrue++;
+                    }
+
+                    Vector3 rotation = Vector3.zero;
+
+                    switch (countTrue)
+                    {
+                        case 0:
+                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[0],
+                                new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
+                                    position.z),
+                                Quaternion.identity, levelParent.transform);
+                            break;
+                        
+                        case 1:
+                            if (left)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (right)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (top)
+                            {
+                                rotation.y = 180f;
+                            }
+                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[0],
+                                new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
+                                    position.z),
+                                Quaternion.Euler(rotation), levelParent.transform);
+                            break;
+
+                        case 2:
+                            if ((top && bottom) || (left && right))
+                            {
+                                if (left && right)
+                                {
+                                    rotation.y = 90f;
+                                }
+                                
+                                gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[1],
+                                    new Vector3(position.x, pathTilePrefabs[1].transform.position.y,
+                                        position.z),
+                                    Quaternion.Euler(rotation), levelParent.transform);
+                            }
+                            else
+                            {
+                                if (bottom && right)
+                                {
+                                    rotation.y = 90f;
+                                }
+                                else if (top && left)
+                                {
+                                    rotation.y = -90f;
+                                }
+                                else if (top && right)
+                                {
+                                    rotation.y = 180f;
+                                }
+                                gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[2],
+                                    new Vector3(position.x, pathTilePrefabs[2].transform.position.y,
+                                        position.z),
+                                    Quaternion.Euler(rotation), levelParent.transform);
+                            }
+
+                            break;
+
+                        case 3:
+                            if (!left)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (!right)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (!bottom)
+                            {
+                                rotation.y = 180f;
+                            }
+                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[3],
+                                new Vector3(position.x, pathTilePrefabs[3].transform.position.y,
+                                    position.z),
+                                Quaternion.Euler(rotation), levelParent.transform);
+                            break;
+
+                        case 4:
+                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[4],
+                                new Vector3(position.x, pathTilePrefabs[4].transform.position.y,
+                                    position.z),
+                                Quaternion.identity, levelParent.transform);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
     //place a section of the path, returning if it was placed or not
     public void PlacePath(Vector3 position)
     {
@@ -170,6 +306,7 @@ public class PathManager : MonoBehaviour
             SetGridPoint(position, GridTile.Path);
             SetConnectedPathSegments(x, z);
             monsterManager.PathChange();
+            UpdatePathTiles();
         }
         else if (GetGridPoint(position) == GridTile.Path)
         {
@@ -177,6 +314,7 @@ public class PathManager : MonoBehaviour
             RemovePathSegment(x, z);
             SetGridPoint(position, GridTile.Ground);
             monsterManager.PathChange();
+            UpdatePathTiles();
         }
         
         SetPathSegmentText();

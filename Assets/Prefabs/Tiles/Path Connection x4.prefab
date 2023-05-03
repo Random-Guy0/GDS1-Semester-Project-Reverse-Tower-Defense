@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5316378616196523342}
   - component: {fileID: 7936298461277753732}
   - component: {fileID: 3929371704350454627}
+  - component: {fileID: -5509444469384945866}
+  - component: {fileID: 2640145536965604795}
   m_Layer: 0
   m_Name: Path Connection x4
   m_TagString: Untagged
@@ -107,3 +109,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-5509444469384945866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440758449635012689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: babae9f8ef35261469337f773a7f7b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2640145536965604795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440758449635012689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1092fc7713b7409783234ac479abb9dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
