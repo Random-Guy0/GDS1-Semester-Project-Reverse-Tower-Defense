@@ -7,10 +7,8 @@ using UnityEngine;
 public class PathManager : MonoBehaviour
 {
     [SerializeField] private int pathPiecesAvailable;
-    [SerializeField] private Material groundMat;
-    [SerializeField] private Material groundOutlineMat;
-    [SerializeField] private Material pathMat;
-    [SerializeField] private Material pathOutlineMat;
+    [SerializeField] private Shader defaultShader;
+    [SerializeField] private Shader outlineShader;
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
     [SerializeField] private float gridSize;
@@ -276,28 +274,29 @@ public class PathManager : MonoBehaviour
     public void SetSelectedTile(Vector3 position)
     {
         int newIndex = GetIndexFromPosition(position);
-        
+
         if (gridGameobjects[selectedTileIndex] != null)
         {
-            if (grid[selectedTileIndex] == GridTile.Ground)
+            if (grid[selectedTileIndex] == GridTile.Ground || grid[selectedTileIndex] == GridTile.Path ||
+                grid[selectedTileIndex] == GridTile.Start ||
+                grid[selectedTileIndex] == GridTile.End)
             {
-                gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>().material = groundMat;
-            }
-            else if (grid[selectedTileIndex] == GridTile.Path || grid[selectedTileIndex] == GridTile.Start ||
-                     grid[selectedTileIndex] == GridTile.End)
-            {
-                gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>().material = pathMat;
+                MeshRenderer renderer = gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>();
+                Material mat = renderer.material;
+                mat.shader = defaultShader;
+                renderer.material = mat;
             }
         }
-        
-        if (grid[newIndex] == GridTile.Ground)
+
+        if (grid[newIndex] == GridTile.Ground || grid[newIndex] == GridTile.Path || grid[newIndex] == GridTile.Start ||
+            grid[newIndex] == GridTile.End)
         {
-            gridGameobjects[newIndex].GetComponent<MeshRenderer>().material = groundOutlineMat;
-        }
-        else if (grid[newIndex] == GridTile.Path || grid[newIndex] == GridTile.Start ||
-                 grid[newIndex] == GridTile.End)
-        {
-            gridGameobjects[newIndex].GetComponent<MeshRenderer>().material = pathOutlineMat;
+            MeshRenderer renderer = gridGameobjects[newIndex].GetComponent<MeshRenderer>();
+            Material mat = renderer.material;
+            mat.shader = outlineShader;
+            mat.SetColor("_OutlineColor", new Color(1.0f, 1.0f, 0.0f));
+            mat.SetFloat("_OutlineWidth", 1.1f);
+            renderer.material = mat;
         }
 
         selectedTileIndex = newIndex;
