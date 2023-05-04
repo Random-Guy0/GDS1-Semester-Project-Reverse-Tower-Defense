@@ -329,10 +329,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49c5406bbffd4ba679e87943c3a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpeed: 6
   Camera: {fileID: 0}
   cameraS: 
   move: {x: 0, y: 0, z: 0}
   animator: {fileID: 551575866422487914}
+  health: 0
 --- !u!114 &5722577683324988590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 0
+  maxHealth: 200
   healthBar: {fileID: 5722577682361750204}
 --- !u!114 &5722577683324988592
 MonoBehaviour:
@@ -406,7 +408,7 @@ RectTransform:
   m_GameObject: {fileID: 5722577683516980376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722577682361750203}
@@ -482,7 +484,7 @@ RectTransform:
   m_GameObject: {fileID: 5722577683573046845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722577682361750203}
@@ -558,7 +560,7 @@ RectTransform:
   m_GameObject: {fileID: 5722577683756818630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722577682361750203}
