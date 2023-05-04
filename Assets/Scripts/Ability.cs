@@ -53,7 +53,7 @@ public class Ability : MonoBehaviour
 
     public void StopAbility()
     {
-        if (manaManager.ableToCost(20))
+        if (manaManager.ableToCost(50))
         {
             manaManager.costMana(50);
             Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
