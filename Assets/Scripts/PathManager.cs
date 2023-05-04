@@ -443,9 +443,14 @@ public class PathManager : MonoBehaviour
                 grid[selectedTileIndex] == GridTile.End)
             {
                 MeshRenderer renderer = gridGameobjects[selectedTileIndex].GetComponent<MeshRenderer>();
-                Material mat = renderer.material;
-                mat.shader = defaultShader;
-                renderer.material = mat;
+                Material[] mats = renderer.materials;
+
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i].shader = defaultShader;
+                }
+
+                renderer.materials = mats;
             }
         }
 
@@ -453,11 +458,16 @@ public class PathManager : MonoBehaviour
             grid[newIndex] == GridTile.End)
         {
             MeshRenderer renderer = gridGameobjects[newIndex].GetComponent<MeshRenderer>();
-            Material mat = renderer.material;
-            mat.shader = outlineShader;
-            mat.SetColor("_OutlineColor", new Color(1.0f, 1.0f, 0.0f));
-            mat.SetFloat("_OutlineWidth", 1.1f);
-            renderer.material = mat;
+            Material[] mats = renderer.materials;
+
+            for (int i = 0; i < mats.Length; i++)
+            {
+                mats[i].shader = outlineShader;
+                mats[i].SetColor("_OutlineColor", new Color(1.0f, 1.0f, 0.0f));
+                mats[i].SetFloat("_OutlineWidth", 1.1f);
+            }
+
+            renderer.materials = mats;
         }
 
         selectedTileIndex = newIndex;
