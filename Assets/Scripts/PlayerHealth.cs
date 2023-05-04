@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
             }
             if (gameObject.CompareTag("Player"))
             {
-                Application.Quit();
+                SceneManager.LoadScene("LoseScreen");
             }
         }
         healthBar.SetHP(health);

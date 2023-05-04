@@ -20,7 +20,7 @@ public class Monster : MonoBehaviour
         GeneratePath();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(pathToFollow.Count > 0)
         {

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text levelHealthText;
-    [SerializeField] private GameObject winText;
     [SerializeField] private int levelHealth;
 
     private void Start()
@@ -21,14 +21,8 @@ public class GameManager : MonoBehaviour
         SetHealthText();
         if (levelHealth <= 0)
         {
-            winText.SetActive(true);
-            Invoke("Close", 5.0f);
+            SceneManager.LoadScene("WinScreen");
         }
-    }
-
-    private void Close()
-    {
-        Application.Quit();
     }
 
     private void SetHealthText()
