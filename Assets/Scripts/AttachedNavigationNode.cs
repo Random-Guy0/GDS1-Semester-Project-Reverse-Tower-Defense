@@ -9,4 +9,9 @@ public class AttachedNavigationNode : MonoBehaviour
     {
         navigationNode = new NavigationNode(transform.position);
     }
+
+    public void Clone(AttachedNavigationNode other)
+    {
+        navigationNode = other.navigationNode;
+    }
 }

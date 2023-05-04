@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour
@@ -17,8 +18,8 @@ public class PathManager : MonoBehaviour
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
     [SerializeField] private PathSegment[] pathSegments;
-    [SerializeField] private PathSegment start;
-    [SerializeField] private PathSegment end;
+    [SerializeField] private int start;
+    [SerializeField] private int end;
 
     [SerializeField] private GameObject levelParent;
     [SerializeField] private MonsterManager monsterManager;
@@ -152,11 +153,11 @@ public class PathManager : MonoBehaviour
             pathSegments[index] = gridGameobjects[index].GetComponent<PathSegment>();
             if (grid[index] == GridTile.Start)
             {
-                start = pathSegments[index];
+                start = index;
             }
             else if (grid[index] == GridTile.End)
             {
-                end = pathSegments[index];
+                end = index;
             }
         }
     }
@@ -171,8 +172,6 @@ public class PathManager : MonoBehaviour
                 if ((int)grid[currentIndex] >= 2)
                 {
                     Vector3 position = gridGameobjects[currentIndex].transform.position;
-                    DestroyImmediate(gridGameobjects[currentIndex]);
-
                     bool top = j + 1 < levelDepth && (int)grid[(j + 1) * levelWidth + i] >= 2;
                     bool bottom = j - 1 >= 0 && (int)grid[(j - 1) * levelWidth + i] >= 2;
                     bool left = i - 1 >= 0 && (int)grid[j * levelWidth + i - 1] >= 2;
@@ -200,11 +199,12 @@ public class PathManager : MonoBehaviour
                     }
 
                     Vector3 rotation = Vector3.zero;
+                    GameObject newTile;
 
                     switch (countTrue)
                     {
                         case 0:
-                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[0],
+                            newTile = Instantiate(pathTilePrefabs[0],
                                 new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
                                     position.z),
                                 Quaternion.identity, levelParent.transform);
@@ -223,7 +223,7 @@ public class PathManager : MonoBehaviour
                             {
                                 rotation.y = 180f;
                             }
-                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[0],
+                            newTile = Instantiate(pathTilePrefabs[0],
                                 new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
                                     position.z),
                                 Quaternion.Euler(rotation), levelParent.transform);
@@ -237,7 +237,7 @@ public class PathManager : MonoBehaviour
                                     rotation.y = 90f;
                                 }
                                 
-                                gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[1],
+                                newTile = Instantiate(pathTilePrefabs[1],
                                     new Vector3(position.x, pathTilePrefabs[1].transform.position.y,
                                         position.z),
                                     Quaternion.Euler(rotation), levelParent.transform);
@@ -256,7 +256,7 @@ public class PathManager : MonoBehaviour
                                 {
                                     rotation.y = 180f;
                                 }
-                                gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[2],
+                                newTile = Instantiate(pathTilePrefabs[2],
                                     new Vector3(position.x, pathTilePrefabs[2].transform.position.y,
                                         position.z),
                                     Quaternion.Euler(rotation), levelParent.transform);
@@ -277,19 +277,32 @@ public class PathManager : MonoBehaviour
                             {
                                 rotation.y = 180f;
                             }
-                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[3],
+                            newTile = Instantiate(pathTilePrefabs[3],
                                 new Vector3(position.x, pathTilePrefabs[3].transform.position.y,
                                     position.z),
                                 Quaternion.Euler(rotation), levelParent.transform);
                             break;
 
                         case 4:
-                            gridGameobjects[currentIndex] = Instantiate(pathTilePrefabs[4],
+                            newTile = Instantiate(pathTilePrefabs[4],
                                 new Vector3(position.x, pathTilePrefabs[4].transform.position.y,
                                     position.z),
                                 Quaternion.identity, levelParent.transform);
                             break;
+                        default:
+                            newTile = new GameObject();
+                            break;
                     }
+
+                    PathSegment pathSegment = pathSegments[currentIndex];
+                    pathSegments[currentIndex] = newTile.AddComponent<PathSegment>();
+                    pathSegments[currentIndex].Clone(pathSegment);
+                    AttachedNavigationNode navigationNode =
+                        gridGameobjects[currentIndex].GetComponent<AttachedNavigationNode>();
+                    newTile.AddComponent<AttachedNavigationNode>().Clone(navigationNode);
+
+                    DestroyImmediate(gridGameobjects[currentIndex]);
+                    gridGameobjects[currentIndex] = newTile;
                 }
             }
         }
@@ -411,12 +424,12 @@ public class PathManager : MonoBehaviour
 
     public PathSegment GetStart()
     {
-        return start;
+        return pathSegments[start];
     }
 
     public PathSegment GetEnd()
     {
-        return end;
+        return pathSegments[end];
     }
 
     public void SetSelectedTile(Vector3 position)
