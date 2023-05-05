@@ -165,7 +165,10 @@ public class Tower : MonoBehaviour
                     curTarget = fov.visibleTargets[0];
                 }
             }
-            curTarget = fov.visibleTargets[0];
+            else
+            {
+                curTarget = fov.visibleTargets[0];
+            }           
         }
     }
     public IEnumerator FindTargetsWithDelay()
