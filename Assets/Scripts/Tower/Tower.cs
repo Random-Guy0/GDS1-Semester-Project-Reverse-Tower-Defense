@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [Tooltip("The time it takes (in seconds) to attack again")]
     public float fireDelay = 1.0f;
+    [Tooltip("The time it takes (in seconds) to ready an attack while aiming")]
     public float shootStartUp = 0f;
+    [Tooltip("The time it takes (in seconds) to ready an attack WITHOUT aiming just for the player")]
+    public float shootPlayerDelay = 0.1f;
     public GameObject projectile;
     public float movementDelay = 60f;
     public bool immovable = false;
@@ -179,12 +183,16 @@ public class Tower : MonoBehaviour
             if (firing && curTarget != null)
             {
                 transform.LookAt(curTarget);
-                yield return new WaitForSeconds(shootStartUp);
-                curTarget = null;
-                TargetFirstEnemy();
+                if (shootStartUp > 0)
+                {
+                    yield return new WaitForSeconds(shootStartUp);
+                    curTarget = null;
+                    TargetFirstEnemy();
+                }
                 if (curTarget != null)
                 {
-                    ShootVisableTarget();
+                    StartCoroutine("ShootVisableTarget");
+                    //ShootVisableTarget();
                     yield return new WaitForSeconds(fireDelay);
                 }
             }
@@ -199,10 +207,17 @@ public class Tower : MonoBehaviour
             }
         }
     }
-    void ShootVisableTarget()
+    IEnumerator ShootVisableTarget()
     {
         transform.LookAt(curTarget);
-
+        if (curTarget.CompareTag("Player"))
+        {
+            yield return new WaitForSeconds(shootPlayerDelay);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0f);
+        }
         Instantiate(projectile,shootPoint.position, shootPoint.rotation);
         curTarget = null;
     }

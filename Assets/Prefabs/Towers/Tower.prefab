@@ -215,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDelay: 1
   shootStartUp: 0
+  shootPlayerDelay: 0.1
   projectile: {fileID: 7549686427651435528, guid: f34fc91281a8f924fab1c88465ea76ad, type: 3}
   movementDelay: 30
   immovable: 0
