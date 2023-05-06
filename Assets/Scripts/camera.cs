@@ -46,8 +46,8 @@ public class camera : MonoBehaviour
     void setCamera()
     {
         currentCamera = cameras[currentNum];
-        transform.position = Vector3.MoveTowards(transform.position, currentCamera.transform.position, 50f*Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, currentCamera.transform.rotation, 8f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, currentCamera.transform.position, 30f*Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, currentCamera.transform.rotation, 4f * Time.deltaTime);
     }
 
     public string getCurrentCamera()

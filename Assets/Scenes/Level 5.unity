@@ -9305,7 +9305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1447085363145475456, guid: ac1544573a9ddfa41a315523e585a29a, type: 3}
       propertyPath: m_Name
-      value: WizardTower (2)
+      value: WizardTower
       objectReference: {fileID: 0}
     - target: {fileID: 2999970082481823570, guid: ac1544573a9ddfa41a315523e585a29a, type: 3}
       propertyPath: viewRadius
@@ -24488,7 +24488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1447085363145475456, guid: ac1544573a9ddfa41a315523e585a29a, type: 3}
       propertyPath: m_Name
-      value: WizardTower (4)
+      value: WizardTower
       objectReference: {fileID: 0}
     - target: {fileID: 2999970082481823570, guid: ac1544573a9ddfa41a315523e585a29a, type: 3}
       propertyPath: viewRadius
