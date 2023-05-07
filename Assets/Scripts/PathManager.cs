@@ -14,6 +14,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] private int levelDepth;
     [SerializeField] private float gridSize;
     [SerializeField] private GridTile[] grid;
+    [SerializeField] private float[] heights;
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
@@ -56,12 +57,13 @@ public class PathManager : MonoBehaviour
     }
 
     //create the new grid to be used for this level
-    public void CreateGrid(int newWidth, int newDepth, GridTile[] newGrid)
+    public void CreateGrid(int newWidth, int newDepth, GridTile[] newGrid, float[] newHeights)
     {
         DestroyImmediate(levelParent);
         levelWidth = newWidth;
         levelDepth = newDepth;
         grid = newGrid;
+        heights = newHeights;
         gridGameobjects = new GameObject[grid.Length];
         pathSegments = new PathSegment[grid.Length];
 
@@ -143,6 +145,9 @@ public class PathManager : MonoBehaviour
                 new Vector3(x * gridSize, tilePrefabs[(int)newGridTile].transform.position.y,
                     (levelDepth - z - 1) * gridSize),
                 Quaternion.identity, levelParent.transform);
+            Vector3 scale = gridGameobjects[index].transform.localScale;
+            scale.y *= heights[index];
+            gridGameobjects[index].transform.localScale = scale;
         }
         else
         {
@@ -150,6 +155,9 @@ public class PathManager : MonoBehaviour
                 new Vector3(x * gridSize, pathTilePrefabs[0].transform.position.y,
                     (levelDepth - z - 1) * gridSize),
                 Quaternion.identity, levelParent.transform);
+            Vector3 scale = gridGameobjects[index].transform.localScale;
+            scale.y *= heights[index];
+            gridGameobjects[index].transform.localScale = scale;
             pathSegments[index] = gridGameobjects[index].GetComponent<PathSegment>();
             if (grid[index] == GridTile.Start)
             {
@@ -303,6 +311,9 @@ public class PathManager : MonoBehaviour
 
                     DestroyImmediate(gridGameobjects[currentIndex]);
                     gridGameobjects[currentIndex] = newTile;
+                    Vector3 scale = gridGameobjects[currentIndex].transform.localScale;
+                    scale.y *= heights[currentIndex];
+                    gridGameobjects[currentIndex].transform.localScale = scale;
                 }
             }
         }
@@ -525,6 +536,11 @@ public class PathManager : MonoBehaviour
         }
 
         return validPositions.ToArray();
+    }
+
+    public float[] GetHeights()
+    {
+        return heights;
     }
 }
 

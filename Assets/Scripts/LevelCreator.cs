@@ -10,9 +10,10 @@ public class LevelCreator : EditorWindow
     private int levelWidth;
     private int levelDepth;
     private GridTile[] grid;
+    private float[] heights;
 
     private Vector2 scrollPos;
-    
+
     //allows the tool to be opened
     [MenuItem("Tools/Level Creator")]
     public static void ShowWindow()
@@ -45,6 +46,11 @@ public class LevelCreator : EditorWindow
             if (EditorGUI.EndChangeCheck())
             {
                 grid = new GridTile[levelWidth * (levelDepth - 1) + levelWidth];
+                heights = new float[levelWidth * (levelDepth - 1) + levelWidth];
+                for (int i = 0; i < heights.Length; i++)
+                {
+                    heights[i] = 1.0f;
+                }
             }
             EditorGUILayout.Space();
             EditorGUILayout.EndHorizontal();
@@ -57,7 +63,10 @@ public class LevelCreator : EditorWindow
                 for (int j = 0; j < levelWidth; j++)
                 {
                     int index = levelWidth * i + j;
+                    EditorGUILayout.BeginVertical();
                     grid[index] = (GridTile)EditorGUILayout.EnumPopup(grid[index], SetEnumPopupColour(grid[index]));
+                    heights[index] = EditorGUILayout.FloatField(heights[index]);
+                    EditorGUILayout.EndVertical();
                 }
                 
                 EditorGUILayout.EndHorizontal();
@@ -67,7 +76,7 @@ public class LevelCreator : EditorWindow
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Create Level"))
             {
-                pathManager.CreateGrid(levelWidth, levelDepth, grid);
+                pathManager.CreateGrid(levelWidth, levelDepth, grid, heights);
             }
 
             if (GUILayout.Button("Reset Level"))
@@ -108,6 +117,7 @@ public class LevelCreator : EditorWindow
         levelWidth = pathManager.GetLevelWidth();
         levelDepth = pathManager.GetLevelDepth();
         grid = pathManager.GetGrid();
+        heights = pathManager.GetHeights();
     }
 }
 
