@@ -900,6 +900,10 @@ PrefabInstance:
       propertyPath: viewRadius
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: obstacleMask.m_Bits
+      value: 4224
+      objectReference: {fileID: 0}
     - target: {fileID: 7792629658267466048, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_Enabled
       value: 1

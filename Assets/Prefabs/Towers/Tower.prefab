@@ -221,7 +221,7 @@ MonoBehaviour:
   immovable: 0
   spawnTime: 0
   prestigeClass: {fileID: 0}
-  prestigeTime: 100
+  prestigeTime: 120
   animator: {fileID: 0}
   warningSign: {fileID: 4862575015118818473}
   warningSignTime: 30
@@ -246,7 +246,7 @@ MonoBehaviour:
     m_Bits: 64
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 6272
   visibleTargets: []
 --- !u!1 &8740411505477186909
 GameObject:

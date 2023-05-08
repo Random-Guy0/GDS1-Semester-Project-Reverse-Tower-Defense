@@ -42,16 +42,16 @@ public class Tower : MonoBehaviour
         if (spawnTime > 0)
         {
             TowerActive(false);
-            StartCoroutine("SpawnWithDelay", spawnTime);
+            StartCoroutine(SpawnWithDelay(spawnTime));
         }
         if (prestigeClass != null && prestigeTime > 0)
         {
-            StartCoroutine("PromotionWithDelay", prestigeTime);
+            StartCoroutine(PromotionWithDelay(prestigeTime));
         }
-        StartCoroutine("FindTargetsWithDelay");
+        StartCoroutine(FindTargetsWithDelay());
         if (!immovable)
         {
-            StartCoroutine("MoveWithDelay");
+            StartCoroutine(MoveWithDelay());
         } 
     }
     public IEnumerator PromotionWithDelay(float duration)
