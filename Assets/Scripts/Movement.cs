@@ -7,8 +7,7 @@ public class Movement : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    [SerializeField]
-    private float playerSpeed = 5;
+    public float playerSpeed = 5;
     private float gravityValue = -9.81f;
     public GameObject Camera;
     public string cameraS;

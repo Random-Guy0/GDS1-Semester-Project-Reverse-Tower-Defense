@@ -29,10 +29,16 @@ public class PlayerHealth : MonoBehaviour
             }
             if (gameObject.CompareTag("Player"))
             {
-                SceneManager.LoadScene("LoseScreen");
+                gameObject.GetComponent<Movement>().playerSpeed = 0;
+                Invoke("loadLose", 1f);
             }
         }
         healthBar.SetHP(health);
+    }
+
+    private void loadLose()
+    {
+        SceneManager.LoadScene("LoseScreen");
     }
 
     public void DamageTake(int damage)
