@@ -7520,7 +7520,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: spawnTime
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
@@ -14352,7 +14352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: spawnTime
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
