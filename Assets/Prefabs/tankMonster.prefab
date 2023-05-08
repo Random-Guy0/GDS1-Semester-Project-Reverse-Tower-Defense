@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 3238322051593471796}
   - component: {fileID: 3238322051593471797}
   - component: {fileID: 3238322051593471798}
+  - component: {fileID: 2211017517123184845}
   m_Layer: 6
   m_Name: tankMonster
   m_TagString: Monster
@@ -765,7 +766,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.7652489, z: 1}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0.38262492, z: 0}
 --- !u!114 &3238322051593471796
 MonoBehaviour:
@@ -822,6 +823,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &2211017517123184845
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3238322051593471799}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 377d4e1e377d4b64187b292c1d1537ee, type: 3}
+  m_Controller: {fileID: 9100000, guid: f4a26522436d87044829250a2275747d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &3238322052982607403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1406,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7557850320116865386}
-  m_LocalRotation: {x: 0.36333993, y: 0.36334017, z: -0.60661685, w: 0.60661685}
+  m_LocalRotation: {x: 0.36333993, y: 0.3633402, z: -0.60661685, w: 0.6066169}
   m_LocalPosition: {x: 3.5527137e-15, y: 0.5509222, z: 0.000000014901172}
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_ConstrainProportionsScale: 0
@@ -1602,7 +1623,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8075038635475898794}
-  - component: {fileID: 2805848187580271568}
   m_Layer: 0
   m_Name: KayKit Animated Character_v1.2
   m_TagString: Untagged
@@ -1626,23 +1646,3 @@ Transform:
   m_Father: {fileID: 3238322051593471752}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2805848187580271568
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8888870327105932048}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 377d4e1e377d4b64187b292c1d1537ee, type: 3}
-  m_Controller: {fileID: 9100000, guid: f4a26522436d87044829250a2275747d, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
