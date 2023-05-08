@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 494950029434807759, guid: 5b362a88475141a498d90590923d30cc, type: 3}
       propertyPath: m_Name
-      value: Mountain (new)
+      value: Mountain Elavated (new)
       objectReference: {fileID: 0}
     - target: {fileID: 978893834072604533, guid: 5b362a88475141a498d90590923d30cc, type: 3}
       propertyPath: m_RootOrder
