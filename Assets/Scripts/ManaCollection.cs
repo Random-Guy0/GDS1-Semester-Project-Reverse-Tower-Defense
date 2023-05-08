@@ -16,7 +16,10 @@ public class ManaCollection : MonoBehaviour
     
     public void Collect()
     {
-        Player.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
+        if(Player != null)
+        {
+            Player.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
+        }
         manager.CollectMana(transform.position);
         Destroy(gameObject);
     }
