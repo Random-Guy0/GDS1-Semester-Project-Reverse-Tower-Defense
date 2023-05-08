@@ -3803,7 +3803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8732240266443186519, guid: 64230261b92b40e4d9cf40099ad21559, type: 3}
       propertyPath: spawnTime
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12727,7 +12727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8732240266443186519, guid: 64230261b92b40e4d9cf40099ad21559, type: 3}
       propertyPath: spawnTime
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14094,7 +14094,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: spawnTime
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
