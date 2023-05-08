@@ -18,6 +18,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
+    [SerializeField] private GameObject[] borderPrefabs;
     [SerializeField] private PathSegment[] pathSegments;
     [SerializeField] private int start;
     [SerializeField] private int end;
@@ -77,28 +78,83 @@ public class PathManager : MonoBehaviour
                 SetGridPoint(position, grid[index]);
             }
         }
-
-        GameObject border1 = Instantiate(tilePrefabs[tilePrefabs.Length - 1], new Vector3(-1.5f, 0, (levelDepth * gridSize) / 2.0f - 1.0f), Quaternion.identity, levelParent.transform);
-        Vector3 border1Scale = border1.transform.localScale;
-        border1Scale.z = levelDepth * gridSize + 2.0f;
-        border1.transform.localScale = border1Scale;
         
-        GameObject border2 = Instantiate(tilePrefabs[tilePrefabs.Length - 1], new Vector3(levelWidth * gridSize - 0.5f, 0, (levelDepth * gridSize) / 2.0f - 1.0f), Quaternion.identity, levelParent.transform);
-        Vector3 border2Scale = border2.transform.localScale;
-        border2Scale.z = levelDepth * gridSize + 2.0f;
-        border2.transform.localScale = border2Scale;
-        
-        GameObject border3 = Instantiate(tilePrefabs[tilePrefabs.Length - 1], new Vector3((levelWidth * gridSize) / 2.0f - 1.0f, 0, -1.5f), Quaternion.identity, levelParent.transform);
-        Vector3 border3Scale = border3.transform.localScale;
-        border3Scale.x = levelWidth * gridSize + 2.0f;
-        border3.transform.localScale = border3Scale;
-        
-        GameObject border4 = Instantiate(tilePrefabs[tilePrefabs.Length - 1], new Vector3((levelWidth * gridSize) / 2.0f - 1.0f, 0, levelDepth * gridSize - 0.5f), Quaternion.identity, levelParent.transform);
-        Vector3 border4Scale = border4.transform.localScale;
-        border4Scale.x = levelWidth * gridSize + 2.0f;
-        border4.transform.localScale = border4Scale;
-        
+        CreateBorder();
         UpdatePathTiles();
+    }
+
+    private void CreateBorder()
+    {
+        Vector3 endPos = Vector3.zero;
+        int x = GetXFromPosition(gridGameobjects[end].transform.position);
+        int z = GetZFromPosition(gridGameobjects[end].transform.position);
+        if (z + 1 >= levelDepth)
+        {
+            endPos = new Vector3(x * gridSize, 0.5f, -1.1f);
+        }
+        else if (z - 1 < 0)
+        {
+            endPos = new Vector3(x * gridSize, 0.5f, levelDepth * gridSize - 0.9f);
+        }
+        else if (x + 1 >= levelWidth)
+        {
+            endPos = new Vector3(levelWidth * gridSize - 0.9f, 0.5f, z * gridSize);
+        }
+        else if (x - 1 < 0)
+        {
+            endPos = new Vector3(-1.1f, 0.5f, z * gridSize);
+        }
+        
+        for (int i = 0; i < levelWidth; i++)
+        {
+            Vector3 wallPos1 = new Vector3(i * gridSize, 0.5f, -1.1f);
+            if (!wallPos1.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos1, Quaternion.identity, levelParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.identity, levelParent.transform);
+            }
+
+            Vector3 wallPos2 = new Vector3(i * gridSize, 0.5f, levelDepth * gridSize - 0.9f);
+            if (!wallPos2.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos2, Quaternion.identity, levelParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.identity, levelParent.transform);
+            }
+        }
+
+        for (int i = 0; i < levelDepth; i++)
+        {
+            Vector3 wallPos1 = new Vector3(-1.1f, 0.5f, i * gridSize);
+            if (!wallPos1.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos1, Quaternion.Euler(Vector3.up * 90.0f), levelParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.Euler(Vector3.up * 90.0f), levelParent.transform);
+            }
+
+            Vector3 wallPos2 = new Vector3(levelWidth * gridSize - 0.9f, 0.5f, i * gridSize);
+            if (!wallPos2.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos2, Quaternion.Euler(Vector3.up * 90.0f), levelParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.Euler(Vector3.up * 90.0f), levelParent.transform);
+            }
+        }
+
+        Instantiate(borderPrefabs[2], new Vector3(-1.1f, 0.5f, -1.1f), Quaternion.Euler(Vector3.up * -90.0f), levelParent.transform);
+        Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.Euler(Vector3.up * 90.0f), levelParent.transform);
+        Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, -1.1f), Quaternion.Euler(Vector3.up * 180.0f), levelParent.transform);
+        Instantiate(borderPrefabs[2], new Vector3(-1.1f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.identity, levelParent.transform);
     }
 
     //delete the grid for this level
@@ -134,8 +190,8 @@ public class PathManager : MonoBehaviour
     //uses a world position to set a point in the grid
     private void SetGridPoint(Vector3 position, GridTile newGridTile)
     {
-        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        int x = GetXFromPosition(position);
+        int z = GetZFromPosition(position);
         int index = z * levelWidth + x;
         DestroyImmediate(gridGameobjects[index]);
         grid[index] = newGridTile;
@@ -322,8 +378,8 @@ public class PathManager : MonoBehaviour
     //place a section of the path, returning if it was placed or not
     public void PlacePath(Vector3 position)
     {
-        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        int x = GetXFromPosition(position);
+        int z = GetZFromPosition(position);
         if (GetGridPoint(position) == GridTile.Ground && pathPiecesAvailable > 0)
         {
             pathPiecesAvailable--;
@@ -428,9 +484,19 @@ public class PathManager : MonoBehaviour
 
     public int GetIndexFromPosition(Vector3 position)
     {
-        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        int x = GetXFromPosition(position);
+        int z = GetZFromPosition(position);
         return z * levelWidth + x;
+    }
+
+    private int GetXFromPosition(Vector3 position)
+    {
+        return (int)(Mathf.RoundToInt(position.x) / gridSize);
+    }
+
+    private int GetZFromPosition(Vector3 position)
+    {
+        return (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
     }
 
     public PathSegment GetStart()
@@ -511,8 +577,8 @@ public class PathManager : MonoBehaviour
 
     public Vector3[] ValidMovePositions(Vector3 position)
     {
-        int x = (int)(Mathf.RoundToInt(position.x) / gridSize);
-        int z = (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+        int x = GetXFromPosition(position);
+        int z = GetZFromPosition(position);
         List<Vector3> validPositions = new List<Vector3>();
         
         if (x + 1 < levelWidth && grid[z * levelWidth + x + 1] != GridTile.Mountain)
