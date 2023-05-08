@@ -48,13 +48,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possOffset: {x: 0, y: 0, z: 0}
-  damage: 5
+  damage: 50
   maxTargets: 0
   radius: 5
   delay: 0.1
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!198 &7315643677816397644
 ParticleSystem:
   m_ObjectHideFlags: 0
