@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour
 
     private void Move()
     {
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        controller.Move((move + playerVelocity) * Time.deltaTime * playerSpeed);
         playerVelocity.y += gravityValue * Time.deltaTime;
     }
 
@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
     {
         health = GetComponent<PlayerHealth>().health;
         groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        if (groundedPlayer)
         {
             playerVelocity.y = 0f;
         }
