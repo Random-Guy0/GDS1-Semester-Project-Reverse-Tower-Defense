@@ -17,9 +17,11 @@ public class Explosion : MonoBehaviour
     private RaycastHit[] entities;
     private List<GameObject> hitTargets = new List<GameObject>();
     private Vector3 trueOffset;
+    private AudioSource audio;
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         trueOffset = Quaternion.Euler(transform.rotation.eulerAngles) * possOffset;
         StartCoroutine("Detonate");
     }
@@ -27,6 +29,10 @@ public class Explosion : MonoBehaviour
     IEnumerator Detonate()
     {
         yield return new WaitForSeconds(delay);
+        if (audio != null || audio.clip != null)
+        {
+            AudioInstance.Play(audio.clip);
+        }
         entities = Physics.SphereCastAll(transform.position + trueOffset, radius, Vector3.forward, 0, mask);
         foreach (RaycastHit entity in entities)
         {
