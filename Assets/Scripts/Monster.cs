@@ -6,6 +6,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [SerializeField] private float speed;
+    private Animator animator;
 
     protected PathManager pathManager;
     protected List<Vector3> pathToFollow;
@@ -13,6 +14,8 @@ public class Monster : MonoBehaviour
 
     private void Start()
     {
+        // Get the sub GameObject within the current GameObject
+        animator = GetComponent<Animator>();
         pathManager = FindObjectOfType<PathManager>();
         pathToFollow = new List<Vector3>();
         lastIndex = pathManager.GetPathSegmentIndex(pathManager.GetStart());
@@ -183,4 +186,22 @@ public class Monster : MonoBehaviour
 
         return path;
     }
+
+    public float SetAnimation(string animationName)
+    {
+        if (animationName == "Death")
+        {
+           animator.SetBool("Death", true);
+           return animator.GetCurrentAnimatorStateInfo(0).length;
+        } else if (animationName == "Hit")
+        {
+            animator.SetTrigger("Hit");
+            return animator.GetCurrentAnimatorStateInfo(0).length;
+        }
+
+        return 0;
+
+
+    }
+
 }

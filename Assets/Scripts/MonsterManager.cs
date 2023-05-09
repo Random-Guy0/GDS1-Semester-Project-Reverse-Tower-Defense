@@ -40,4 +40,5 @@ public class MonsterManager : MonoBehaviour
             monster.GeneratePath();
         }
     }
+
 }
