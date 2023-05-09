@@ -9,10 +9,14 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text levelHealthText;
     [SerializeField] private int levelHealth;
+    [SerializeField] private Animator PlayerAni;
+    [SerializeField] GameObject originalGameObject;
 
     private void Start()
     {
         SetHealthText();
+        originalGameObject = GameObject.Find("Player");
+        PlayerAni = originalGameObject.transform.GetChild(1).gameObject.GetComponent<Animator>();
     }
 
     public void TakeDamage()
@@ -21,12 +25,23 @@ public class GameManager : MonoBehaviour
         SetHealthText();
         if (levelHealth <= 0)
         {
-            SceneManager.LoadScene("WinScreen");
+            originalGameObject.GetComponent<Movement>().playerSpeed = 0;
+            Invoke("loadWin", 3.5f);
         }
+    }
+
+    private void loadWin()
+    {
+        SceneManager.LoadScene("WinScreen");
     }
 
     private void SetHealthText()
     {
         levelHealthText.SetText(levelHealth.ToString());
+    }
+
+    public int getLevelHealth()
+    {
+        return levelHealth;
     }
 }
