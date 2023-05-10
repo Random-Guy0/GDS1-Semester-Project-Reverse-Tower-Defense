@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 3238322051593471797}
   - component: {fileID: 3238322051593471798}
   - component: {fileID: -4982456084186304756}
+  - component: {fileID: 8702532838638463238}
   m_Layer: 6
   m_Name: Mana Monster
   m_TagString: Monster
@@ -518,6 +519,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 1
+--- !u!95 &8702532838638463238
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3238322051593471799}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 377d4e1e377d4b64187b292c1d1537ee, type: 3}
+  m_Controller: {fileID: 9100000, guid: f4a26522436d87044829250a2275747d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &3238322052982607403
 GameObject:
   m_ObjectHideFlags: 0
