@@ -28,6 +28,10 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene("Level 5");
     }
+    public void SelectLevel6Scene()
+    {
+        SceneManager.LoadScene("Level 6");
+    }
     public void SelectMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -45,5 +49,22 @@ public class LevelManager : MonoBehaviour
         int index = levelToTryAgain.SceneIndex;
         Destroy(levelToTryAgain.gameObject);
         SceneManager.LoadScene(index);
+    }
+
+    public void NextLevel()
+    {
+        SceneInfo nextLevel = FindObjectOfType<SceneInfo>();
+        SceneManager.sceneLoaded -= nextLevel.OnSceneLoad;
+        int index = nextLevel.SceneIndex + 1;
+        Destroy(nextLevel.gameObject);
+
+        if (index > 6)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(index);
+        }
     }
 }

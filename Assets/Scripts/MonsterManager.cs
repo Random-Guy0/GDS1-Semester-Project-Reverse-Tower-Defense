@@ -23,7 +23,7 @@ public class MonsterManager : MonoBehaviour
         {
             manaManager.costMana(monsterCosts[type]);
             Vector3 spawnPos = pathManager.GetStart().transform.position;
-            spawnPos.y = 1.5f;
+            spawnPos.y = -0.3f + pathManager.GetStartHeight();
             monsters.Add(Instantiate(monsterPrefabs[type], spawnPos, Quaternion.identity).GetComponent<Monster>());
         }
     }
@@ -40,4 +40,5 @@ public class MonsterManager : MonoBehaviour
             monster.GeneratePath();
         }
     }
+
 }

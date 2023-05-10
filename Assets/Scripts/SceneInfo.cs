@@ -15,7 +15,7 @@ public class SceneInfo : MonoBehaviour
 
     public void OnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (scene.buildIndex != 7)
+        if (!(scene.name.Equals("WinScreen") || scene.name.Equals("LoseScreen")))
         {
             SceneManager.sceneLoaded -= OnSceneLoad;
             Destroy(gameObject);

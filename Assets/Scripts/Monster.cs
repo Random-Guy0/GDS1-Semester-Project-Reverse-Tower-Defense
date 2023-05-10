@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    public float speed;
+    [SerializeField] private int damage = 1;
+    private Animator animator;
+    [SerializeField] private Collider thisCollider;
 
     protected PathManager pathManager;
     protected List<Vector3> pathToFollow;
     protected int lastIndex;
 
+    private bool dead = false;
+
     private void Start()
     {
+        // Get the sub GameObject within the current GameObject
+        animator = GetComponent<Animator>();
         pathManager = FindObjectOfType<PathManager>();
         pathToFollow = new List<Vector3>();
         lastIndex = pathManager.GetPathSegmentIndex(pathManager.GetStart());
@@ -22,13 +29,16 @@ public class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(pathToFollow.Count > 0)
+        if(pathToFollow.Count > 0 && !dead)
         {
             Vector3 targetPos = pathToFollow[0];
             targetPos.y = transform.position.y;
             transform.LookAt(targetPos);
-            Vector3 moveDirection = (targetPos - transform.position).normalized;
-            transform.position += speed * Time.deltaTime * moveDirection;
+            Vector3 position = transform.position;
+            Vector3 moveDirection = (targetPos - position).normalized;
+            position += speed * Time.deltaTime * moveDirection;
+            position.y = pathManager.MeshHeight(pathManager.GetIndexFromPosition(position)) - 0.3f;
+            transform.position = position;
 
             if (Vector3.Distance(transform.position, targetPos) < 0.05)
             {
@@ -41,7 +51,7 @@ public class Monster : MonoBehaviour
     {
         if (pathToFollow[0].Equals(pathManager.GetEnd().navigationNode.position))
         {
-            FindObjectOfType<GameManager>().TakeDamage();
+            FindObjectOfType<GameManager>().TakeDamage(damage);
             Destroy(gameObject);
         }
         else
@@ -183,4 +193,28 @@ public class Monster : MonoBehaviour
 
         return path;
     }
+
+    public float SetAnimation(string animationName)
+    {
+        if (animator != null)
+        {
+            if (animationName == "Death")
+            {
+                dead = true;
+                thisCollider.enabled = false;
+                animator.SetBool("Death", true);
+                return animator.GetCurrentAnimatorStateInfo(0).length;
+            }
+            else if (animationName == "Hit")
+            {
+                animator.SetTrigger("Hit");
+                return animator.GetCurrentAnimatorStateInfo(0).length;
+            }
+        }
+
+        return 0;
+
+
+    }
+
 }

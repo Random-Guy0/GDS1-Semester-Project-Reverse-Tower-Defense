@@ -329,11 +329,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49c5406bbffd4ba679e87943c3a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpeed: 6
   Camera: {fileID: 0}
   cameraS: 
   move: {x: 0, y: 0, z: 0}
   animator: {fileID: 551575866422487914}
   health: 0
+  gateHp: 0
 --- !u!114 &5722577683324988590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,7 +378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de7a1ed860ae0d4090bb4f10c84f600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slow: {fileID: 9013102331826236116, guid: bea1b85b46e55da4aa7d28b223bc552d, type: 3}
+  slowEffect: {fileID: 9013102331826236116, guid: bea1b85b46e55da4aa7d28b223bc552d, type: 3}
+  healEffect: {fileID: 6705555653208667178, guid: 139e4ad51f49e494c8585dcce15f6619, type: 3}
+  inputActions: {fileID: -944628639613478452, guid: c900c91f3ab15cf40a0ba5b55d0dd17c, type: 3}
   manaManager: {fileID: 0}
   PlayerHealth: {fileID: 5722577683324988591}
   animator: {fileID: 551575866422487914}
@@ -407,7 +411,7 @@ RectTransform:
   m_GameObject: {fileID: 5722577683516980376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722577682361750203}
@@ -483,7 +487,7 @@ RectTransform:
   m_GameObject: {fileID: 5722577683573046845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722577682361750203}
@@ -559,7 +563,7 @@ RectTransform:
   m_GameObject: {fileID: 5722577683756818630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722577682361750203}

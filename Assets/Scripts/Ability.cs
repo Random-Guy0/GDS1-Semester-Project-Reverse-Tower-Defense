@@ -1,62 +1,82 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Ability : MonoBehaviour
 {
-    public GameObject slow;
+    public GameObject slowEffect;
+    public GameObject healEffect;
+    public InputActionAsset inputActions;
+    private InputAction slowAction;
+    private InputAction healAction;
     [SerializeField] private ManaManager manaManager;
     [SerializeField] private PlayerHealth PlayerHealth;
     [SerializeField] private Animator animator;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        slowAction = inputActions.FindActionMap("Player").FindAction("SlowSkill");
+        healAction = inputActions.FindActionMap("Player").FindAction("HealSkill");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            if (manaManager.ableToCost(50))
-            {
-                manaManager.costMana(50);
-                Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
-                animator.SetTrigger("Ability");
-            }
-        }else if(Input.GetKeyUp(KeyCode.Z)) {
-            animator.ResetTrigger("Ability");
-        }
+        slowAction.performed += OnSlowActionPerformed;
+        slowAction.canceled += OnSlowActionCanceled;
+        healAction.performed += OnHealActionPerformed;
+        healAction.canceled += OnHealActionCanceled;
+        slowAction.Enable();
+        healAction.Enable();
+    }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            if (manaManager.ableToCost(50))
-            {
-                manaManager.costMana(50);
-                PlayerHealth.health = PlayerHealth.maxHealth;
-                animator.SetTrigger("Ability");
-            }
-        }else if (Input.GetKeyUp(KeyCode.H))
-        {
-            animator.ResetTrigger("Ability");
-        }
+    private void OnDisable()
+    {
+        slowAction.performed -= OnSlowActionPerformed;
+        slowAction.canceled -= OnSlowActionCanceled;
+        healAction.performed -= OnHealActionPerformed;
+        healAction.canceled -= OnHealActionCanceled;
+        slowAction.Disable();
+        healAction.Disable();
+    }
+
+    private void OnSlowActionPerformed(InputAction.CallbackContext context)
+    {
+        StopAbility();
+    }
+
+    private void OnSlowActionCanceled(InputAction.CallbackContext context)
+    {
+        animator.ResetTrigger("Ability");
+    }
+
+    private void OnHealActionPerformed(InputAction.CallbackContext context)
+    {
+        HealAbility();
+    }
+
+    private void OnHealActionCanceled(InputAction.CallbackContext context)
+    {
+        animator.ResetTrigger("Ability");
     }
     public void HealAbility()
     {
-        if (manaManager.ableToCost(50))
+        if (manaManager.ableToCost(100))
         {
-            manaManager.costMana(50);
+            manaManager.costMana(100);
             PlayerHealth.health = PlayerHealth.maxHealth;
+            Instantiate(healEffect, gameObject.transform.position, healEffect.transform.rotation,transform);
+            animator.SetTrigger("Ability");
         }
     }
 
     public void StopAbility()
     {
-        if (manaManager.ableToCost(20))
+        if (manaManager.ableToCost(50))
         {
             manaManager.costMana(50);
-            Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
+            Instantiate(slowEffect, gameObject.transform.position, slowEffect.transform.rotation);
+            animator.SetTrigger("Ability");
         }
     }
 }

@@ -895,10 +895,14 @@ PrefabInstance:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: projectile
       value: 
-      objectReference: {fileID: 1272660704425954138, guid: 3e10a0485a78ab84995b24499985e354, type: 3}
+      objectReference: {fileID: 1272660704425954138, guid: 74fc8c0b2a667794e9e2194d7068f65f, type: 3}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: obstacleMask.m_Bits
+      value: 4224
       objectReference: {fileID: 0}
     - target: {fileID: 7792629658267466048, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_Enabled

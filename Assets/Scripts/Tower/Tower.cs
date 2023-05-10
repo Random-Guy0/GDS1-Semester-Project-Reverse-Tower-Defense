@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [Tooltip("The time it takes (in seconds) to attack again")]
     public float fireDelay = 1.0f;
+    [Tooltip("The time it takes (in seconds) to ready an attack while aiming")]
     public float shootStartUp = 0f;
+    [Tooltip("The time it takes (in seconds) to ready an attack WITHOUT aiming just for the player")]
+    public float shootPlayerDelay = 0.1f;
     public GameObject projectile;
     public float movementDelay = 60f;
     public bool immovable = false;
     public float spawnTime = 0f;
-    public GameObject presitgeClass;
+    public GameObject prestigeClass;
     public float prestigeTime = 120f;
     public Animator animator;
     public GameObject warningSign;
     public float warningSignTime = 30f;
     public ParticleSystem wakeParticles;
+    public GameObject warningCanvas;
 
     private Transform Model;
     private FieldOfView fov;
@@ -27,6 +32,7 @@ public class Tower : MonoBehaviour
     private bool state = true;
     private PathSegment[] ps;
     private GridTile TilePos;
+    private float fireDelayMod = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,14 +43,43 @@ public class Tower : MonoBehaviour
         if (spawnTime > 0)
         {
             TowerActive(false);
-            StartCoroutine("SpawnWithDelay", spawnTime);
+            StartCoroutine(SpawnWithDelay(spawnTime));
         }
-        StartCoroutine("FindTargetsWithDelay");
+        if (prestigeClass != null && prestigeTime > 0)
+        {
+            StartCoroutine(PromotionWithDelay(prestigeTime));
+        }
+        StartCoroutine(FindTargetsWithDelay());
         if (!immovable)
         {
-            StartCoroutine("MoveWithDelay");
-        }   
-        
+            StartCoroutine(MoveWithDelay());
+        } 
+    }
+    public IEnumerator PromotionWithDelay(float duration)
+    {
+        // wait for tower to activate
+        yield return new WaitUntil(new System.Func<bool>(() => GetState()));
+        // check if the warning sign should activate immidiatly 
+        if (duration < warningSignTime)
+        {
+            warningCanvas.SetActive(true);
+            yield return new WaitForSeconds(duration);
+        }
+        else
+        {
+            // Wait to spawn warning sign
+            yield return new WaitForSeconds(duration - warningSignTime);
+            warningCanvas.SetActive(true);
+            yield return new WaitForSeconds(warningSignTime);
+        }
+        // When time is up, destroy this tower and spawn new tower
+        if (gameObject != null)
+        {
+            warningCanvas.SetActive(false);
+            GameObject tmp = Instantiate(prestigeClass,transform.position, transform.rotation);
+            tmp.GetComponent<Tower>().wakeParticles.Play();
+            DestroyTower();
+        }
     }
     public IEnumerator SpawnWithDelay(float duration)
     {
@@ -71,15 +106,23 @@ public class Tower : MonoBehaviour
         Model.gameObject.SetActive(_state);
         firing = _state;
         state = _state;
+
+    }
+    public void DestroyTower()
+    {
+        Destroy(gameObject);
     }
     public bool GetState()
     {
         return state;
     }
-    // Update is called once per frame
-    void Update()
+    public float GetFireDelayMod()
     {
-
+        return fireDelayMod;
+    }
+    public void SetFireDelayMod(float newFireDelay)
+    {
+        fireDelayMod = newFireDelay;
     }
     public IEnumerator MoveWithDelay()
     {
@@ -130,7 +173,10 @@ public class Tower : MonoBehaviour
                     curTarget = fov.visibleTargets[0];
                 }
             }
-            curTarget = fov.visibleTargets[0];
+            else
+            {
+                curTarget = fov.visibleTargets[0];
+            }           
         }
     }
     public IEnumerator FindTargetsWithDelay()
@@ -141,19 +187,23 @@ public class Tower : MonoBehaviour
             if (firing && curTarget != null)
             {
                 transform.LookAt(curTarget);
-                yield return new WaitForSeconds(shootStartUp);
-                curTarget = null;
-                TargetFirstEnemy();
+                if (shootStartUp > 0)
+                {
+                    yield return new WaitForSeconds(shootStartUp);
+                    curTarget = null;
+                    TargetFirstEnemy();
+                }
                 if (curTarget != null)
                 {
-                    ShootVisableTarget();
-                    yield return new WaitForSeconds(fireDelay);
+                    StartCoroutine("ShootVisableTarget");
+                    //ShootVisableTarget();
+                    yield return new WaitForSeconds(fireDelay * fireDelayMod);
                 }
             }
             else if (!firing)
             {
                 yield return new WaitUntil(new System.Func<bool>(() => GetState()));
-                yield return new WaitForSeconds(fireDelay);
+                yield return new WaitForSeconds(fireDelay * fireDelayMod);
             }
             else
             {
@@ -161,10 +211,17 @@ public class Tower : MonoBehaviour
             }
         }
     }
-    void ShootVisableTarget()
+    IEnumerator ShootVisableTarget()
     {
         transform.LookAt(curTarget);
-
+        if (curTarget.CompareTag("Player"))
+        {
+            yield return new WaitForSeconds(shootPlayerDelay);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0f);
+        }
         Instantiate(projectile,shootPoint.position, shootPoint.rotation);
         curTarget = null;
     }

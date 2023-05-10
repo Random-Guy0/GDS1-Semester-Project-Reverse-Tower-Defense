@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: projectile
       value: 
-      objectReference: {fileID: 5037885833375721976, guid: 77289cdf1b1bef64d8945962cb56d404, type: 3}
+      objectReference: {fileID: 5037885833375721976, guid: 641a5cd20f1ab4f4abcc140db1c20a8d, type: 3}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
       value: 20
