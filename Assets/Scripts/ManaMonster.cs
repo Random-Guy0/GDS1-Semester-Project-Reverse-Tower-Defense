@@ -15,10 +15,12 @@ public class ManaMonster : Monster
         
         AttachedNavigationNode[] attachedNodes = FindObjectsOfType<AttachedNavigationNode>();
         allNodes = new NavigationNode[pathManager.GetGrid().Length];
-
+        
         for (int i = 0; i < attachedNodes.Length; i++)
         {
             int index = pathManager.GetIndexFromPosition(attachedNodes[i].navigationNode.position);
+            Debug.Log(attachedNodes[i].navigationNode.position);
+            Debug.Log(index);
             allNodes[index] = attachedNodes[i].navigationNode;
         }
         

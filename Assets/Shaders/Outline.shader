@@ -6,6 +6,7 @@ Shader "Custom/Outline"
         _MainTex ("Texture", 2D) = "white" {}
         _OutlineColor("Outline color", COlor) = (0, 0, 0, 1)
         _OutlineWidth("Outline width", Range(2.0, 0.5)) = 1.0
+        [HDR] _EmissionColor("Emission Color", Color) = (0, 0, 0, 1)
     }
 
     SubShader
@@ -112,12 +113,13 @@ Shader "Custom/Outline"
 
             sampler2D _MainTex;
             fixed4 _Color;
+            fixed4 _EmissionColor;
 
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv) * _Color;
                 fixed shadow = SHADOW_ATTENUATION(i);
-                fixed3 lighting = i.diff * shadow + i.ambient;
+                fixed3 lighting = i.diff * shadow + i.ambient + _EmissionColor;
                 col.rgb *= lighting;
                 return col;
             }

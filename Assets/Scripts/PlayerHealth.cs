@@ -25,9 +25,13 @@ public class PlayerHealth : MonoBehaviour
             if (gameObject.CompareTag("Monster"))
             {
                 FindObjectOfType<MonsterManager>().MonsterDeath(GetComponent<Monster>());
-                Destroy(gameObject);
+
+                // Start the coroutine that waits for the animation to finish
+                StartCoroutine(WaitForDeathAnimation("Death"));
+
+                
             }
-            if (gameObject.CompareTag("Player"))
+            if (gameObject.CompareTag("Player") && !FindObjectOfType<GameManager>().HasWon)
             {
                 gameObject.GetComponent<Movement>().playerSpeed = 0;
                 Invoke("loadLose", 1f);
@@ -44,6 +48,31 @@ public class PlayerHealth : MonoBehaviour
     public void DamageTake(int damage)
     {
         health -= damage;
+
+        if (gameObject.CompareTag("Monster"))
+        {
+            // Start the coroutine that waits for the animation to finish
+            StartCoroutine(WaitForAnimation("Hit"));
+        }
+       }
+
+    IEnumerator WaitForAnimation(string animationName)
+    {
+        Monster test = GetComponent<Monster>();
+        
+        // Wait until the current animation is finished playing
+        yield return new WaitForSeconds(test.SetAnimation(animationName));
+    }
+
+    IEnumerator WaitForDeathAnimation(string animationName)
+    {
+        Monster test = GetComponent<Monster>();
+
+        // Wait until the current animation is finished playing
+        yield return new WaitForSeconds(test.SetAnimation(animationName));
+
+        // Destroy the GameObject
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

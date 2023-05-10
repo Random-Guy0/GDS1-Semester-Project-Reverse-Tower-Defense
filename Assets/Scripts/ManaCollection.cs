@@ -16,7 +16,7 @@ public class ManaCollection : MonoBehaviour
     
     public void Collect()
     {
-        if(Player != null)
+        if (Player != null)
         {
             Player.GetComponent<Movement>().animator.SetBool("IsPickUp", false);
         }

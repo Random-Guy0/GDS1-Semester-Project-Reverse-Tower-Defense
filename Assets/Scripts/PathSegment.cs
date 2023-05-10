@@ -6,7 +6,7 @@ using UnityEngine;
 public class PathSegment : MonoBehaviour
 {
     public NavigationNode navigationNode;
-    private List<PathSegment> connectedPathSegments = new List<PathSegment>();
+    public List<PathSegment> connectedPathSegments = new List<PathSegment>();
 
     private void Awake()
     {
@@ -33,5 +33,17 @@ public class PathSegment : MonoBehaviour
     public PathSegment[] GetConnectedPathSegments()
     {
         return connectedPathSegments.ToArray();
+    }
+
+    public void Clone(PathSegment other)
+    {
+        this.navigationNode = other.navigationNode;
+        this.connectedPathSegments = other.connectedPathSegments;
+
+        foreach (PathSegment connnectedPathSegment in connectedPathSegments)
+        {
+            connnectedPathSegment.connectedPathSegments.Remove(other);
+            connnectedPathSegment.connectedPathSegments.Add(this);
+        }
     }
 }

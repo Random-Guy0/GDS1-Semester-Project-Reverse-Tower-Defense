@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 1619169806}
   - component: {fileID: 1619169805}
   m_Layer: 5
-  m_Name: Quit
+  m_Name: Next Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 272813133}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
