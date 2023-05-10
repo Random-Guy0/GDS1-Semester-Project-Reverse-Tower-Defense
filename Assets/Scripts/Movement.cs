@@ -42,11 +42,6 @@ public class Movement : MonoBehaviour
         {
             animator.SetBool("IsMove", false);
         }
-
-        if (health <= 0)
-        {
-            animator.SetBool("Death", true);
-        }
     }
 
     private void Update()
@@ -54,12 +49,13 @@ public class Movement : MonoBehaviour
         gateHp = GameObject.Find("Game Manager").GetComponent<GameManager>().getLevelHealth();
         health = GetComponent<PlayerHealth>().health;
         groundedPlayer = controller.isGrounded;
-        if (health == 0)
+
+        if (health <= 0)
         {
             animator.SetBool("Death", true);
         }
 
-        if (gateHp == 0)
+        if (gateHp <= 0)
         {
             Debug.Log("dance");
             animator.SetBool("Dance", true);
