@@ -24988,6 +24988,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4376931925939605402}
     - target: {fileID: 5722577683324988592, guid: f17bee49d032b364491ba094693b0279, type: 3}
+      propertyPath: healEffect
+      value: 
+      objectReference: {fileID: 6705555653208667178, guid: 139e4ad51f49e494c8585dcce15f6619, type: 3}
+    - target: {fileID: 5722577683324988592, guid: f17bee49d032b364491ba094693b0279, type: 3}
+      propertyPath: slowEffect
+      value: 
+      objectReference: {fileID: 9013102331826236116, guid: bea1b85b46e55da4aa7d28b223bc552d, type: 3}
+    - target: {fileID: 5722577683324988592, guid: f17bee49d032b364491ba094693b0279, type: 3}
       propertyPath: manaManager
       value: 
       objectReference: {fileID: 1265316273}

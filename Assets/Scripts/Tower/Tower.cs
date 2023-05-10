@@ -32,7 +32,7 @@ public class Tower : MonoBehaviour
     private bool state = true;
     private PathSegment[] ps;
     private GridTile TilePos;
-    private float fireDelayMod;
+    private float fireDelayMod = 1;
     // Start is called before the first frame update
     void Start()
     {

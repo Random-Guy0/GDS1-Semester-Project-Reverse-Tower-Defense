@@ -132,6 +132,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 1
+    m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   HP: {fileID: 5722577683756818632}
@@ -296,10 +297,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5722577683324988582}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -323,6 +335,7 @@ MonoBehaviour:
   move: {x: 0, y: 0, z: 0}
   animator: {fileID: 551575866422487914}
   health: 0
+  gateHp: 0
 --- !u!114 &5722577683324988590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de7a1ed860ae0d4090bb4f10c84f600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slow: {fileID: 9013102331826236116, guid: bea1b85b46e55da4aa7d28b223bc552d, type: 3}
+  slowEffect: {fileID: 9013102331826236116, guid: bea1b85b46e55da4aa7d28b223bc552d, type: 3}
+  healEffect: {fileID: 6705555653208667178, guid: 139e4ad51f49e494c8585dcce15f6619, type: 3}
   inputActions: {fileID: -944628639613478452, guid: c900c91f3ab15cf40a0ba5b55d0dd17c, type: 3}
   manaManager: {fileID: 0}
   PlayerHealth: {fileID: 5722577683324988591}
@@ -603,7 +617,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 5722577683324988588}
     m_Modifications:
     - target: {fileID: 2174417928175582219, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
@@ -671,7 +685,9 @@ PrefabInstance:
       value: Merlin
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80fccf3e6b50e854d895ec93a620465e, type: 3}
 --- !u!95 &551575866422487914 stripped
 Animator:
