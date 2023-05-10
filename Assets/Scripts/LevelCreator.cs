@@ -107,6 +107,9 @@ public class LevelCreator : EditorWindow
             case GridTile.End:
                 style.normal.textColor = Color.magenta;
                 break;
+            default:
+                style.normal.textColor = Color.red;
+                break;
         }
         return style;
     }
