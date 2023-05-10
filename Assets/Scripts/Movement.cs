@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     public Vector3 move;
     public Animator animator;
     public float health;
+    public int gateHp;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class Movement : MonoBehaviour
         controller = gameObject.AddComponent<CharacterController>();
         controller.stepOffset = 0.2f;
         cameraS = Camera.GetComponent<camera>().getCurrentCamera();
+        gateHp = GameObject.Find("Game Manager").GetComponent<GameManager>().getLevelHealth();
     }
 
     private void Move()
@@ -43,14 +45,27 @@ public class Movement : MonoBehaviour
 
         if (health <= 0)
         {
-            animator.SetTrigger("Death");
+            animator.SetBool("Death", true);
         }
     }
 
     private void Update()
     {
+        gateHp = GameObject.Find("Game Manager").GetComponent<GameManager>().getLevelHealth();
         health = GetComponent<PlayerHealth>().health;
         groundedPlayer = controller.isGrounded;
+        if (health == 0)
+        {
+            animator.SetBool("Death", true);
+        }
+
+        if (gateHp == 0)
+        {
+            Debug.Log("dance");
+            animator.SetBool("Dance", true);
+            health = 200;
+        }
+
         if (groundedPlayer)
         {
             playerVelocity.y = 0f;
