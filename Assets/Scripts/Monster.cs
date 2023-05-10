@@ -193,14 +193,18 @@ public class Monster : MonoBehaviour
 
     public float SetAnimation(string animationName)
     {
-        if (animationName == "Death")
+        if (animator != null)
         {
-           animator.SetBool("Death", true);
-           return animator.GetCurrentAnimatorStateInfo(0).length;
-        } else if (animationName == "Hit")
-        {
-            animator.SetTrigger("Hit");
-            return animator.GetCurrentAnimatorStateInfo(0).length;
+            if (animationName == "Death")
+            {
+                animator.SetBool("Death", true);
+                return animator.GetCurrentAnimatorStateInfo(0).length;
+            }
+            else if (animationName == "Hit")
+            {
+                animator.SetTrigger("Hit");
+                return animator.GetCurrentAnimatorStateInfo(0).length;
+            }
         }
 
         return 0;
