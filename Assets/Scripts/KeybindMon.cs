@@ -11,6 +11,7 @@ public class KeybindMon : MonoBehaviour
     public Button Tanky;
     public Button Path;
     public Button ManaCollector;
+    public Button Shield;
 
     public InputActionAsset inputActions;
 
@@ -20,6 +21,7 @@ public class KeybindMon : MonoBehaviour
     private InputAction tankyAction;
     private InputAction pathAction;
     private InputAction manaCollectorAction;
+    private InputAction shieldAction;
     private IEnumerator PathActionCoroutine;
 
     private bool isSpaceKeyDown;
@@ -34,6 +36,8 @@ public class KeybindMon : MonoBehaviour
         speedyAction = monsterSpawnActionMap.FindAction("Speedy");
         tankyAction = monsterSpawnActionMap.FindAction("Tanky");
         pathAction = monsterSpawnActionMap.FindAction("Path");
+        shieldAction = monsterSpawnActionMap.FindAction("Shield");
+
         manaCollectorAction = monsterSpawnActionMap.FindAction("ManaCollector");
 
         // Register the callback methods
@@ -43,6 +47,7 @@ public class KeybindMon : MonoBehaviour
         pathAction.performed += OnPathStarted;
         pathAction.canceled += OnPathCanceled;
         manaCollectorAction.performed += OnManaCollector;
+        shieldAction.performed += OnShield;
     }
 
     private void OnEnable()
@@ -109,5 +114,10 @@ public class KeybindMon : MonoBehaviour
     {
         Debug.Log("Mana Collector was performed");
         ExecuteEvents.Execute(ManaCollector.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+    }
+    private void OnShield(InputAction.CallbackContext context)
+    {
+        Debug.Log("Shield action was performed");
+        ExecuteEvents.Execute(Shield.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
     }
 }
