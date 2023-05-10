@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Ability : MonoBehaviour
 {
-    public GameObject slow;
+    public GameObject slowEffect;
+    public GameObject healEffect;
     public InputActionAsset inputActions;
     private InputAction slowAction;
     private InputAction healAction;
@@ -64,6 +65,7 @@ public class Ability : MonoBehaviour
         {
             manaManager.costMana(50);
             PlayerHealth.health = PlayerHealth.maxHealth;
+            Instantiate(healEffect, gameObject.transform.position, healEffect.transform.rotation,transform);
             animator.SetTrigger("Ability");
         }
     }
@@ -73,7 +75,7 @@ public class Ability : MonoBehaviour
         if (manaManager.ableToCost(50))
         {
             manaManager.costMana(50);
-            Instantiate(slow, gameObject.transform.position, gameObject.transform.rotation);
+            Instantiate(slowEffect, gameObject.transform.position, slowEffect.transform.rotation);
             animator.SetTrigger("Ability");
         }
     }

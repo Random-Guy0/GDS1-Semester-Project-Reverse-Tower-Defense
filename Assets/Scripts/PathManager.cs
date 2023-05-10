@@ -264,10 +264,10 @@ public class PathManager : MonoBehaviour
                 if ((int)grid[currentIndex] >= 2 && (int)grid[currentIndex] < 5)
                 {
                     Vector3 position = gridGameobjects[currentIndex].transform.position;
-                    bool top = j + 1 < levelDepth && (int)grid[(j + 1) * levelWidth + i] >= 2 && (int)grid[(j + 1) * levelWidth + i] < 5;
-                    bool bottom = j - 1 >= 0 && (int)grid[(j - 1) * levelWidth + i] >= 2 && (int)grid[(j - 1) * levelWidth + i] < 5;
-                    bool left = i - 1 >= 0 && (int)grid[j * levelWidth + i - 1] >= 2 && (int)grid[j * levelWidth + i - 1] < 5;
-                    bool right = i + 1 < levelWidth && (int)grid[j * levelWidth + i + 1] >= 2 && (int)grid[j * levelWidth + i + 1] < 5;
+                    bool top = j + 1 < levelDepth && (int)grid[(j + 1) * levelWidth + i] >= 2 && (int)grid[(j + 1) * levelWidth + i] < 5 && Mathf.Abs(MeshHeight(currentIndex) - MeshHeight((j + 1) * levelWidth + i)) <= stepHeight;
+                    bool bottom = j - 1 >= 0 && (int)grid[(j - 1) * levelWidth + i] >= 2 && (int)grid[(j - 1) * levelWidth + i] < 5 && Mathf.Abs(MeshHeight(currentIndex) - MeshHeight((j - 1) * levelWidth + i)) <= stepHeight;
+                    bool left = i - 1 >= 0 && (int)grid[j * levelWidth + i - 1] >= 2 && (int)grid[j * levelWidth + i - 1] < 5 && Mathf.Abs(MeshHeight(currentIndex) - MeshHeight(j * levelWidth + i - 1)) <= stepHeight;
+                    bool right = i + 1 < levelWidth && (int)grid[j * levelWidth + i + 1] >= 2 && (int)grid[j * levelWidth + i + 1] < 5 && Mathf.Abs(MeshHeight(currentIndex) - MeshHeight(j * levelWidth + i + 1)) <= stepHeight;
 
                     int countTrue = 0;
                     if (top)

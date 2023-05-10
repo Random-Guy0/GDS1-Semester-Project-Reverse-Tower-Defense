@@ -71,6 +71,8 @@ public class PlayerHealth : MonoBehaviour
         // Wait until the current animation is finished playing
         yield return new WaitForSeconds(test.SetAnimation(animationName));
 
+        gameObject.GetComponent<Monster>().speed = 0;
+
         // Destroy the GameObject
         Destroy(gameObject);
     }
