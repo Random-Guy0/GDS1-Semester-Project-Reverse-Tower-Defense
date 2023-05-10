@@ -8,10 +8,13 @@ public class Monster : MonoBehaviour
     public float speed;
     [SerializeField] private int damage = 1;
     private Animator animator;
+    [SerializeField] private Collider thisCollider;
 
     protected PathManager pathManager;
     protected List<Vector3> pathToFollow;
     protected int lastIndex;
+
+    private bool dead = false;
 
     private void Start()
     {
@@ -26,7 +29,7 @@ public class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(pathToFollow.Count > 0)
+        if(pathToFollow.Count > 0 && !dead)
         {
             Vector3 targetPos = pathToFollow[0];
             targetPos.y = transform.position.y;
@@ -197,6 +200,8 @@ public class Monster : MonoBehaviour
         {
             if (animationName == "Death")
             {
+                dead = true;
+                thisCollider.enabled = false;
                 animator.SetBool("Death", true);
                 return animator.GetCurrentAnimatorStateInfo(0).length;
             }

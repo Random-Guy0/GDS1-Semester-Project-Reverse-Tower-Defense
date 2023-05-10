@@ -923,6 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   damage: 1
+  thisCollider: {fileID: 3238322051593471755}
 --- !u!114 &3238322051593471797
 MonoBehaviour:
   m_ObjectHideFlags: 0
