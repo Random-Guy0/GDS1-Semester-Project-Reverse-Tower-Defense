@@ -16,11 +16,11 @@ public class Projectile : MonoBehaviour
     private bool shouldBeDead = false;
     private Rigidbody rb;
     private List<GameObject> hitTargets = new List<GameObject>();
-    private AudioSource audio;
+    private AudioSource Sound;
     // Start is called before the first frame update
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        Sound = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
         StartCoroutine("LifeSpan", lifeTime);        
@@ -39,9 +39,9 @@ public class Projectile : MonoBehaviour
         //StartCoroutine(AudioInstance.InstantiateAudio(ass));
         //System.Reflection.PropertyInfo[] props = this.GetType().GetProperties();
         //this.GetType().GetProperty("NextPhase").GetCustomAttributes<TooltipAttribute>(false);
-        if (audio != null || audio.clip != null)
+        if (Sound != null || Sound.clip != null)
         {
-            AudioInstance.Play(audio.clip);
+            AudioInstance.Play(Sound.clip);
         }     
         if (HitEffect != null)
         {
