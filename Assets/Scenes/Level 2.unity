@@ -12159,6 +12159,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5936000330780720867, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8205311112442893850, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -15981,7 +15985,7 @@ Transform:
   m_GameObject: {fileID: 1393878133}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 21.1, y: 0.5, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 771606368}
@@ -16780,6 +16784,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelHealthText: {fileID: 1952890184}
   levelHealth: 5
+  PlayerAni: {fileID: 0}
+  originalGameObject: {fileID: 0}
 --- !u!4 &1470944271
 Transform:
   m_ObjectHideFlags: 0
@@ -25444,6 +25450,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  stepHeight: 0
   gridGameobjects:
   - {fileID: 619704788}
   - {fileID: 376923979}
