@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
         PlayerAni = originalGameObject.transform.GetChild(1).gameObject.GetComponent<Animator>();
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        levelHealth--;
+        levelHealth -= damage;
         if (levelHealth < 0)
         {
             levelHealth = 0;

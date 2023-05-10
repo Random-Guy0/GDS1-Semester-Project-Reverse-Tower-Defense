@@ -699,7 +699,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3238322051593471796
 MonoBehaviour:
@@ -714,6 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  damage: 1
 --- !u!114 &3238322051593471797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 100
+  maxHealth: 200
   healthBar: {fileID: 3238322051522107931}
 --- !u!54 &3238322051593471798
 Rigidbody:
@@ -1067,7 +1068,7 @@ GameObject:
   - component: {fileID: 8280558750828713387}
   - component: {fileID: 7876303255146727328}
   - component: {fileID: 77834312628144684}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1083,7 +1084,7 @@ Transform:
   m_GameObject: {fileID: 4340909618248580671}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3238322051593471752}
