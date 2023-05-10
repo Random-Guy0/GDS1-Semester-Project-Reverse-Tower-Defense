@@ -6,6 +6,7 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private int damage = 1;
     private Animator animator;
 
     protected PathManager pathManager;
@@ -47,7 +48,7 @@ public class Monster : MonoBehaviour
     {
         if (pathToFollow[0].Equals(pathManager.GetEnd().navigationNode.position))
         {
-            FindObjectOfType<GameManager>().TakeDamage();
+            FindObjectOfType<GameManager>().TakeDamage(damage);
             Destroy(gameObject);
         }
         else
