@@ -27,8 +27,11 @@ public class Monster : MonoBehaviour
             Vector3 targetPos = pathToFollow[0];
             targetPos.y = transform.position.y;
             transform.LookAt(targetPos);
-            Vector3 moveDirection = (targetPos - transform.position).normalized;
-            transform.position += speed * Time.deltaTime * moveDirection;
+            Vector3 position = transform.position;
+            Vector3 moveDirection = (targetPos - position).normalized;
+            position += speed * Time.deltaTime * moveDirection;
+            position.y = pathManager.MeshHeight(pathManager.GetIndexFromPosition(position)) - 0.3f;
+            transform.position = position;
 
             if (Vector3.Distance(transform.position, targetPos) < 0.05)
             {

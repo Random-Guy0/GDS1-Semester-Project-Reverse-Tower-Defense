@@ -15,6 +15,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] private float gridSize;
     [SerializeField] private GridTile[] grid;
     [SerializeField] private float[] heights;
+    [SerializeField] private float stepHeight;
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
@@ -411,7 +412,7 @@ public class PathManager : MonoBehaviour
                 int index = (levelDepth - j - 1) * levelWidth + i;
                 if (manaPositions[index])
                 {
-                    validManaPositions.Add(new Vector3(i * gridSize, 1.5f, j * gridSize));
+                    validManaPositions.Add(new Vector3(i * gridSize, MeshHeight(index) + 1.5f, j * gridSize));
                 }
             }
         }
@@ -421,26 +422,27 @@ public class PathManager : MonoBehaviour
 
     private void SetConnectedPathSegments(int x, int z)
     {
-        PathSegment pathSegment = pathSegments[z * levelWidth + x];
-        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
+        int index = z * levelWidth + x;
+        PathSegment pathSegment = pathSegments[index];
+        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x + 1)) <= stepHeight)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[z * levelWidth + x + 1]);
             pathSegments[z * levelWidth + x + 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null)
+        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x - 1)) <= stepHeight)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[z * levelWidth + x - 1]);
             pathSegments[z * levelWidth + x - 1].AddConnectedPathSegment(pathSegment);
         }
         
-        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null)
+        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null && Mathf.Abs(MeshHeight(index) - MeshHeight((z + 1) * levelWidth + x)) <= stepHeight)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[(z + 1) * levelWidth + x]);
             pathSegments[(z + 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
         }
         
-        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null)
+        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null && Mathf.Abs(MeshHeight(index) - MeshHeight((z - 1) * levelWidth + x)) <= stepHeight)
         {
             pathSegment.AddConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
             pathSegments[(z - 1) * levelWidth + x].AddConnectedPathSegment(pathSegment);
@@ -449,32 +451,39 @@ public class PathManager : MonoBehaviour
 
     private void RemovePathSegment(int x, int z)
     {
-        PathSegment pathSegment = pathSegments[z * levelWidth + x];
+        int index = z * levelWidth + x;
+        PathSegment pathSegment = pathSegments[index];
         
-        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null)
+        if (x + 1 < levelWidth && pathSegments[z * levelWidth + x + 1] != null && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x + 1)) <= stepHeight)
         {
             pathSegment.RemoveConnectedPathSegment(pathSegments[z * levelWidth + x + 1]);
             pathSegments[z * levelWidth + x + 1].RemoveConnectedPathSegment(pathSegment);
         }
         
-        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null)
+        if (x - 1 >= 0 && pathSegments[z * levelWidth + x - 1] != null && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x - 1)) <= stepHeight)
         {
             pathSegment.RemoveConnectedPathSegment(pathSegments[z * levelWidth + x - 1]);
             pathSegments[z * levelWidth + x - 1].RemoveConnectedPathSegment(pathSegment);
         }
         
-        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null)
+        if (z + 1 < levelDepth && pathSegments[(z + 1) * levelWidth + x] != null && Mathf.Abs(MeshHeight(index) - MeshHeight((z + 1) * levelWidth + x)) <= stepHeight)
         {
             pathSegment.RemoveConnectedPathSegment(pathSegments[(z + 1) * levelWidth + x]);
             pathSegments[(z + 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
         }
         
-        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null)
+        if (z - 1 >= 0 && pathSegments[(z - 1) * levelWidth + x] != null && Mathf.Abs(MeshHeight(index) - MeshHeight((z - 1) * levelWidth + x)) <= stepHeight)
         {
             pathSegment.RemoveConnectedPathSegment(pathSegments[(z - 1) * levelWidth + x]);
             pathSegments[(z - 1) * levelWidth + x].RemoveConnectedPathSegment(pathSegment);
         }
         pathSegments[z * levelWidth + x] = null;
+    }
+
+    public float MeshHeight(int index)
+    {
+        //return gridGameobjects[index].transform.position.y + gridGameobjects[index].transform.localScale.y * 0.5f;
+        return gridGameobjects[index].GetComponent<MeshRenderer>().bounds.size.y;
     }
 
     public PathSegment GetPathSegmentAtPosition(Vector3 position)
@@ -502,6 +511,11 @@ public class PathManager : MonoBehaviour
     public PathSegment GetStart()
     {
         return pathSegments[start];
+    }
+
+    public float GetStartHeight()
+    {
+        return MeshHeight(start);
     }
 
     public PathSegment GetEnd()
@@ -579,24 +593,25 @@ public class PathManager : MonoBehaviour
     {
         int x = GetXFromPosition(position);
         int z = GetZFromPosition(position);
+        int index = z * levelWidth + x;
         List<Vector3> validPositions = new List<Vector3>();
         
-        if (x + 1 < levelWidth && grid[z * levelWidth + x + 1] != GridTile.Mountain)
+        if (x + 1 < levelWidth && grid[z * levelWidth + x + 1] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x + 1)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[z * levelWidth + x + 1].transform.position);
         }
         
-        if (x - 1 >= 0 && grid[z * levelWidth + x - 1] != GridTile.Mountain)
+        if (x - 1 >= 0 && grid[z * levelWidth + x - 1] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x - 1)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[z * levelWidth + x - 1].transform.position);
         }
         
-        if (z + 1 < levelDepth && grid[(z + 1) * levelWidth + x] != GridTile.Mountain)
+        if (z + 1 < levelDepth && grid[(z + 1) * levelWidth + x] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight((z + 1) * levelWidth + x)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[(z + 1) * levelWidth + x].transform.position);
         }
         
-        if (z - 1 >= 0 && grid[(z - 1) * levelWidth + x] != GridTile.Mountain)
+        if (z - 1 >= 0 && grid[(z - 1) * levelWidth + x] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight((z - 1) * levelWidth + x)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[(z - 1) * levelWidth + x].transform.position);
         }
