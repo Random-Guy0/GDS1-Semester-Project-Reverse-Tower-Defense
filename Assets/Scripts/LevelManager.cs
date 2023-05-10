@@ -46,4 +46,21 @@ public class LevelManager : MonoBehaviour
         Destroy(levelToTryAgain.gameObject);
         SceneManager.LoadScene(index);
     }
+
+    public void NextLevel()
+    {
+        SceneInfo nextLevel = FindObjectOfType<SceneInfo>();
+        SceneManager.sceneLoaded -= nextLevel.OnSceneLoad;
+        int index = nextLevel.SceneIndex + 1;
+        Destroy(nextLevel.gameObject);
+
+        if (index > 5)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(index);
+        }
+    }
 }

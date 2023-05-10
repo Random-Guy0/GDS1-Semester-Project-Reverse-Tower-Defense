@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int levelHealth;
     [SerializeField] private Animator PlayerAni;
     [SerializeField] GameObject originalGameObject;
+    
+    public bool HasWon { get; private set; }
 
     private void Start()
     {
@@ -22,9 +24,14 @@ public class GameManager : MonoBehaviour
     public void TakeDamage()
     {
         levelHealth--;
+        if (levelHealth < 0)
+        {
+            levelHealth = 0;
+        }
         SetHealthText();
         if (levelHealth <= 0)
         {
+            HasWon = true;
             originalGameObject.GetComponent<Movement>().playerSpeed = 0;
             Invoke("loadWin", 3.5f);
         }

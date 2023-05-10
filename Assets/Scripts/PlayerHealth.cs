@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
 
                 
             }
-            if (gameObject.CompareTag("Player"))
+            if (gameObject.CompareTag("Player") && !FindObjectOfType<GameManager>().HasWon)
             {
                 gameObject.GetComponent<Movement>().playerSpeed = 0;
                 Invoke("loadLose", 1f);
