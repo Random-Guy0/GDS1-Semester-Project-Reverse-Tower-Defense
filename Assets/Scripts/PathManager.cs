@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class PathManager : MonoBehaviour
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
     [SerializeField] private GameObject[] borderPrefabs;
+    [SerializeField] private GameObject[] obstaclePrefabs;
     [SerializeField] private PathSegment[] pathSegments;
     [SerializeField] private int start;
     [SerializeField] private int end;
@@ -40,7 +42,7 @@ public class PathManager : MonoBehaviour
         manaPositions = new bool[grid.Length];
         for (int i = 0; i < manaPositions.Length; i++)
         {
-            manaPositions[i] = grid[i] != GridTile.Mountain;
+            manaPositions[i] = grid[i] != GridTile.Mountain && (int)grid[i] < 5;
         }
 
         for (int i = 0; i < levelWidth; i++)
@@ -200,7 +202,28 @@ public class PathManager : MonoBehaviour
         int index = z * levelWidth + x;
         DestroyImmediate(gridGameobjects[index]);
         grid[index] = newGridTile;
-        if (!(grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End))
+        if ((int)grid[index] >= 5)
+        {
+            Vector3 rotation = Vector3.up;
+            int randRotation = Random.Range(0, 4);
+            rotation.y *= 90.0f * randRotation;
+            gridGameobjects[index] = Instantiate(obstaclePrefabs[(int)newGridTile - 5],
+                new Vector3(x * gridSize, obstaclePrefabs[(int)newGridTile - 5].transform.position.y,
+                    (levelDepth - z - 1) * gridSize),
+                Quaternion.Euler(rotation), levelParent.transform);
+            Vector3 scale = gridGameobjects[index].transform.localScale;
+            scale.y *= heights[index];
+            gridGameobjects[index].transform.localScale = scale;
+
+            for (int i = 0; i < gridGameobjects[index].transform.childCount; i++)
+            {
+                Transform child = gridGameobjects[index].transform.GetChild(i);
+                Vector3 childScale = child.transform.localScale;
+                childScale.y /= heights[index];
+                child.transform.localScale = childScale;
+            }
+        }
+        else if (!(grid[index] == GridTile.Start || grid[index] == GridTile.Path || grid[index] == GridTile.End))
         {
             gridGameobjects[index] = Instantiate(tilePrefabs[(int)newGridTile],
                 new Vector3(x * gridSize, tilePrefabs[(int)newGridTile].transform.position.y,
@@ -238,13 +261,13 @@ public class PathManager : MonoBehaviour
             for (int j = 0; j < levelDepth; j++)
             {
                 int currentIndex = j * levelWidth + i;
-                if ((int)grid[currentIndex] >= 2)
+                if ((int)grid[currentIndex] >= 2 && (int)grid[currentIndex] < 5)
                 {
                     Vector3 position = gridGameobjects[currentIndex].transform.position;
-                    bool top = j + 1 < levelDepth && (int)grid[(j + 1) * levelWidth + i] >= 2;
-                    bool bottom = j - 1 >= 0 && (int)grid[(j - 1) * levelWidth + i] >= 2;
-                    bool left = i - 1 >= 0 && (int)grid[j * levelWidth + i - 1] >= 2;
-                    bool right = i + 1 < levelWidth && (int)grid[j * levelWidth + i + 1] >= 2;
+                    bool top = j + 1 < levelDepth && (int)grid[(j + 1) * levelWidth + i] >= 2 && (int)grid[(j + 1) * levelWidth + i] < 5;
+                    bool bottom = j - 1 >= 0 && (int)grid[(j - 1) * levelWidth + i] >= 2 && (int)grid[(j - 1) * levelWidth + i] < 5;
+                    bool left = i - 1 >= 0 && (int)grid[j * levelWidth + i - 1] >= 2 && (int)grid[j * levelWidth + i - 1] < 5;
+                    bool right = i + 1 < levelWidth && (int)grid[j * levelWidth + i + 1] >= 2 && (int)grid[j * levelWidth + i + 1] < 5;
 
                     int countTrue = 0;
                     if (top)
@@ -632,22 +655,22 @@ public class PathManager : MonoBehaviour
         int index = z * levelWidth + x;
         List<Vector3> validPositions = new List<Vector3>();
         
-        if (x + 1 < levelWidth && grid[z * levelWidth + x + 1] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x + 1)) <= stepHeight)
+        if (x + 1 < levelWidth && grid[z * levelWidth + x + 1] != GridTile.Mountain && (int)grid[z * levelWidth + x + 1] < 5 && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x + 1)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[z * levelWidth + x + 1].transform.position);
         }
         
-        if (x - 1 >= 0 && grid[z * levelWidth + x - 1] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x - 1)) <= stepHeight)
+        if (x - 1 >= 0 && grid[z * levelWidth + x - 1] != GridTile.Mountain && (int)grid[z * levelWidth + x - 1] < 5 && Mathf.Abs(MeshHeight(index) - MeshHeight(z * levelWidth + x - 1)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[z * levelWidth + x - 1].transform.position);
         }
         
-        if (z + 1 < levelDepth && grid[(z + 1) * levelWidth + x] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight((z + 1) * levelWidth + x)) <= stepHeight)
+        if (z + 1 < levelDepth && grid[(z + 1) * levelWidth + x] != GridTile.Mountain && (int)grid[(z + 1) * levelWidth + x] < 5 && Mathf.Abs(MeshHeight(index) - MeshHeight((z + 1) * levelWidth + x)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[(z + 1) * levelWidth + x].transform.position);
         }
         
-        if (z - 1 >= 0 && grid[(z - 1) * levelWidth + x] != GridTile.Mountain && Mathf.Abs(MeshHeight(index) - MeshHeight((z - 1) * levelWidth + x)) <= stepHeight)
+        if (z - 1 >= 0 && grid[(z - 1) * levelWidth + x] != GridTile.Mountain && (int)grid[(z - 1) * levelWidth + x] < 5 && Mathf.Abs(MeshHeight(index) - MeshHeight((z - 1) * levelWidth + x)) <= stepHeight)
         {
             validPositions.Add(gridGameobjects[(z - 1) * levelWidth + x].transform.position);
         }
@@ -667,5 +690,20 @@ public enum GridTile
     Mountain,
     Path,
     Start,
-    End
+    End,
+    ArcheryRangeObstacle,
+    BarracksObstacle,
+    CastleObstacle,
+    FarmObstacle,
+    ForestObstacle,
+    HouseObstacle,
+    LumbermillObstacle,
+    MarketObstacle,
+    MillObstacle,
+    MineObstacle,
+    MountainObstacle,
+    RocksObstacle,
+    WatchtowerObstacle,
+    WatermillObstacle,
+    WellObstacle
 }
