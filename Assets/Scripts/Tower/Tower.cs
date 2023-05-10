@@ -32,6 +32,7 @@ public class Tower : MonoBehaviour
     private bool state = true;
     private PathSegment[] ps;
     private GridTile TilePos;
+    private float fireDelayMod;
     // Start is called before the first frame update
     void Start()
     {
@@ -115,10 +116,13 @@ public class Tower : MonoBehaviour
     {
         return state;
     }
-    // Update is called once per frame
-    void Update()
+    public float GetFireDelayMod()
     {
-
+        return fireDelayMod;
+    }
+    public void SetFireDelayMod(float newFireDelay)
+    {
+        fireDelayMod = newFireDelay;
     }
     public IEnumerator MoveWithDelay()
     {
@@ -193,13 +197,13 @@ public class Tower : MonoBehaviour
                 {
                     StartCoroutine("ShootVisableTarget");
                     //ShootVisableTarget();
-                    yield return new WaitForSeconds(fireDelay);
+                    yield return new WaitForSeconds(fireDelay * fireDelayMod);
                 }
             }
             else if (!firing)
             {
                 yield return new WaitUntil(new System.Func<bool>(() => GetState()));
-                yield return new WaitForSeconds(fireDelay);
+                yield return new WaitForSeconds(fireDelay * fireDelayMod);
             }
             else
             {
