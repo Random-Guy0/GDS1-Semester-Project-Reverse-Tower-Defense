@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,11 @@ public class PathBeacon : MonoBehaviour
         {
             PlacePath();
         }*/
+    }
+
+    private void LateUpdate()
+    {
+        pathManager.ChangePlaceMode(transform.position);
     }
 
     public void PlacePath()

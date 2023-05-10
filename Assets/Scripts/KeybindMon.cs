@@ -83,7 +83,7 @@ public class KeybindMon : MonoBehaviour
         {
             Debug.Log("Path action was performed");
             ExecuteEvents.Execute(Path.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
-            yield return new WaitForSeconds(0.4f); // Customize the delay between repeated executions
+            yield return new WaitForSeconds(0.01f); // Customize the delay between repeated executions
         }
     }
 

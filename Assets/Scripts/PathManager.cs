@@ -33,6 +33,8 @@ public class PathManager : MonoBehaviour
 
     private int selectedTileIndex = 0;
 
+    public bool PlaceOrRemove { private set; get; }
+
     private void Awake()
     {
         manaPositions = new bool[grid.Length];
@@ -51,6 +53,8 @@ public class PathManager : MonoBehaviour
                 }
             }
         }
+
+        PlaceOrRemove = true;
     }
 
     private void Start()
@@ -379,9 +383,18 @@ public class PathManager : MonoBehaviour
     //place a section of the path, returning if it was placed or not
     public void PlacePath(Vector3 position)
     {
+        if (PlaceOrRemove)
+        {
+            CancelInvoke(nameof(AllowRemove));
+        }
+        else
+        {
+            CancelInvoke(nameof(AllowPlace));
+        }
+        
         int x = GetXFromPosition(position);
         int z = GetZFromPosition(position);
-        if (GetGridPoint(position) == GridTile.Ground && pathPiecesAvailable > 0)
+        if (PlaceOrRemove && GetGridPoint(position) == GridTile.Ground && pathPiecesAvailable > 0)
         {
             pathPiecesAvailable--;
             SetGridPoint(position, GridTile.Path);
@@ -389,7 +402,7 @@ public class PathManager : MonoBehaviour
             monsterManager.PathChange();
             UpdatePathTiles();
         }
-        else if (GetGridPoint(position) == GridTile.Path)
+        else if (!PlaceOrRemove && GetGridPoint(position) == GridTile.Path)
         {
             pathPiecesAvailable++;
             RemovePathSegment(x, z);
@@ -401,6 +414,29 @@ public class PathManager : MonoBehaviour
         SetPathSegmentText();
     }
 
+    public void ChangePlaceMode(Vector3 position)
+    {
+        if (GetGridPoint(position) == GridTile.Path)
+        {
+            Invoke(nameof(AllowRemove), 0.05f);
+        }
+
+        if (GetGridPoint(position) == GridTile.Ground)
+        {
+            Invoke(nameof(AllowPlace), 0.05f);
+        }
+    }
+
+    private void AllowPlace()
+    {
+        PlaceOrRemove = true;
+    }
+    
+    private void AllowRemove()
+    {
+        PlaceOrRemove = false;
+    }
+    
     public List<Vector3> GetValidManaPositions()
     {
         List<Vector3> validManaPositions = new List<Vector3>();
@@ -412,7 +448,7 @@ public class PathManager : MonoBehaviour
                 int index = (levelDepth - j - 1) * levelWidth + i;
                 if (manaPositions[index])
                 {
-                    validManaPositions.Add(new Vector3(i * gridSize, MeshHeight(index) + 1.5f, j * gridSize));
+                    validManaPositions.Add(new Vector3(i * gridSize, MeshHeight(index) + 1.0f, j * gridSize));
                 }
             }
         }
