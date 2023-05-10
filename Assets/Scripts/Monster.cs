@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    public float speed;
     [SerializeField] private int damage = 1;
     private Animator animator;
 
