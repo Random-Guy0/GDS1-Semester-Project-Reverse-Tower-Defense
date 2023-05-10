@@ -21,14 +21,7 @@ public class Slow : MonoBehaviour
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
         for(int i = 0; i < towers.Length; i++)
         {
-            if (towers[i].name == "WizardTower")
-            {
-                towers[i].GetComponent<Tower>().fireDelay = 2;
-            }
-            else
-            {
-                towers[i].GetComponent<Tower>().fireDelay = 1;
-            }
+            towers[i].GetComponent<Tower>().SetFireDelayMod(1);
         }
     }
 
@@ -36,7 +29,7 @@ public class Slow : MonoBehaviour
     {
          if (other.gameObject.CompareTag("Tower"))
          {
-            other.GetComponent<Tower>().fireDelay = 5;
+            other.GetComponent<Tower>().SetFireDelayMod(3);
          }
     }
 
