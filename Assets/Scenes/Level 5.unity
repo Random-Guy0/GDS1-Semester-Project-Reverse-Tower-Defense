@@ -32717,7 +32717,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: spawnTime
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8247074120228449864, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_RootOrder
@@ -34191,7 +34191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6582822931394680997, guid: ac1544573a9ddfa41a315523e585a29a, type: 3}
       propertyPath: spawnTime
-      value: 120
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
