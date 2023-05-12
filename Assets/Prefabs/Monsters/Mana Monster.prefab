@@ -518,6 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 1
+  thisCollider: {fileID: 3238322051593471755}
 --- !u!1 &3238322052982607403
 GameObject:
   m_ObjectHideFlags: 0

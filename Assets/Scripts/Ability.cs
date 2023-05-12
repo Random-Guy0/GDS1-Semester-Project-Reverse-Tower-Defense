@@ -61,9 +61,9 @@ public class Ability : MonoBehaviour
     }
     public void HealAbility()
     {
-        if (manaManager.ableToCost(50))
+        if (manaManager.ableToCost(100))
         {
-            manaManager.costMana(50);
+            manaManager.costMana(100);
             PlayerHealth.health = PlayerHealth.maxHealth;
             Instantiate(healEffect, gameObject.transform.position, healEffect.transform.rotation,transform);
             animator.SetTrigger("Ability");
