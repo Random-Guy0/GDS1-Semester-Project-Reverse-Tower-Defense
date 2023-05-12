@@ -178,10 +178,34 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: -921838784202127032, guid: 48661df9cf644564cb39633ab70da446, type: 3}
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: fireDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 8584436625371573622, guid: e74067df9fdb4a34aa372ce253349217, type: 3}
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: shootStartUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: displayAimLaser
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: shootPlayerDelay
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4157218924160848953, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5236600837663545712, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ceec07b06432c7140a084ddeca195ba1, type: 2}
     - target: {fileID: 5808561974607130970, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

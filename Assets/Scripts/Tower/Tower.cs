@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour
     public float shootStartUp = 0f;
     [Tooltip("The time it takes (in seconds) to ready an attack WITHOUT aiming just for the player")]
     public float shootPlayerDelay = 0.1f;
+    public bool displayAimLaser = false;
     public GameObject projectile;
     public float movementDelay = 60f;
     public bool immovable = false;
@@ -33,12 +34,15 @@ public class Tower : MonoBehaviour
     private PathSegment[] ps;
     private GridTile TilePos;
     private float fireDelayMod = 1;
+    private bool shooting;
+    private LineRenderer lr;
     // Start is called before the first frame update
     void Start()
     {
         pm = GameObject.Find("Path Manager").GetComponent<PathManager>();
         Model = transform.GetChild(1);      
         shootPoint = transform.GetChild(0);
+        lr = shootPoint.GetComponent<LineRenderer>();
         fov = GetComponent<FieldOfView>();
         if (spawnTime > 0)
         {
@@ -79,6 +83,19 @@ public class Tower : MonoBehaviour
             GameObject tmp = Instantiate(prestigeClass,transform.position, transform.rotation);
             tmp.GetComponent<Tower>().wakeParticles.Play();
             DestroyTower();
+        }
+    }
+    private void Update()
+    {
+        if(shooting)
+        {
+            transform.LookAt(curTarget);
+            //Debug.Log("curTarget velocity y: " + curTarget.GetComponent<Rigidbody>().velocity.y);
+            if (displayAimLaser)
+            {
+                lr.SetPosition(0, transform.position);
+                lr.SetPosition(1, curTarget.position);
+            }
         }
     }
     public IEnumerator SpawnWithDelay(float duration)
@@ -189,7 +206,14 @@ public class Tower : MonoBehaviour
                 transform.LookAt(curTarget);
                 if (shootStartUp > 0)
                 {
+                    shooting = true;
+                    if(displayAimLaser)
+                    {
+                        lr.enabled = true;
+                    }
                     yield return new WaitForSeconds(shootStartUp);
+                    lr.enabled = false;
+                    shooting = false;
                     curTarget = null;
                     TargetFirstEnemy();
                 }

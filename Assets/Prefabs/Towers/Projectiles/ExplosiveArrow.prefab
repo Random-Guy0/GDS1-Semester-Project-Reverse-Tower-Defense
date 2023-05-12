@@ -9772,7 +9772,7 @@ MonoBehaviour:
   NextPhase: {fileID: 7522811426880674583, guid: bd4bd66a20ea104438b0eed65527ee32, type: 3}
   NoHitLayerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
 --- !u!54 &1752969859579039222
 Rigidbody:
   m_ObjectHideFlags: 0

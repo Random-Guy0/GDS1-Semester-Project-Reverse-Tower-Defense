@@ -58,7 +58,7 @@ CapsuleCollider:
   m_Radius: 0.06
   m_Height: 0.7
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.06}
 --- !u!114 &6937431398868280115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,13 +73,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   damage: 35
-  lifeTime: 0.2
+  lifeTime: 0.22
   pericing: 1
   HitEffect: {fileID: 0}
   NextPhase: {fileID: 0}
   NoHitLayerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 17408
 --- !u!54 &3854018585302763526
 Rigidbody:
   m_ObjectHideFlags: 0
