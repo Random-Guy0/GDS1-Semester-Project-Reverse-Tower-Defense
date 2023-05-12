@@ -94,7 +94,7 @@ public class ManaMonster : Monster
     {
         if (other.gameObject.CompareTag("Mana"))
         {
-            other.GetComponent<ManaCollection>().Collect();
+            gameObject.GetComponent<Animator>().SetBool("Pickup", true);
         }
     }
 }
