@@ -38056,7 +38056,7 @@ MonoBehaviour:
   currentMana: 500
   maxMana: 1000
   minMana: 0
-  manaPerCollection: 20
+  manaPerCollection: 50
   pathManager: {fileID: 4376931925939605402}
   manaPrefab: {fileID: 7238413195012913397, guid: f9befe9da55f71d4eb4e61d0a4da3fbd, type: 3}
   timeToSpawn: 3

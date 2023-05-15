@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  damage: 1
+  damage: 2
   thisCollider: {fileID: 1979121615736531207}
 --- !u!114 &3238322051593471797
 MonoBehaviour:
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  maxHealth: 200
+  maxHealth: 250
   healthBar: {fileID: 3238322051522107931}
 --- !u!54 &3238322051593471798
 Rigidbody:
