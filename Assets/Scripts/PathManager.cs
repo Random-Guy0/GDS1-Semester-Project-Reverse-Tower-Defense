@@ -406,15 +406,6 @@ public class PathManager : MonoBehaviour
     //place a section of the path, returning if it was placed or not
     public void PlacePath(Vector3 position)
     {
-        if (PlaceOrRemove)
-        {
-            CancelInvoke(nameof(AllowRemove));
-        }
-        else
-        {
-            CancelInvoke(nameof(AllowPlace));
-        }
-        
         int x = GetXFromPosition(position);
         int z = GetZFromPosition(position);
         if (PlaceOrRemove && GetGridPoint(position) == GridTile.Ground && pathPiecesAvailable > 0)
@@ -441,12 +432,12 @@ public class PathManager : MonoBehaviour
     {
         if (GetGridPoint(position) == GridTile.Path)
         {
-            Invoke(nameof(AllowRemove), 0.05f);
+            PlaceOrRemove = false;
         }
 
         if (GetGridPoint(position) == GridTile.Ground)
         {
-            Invoke(nameof(AllowPlace), 0.05f);
+            PlaceOrRemove = true;
         }
     }
 
