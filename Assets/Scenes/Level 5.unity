@@ -67041,7 +67041,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  stepHeight: 0
+  stepHeight: 0.5
   gridGameobjects:
   - {fileID: 607983088}
   - {fileID: 689669302}
