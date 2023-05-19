@@ -20,7 +20,7 @@ public class PathBeacon : MonoBehaviour
 
     public void KeyDown()
     {
-        pathManager.ChangePlaceMode(transform.position);
+        pathManager.KeyDown(transform.position);
     }
 
     public void PlacePath()

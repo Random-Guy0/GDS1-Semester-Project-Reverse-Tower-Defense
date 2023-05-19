@@ -77,6 +77,7 @@ public class KeybindMon : MonoBehaviour
     {
         if (PathActionCoroutine != null)
         {
+            FindObjectOfType<PathManager>().KeyUp();
             isSpaceKeyDown = false;
             StopCoroutine(PathActionCoroutine);
             PathActionCoroutine = null;
