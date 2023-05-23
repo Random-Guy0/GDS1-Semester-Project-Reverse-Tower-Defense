@@ -74362,7 +74362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2003639070cf0174481be7ae5350dbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPiecesAvailable: 24
+  pathPiecesAvailable: 20
   defaultShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   outlineShader: {fileID: 4800000, guid: 8532d714e733bd34884f9a859ff5deeb, type: 3}
   levelWidth: 21
@@ -75874,6 +75874,7 @@ MonoBehaviour:
   - {fileID: 8009247700987440382}
   - {fileID: 3895760510536329643}
   currentNum: 0
+  oldCamera: {fileID: 0}
 --- !u!4 &8009247700987440369
 Transform:
   m_ObjectHideFlags: 0

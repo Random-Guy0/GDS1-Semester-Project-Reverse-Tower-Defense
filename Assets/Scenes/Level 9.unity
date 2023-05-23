@@ -75011,6 +75011,7 @@ MonoBehaviour:
   - {fileID: 8009247700987440382}
   - {fileID: 3895760510536329643}
   currentNum: 0
+  oldCamera: {fileID: 0}
 --- !u!4 &8009247700987440369
 Transform:
   m_ObjectHideFlags: 0
