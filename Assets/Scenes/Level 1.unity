@@ -20667,6 +20667,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PlacePath
       objectReference: {fileID: 0}
+    - target: {fileID: 397562179099753451, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 397562179132596391, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -20674,6 +20678,10 @@ PrefabInstance:
     - target: {fileID: 397562179132596391, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SpawnMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 397562179181714528, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 397562179920874185, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_IsActive
@@ -20686,6 +20694,10 @@ PrefabInstance:
     - target: {fileID: 397562179920874197, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SpawnMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 397562179922523786, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 397562180015577010, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_Pivot.x
@@ -20775,6 +20787,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 397562180015577011, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 397562180015577020, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_ScreenMatchMode
       value: 0
@@ -20850,6 +20866,10 @@ PrefabInstance:
     - target: {fileID: 4597232751791770793, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642191450501510283, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5752143275616772275, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_IsActive
@@ -24899,6 +24919,7 @@ MonoBehaviour:
   - {fileID: 188878365001897910}
   - {fileID: 7108139227476158277}
   currentNum: 0
+  oldCamera: {fileID: 0}
 --- !u!20 &3045097652132095380
 Camera:
   m_ObjectHideFlags: 0
@@ -25562,6 +25583,10 @@ PrefabInstance:
     - target: {fileID: 4748730237764839956, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
       propertyPath: m_Name
       value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748730237764839956, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4748730237764839960, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
       propertyPath: m_Camera
