@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5980826711635263713
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5232776265284115424, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5232776265284115424, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186439193096777767, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7561698747290888861, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_Name
+      value: Farm Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7561698747290888861, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4782719995308791336}
+  m_SourcePrefab: {fileID: 100100000, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+--- !u!23 &2373496744011205545 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8354301013567834952, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+  m_PrefabInstance: {fileID: 5980826711635263713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4319135414817008252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7561698747290888861, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+  m_PrefabInstance: {fileID: 5980826711635263713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4782719995308791336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4319135414817008252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc27416b74c91824c920363a8462b93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 2373496744011205545}
