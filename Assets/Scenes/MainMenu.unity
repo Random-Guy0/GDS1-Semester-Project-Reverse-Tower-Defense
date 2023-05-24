@@ -1925,12 +1925,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SwordHit, Mixkit-medieval-metal-sword-blade. Mixkit.
+  m_text: 'Mixkit-medieval-metal-sword-blade. Mixkit.
 
-    WizardHit, Mixkit-short-explosion.
+    Mixkit-short-explosion.
     Mixkit.
 
-    MonsterSummon, mixkit-shot-light-energy-flowing-2589. Mixkit.'
+    mixkit-shot-light-energy-flowing-2589. Mixkit.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
   m_sharedMaterial: {fileID: -5883391799012419892, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
@@ -4908,8 +4908,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "IntroBGM, Ofelia's Dream. Benjamin Tissot. \nGameBGM, Epic, Benjamin Tissot\nArrowHit,
-    Mixkit-air-in-a-hit. Mixkit."
+  m_text: " Ofelia's Dream. Benjamin Tissot. \n Epic, Benjamin Tissot\n Mixkit-air-in-a-hit.
+    Mixkit."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
   m_sharedMaterial: {fileID: -5883391799012419892, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
@@ -9096,12 +9096,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'GameOver, mixkit-magical-game-over-1943. Mixkit.
-
-    GameWin, mixkit-game-level-completed-2059.
-    Mixkit.
-
-    Monster Dying, Sound Effect by Pizabay.'
+  m_text: " mixkit-magical-game-over-1943. Mixkit.\n mixkit-game-level-completed-2059.
+    Mixkit.\nMonster Dying Sound Effect by Pizabay."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
   m_sharedMaterial: {fileID: -5883391799012419892, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
