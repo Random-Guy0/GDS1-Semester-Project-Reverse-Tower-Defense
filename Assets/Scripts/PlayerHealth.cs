@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public int health;
     public int maxHealth;
     public HPBar healthBar;
+    public AudioClip MonDeathSound;
+    private bool isPlayed;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +68,12 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator WaitForDeathAnimation(string animationName)
     {
+        if (MonDeathSound != null && !isPlayed)
+        {
+            AudioInstance.Play(MonDeathSound);
+            isPlayed = true;
+        }
+        Debug.Log("DeathSound");
         Monster test = GetComponent<Monster>();
 
         // Wait until the current animation is finished playing
