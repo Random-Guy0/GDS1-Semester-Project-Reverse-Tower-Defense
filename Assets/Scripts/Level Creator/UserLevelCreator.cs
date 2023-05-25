@@ -31,6 +31,8 @@ public class UserLevelCreator : MonoBehaviour
     private Vector2Int selectedTile = Vector2Int.one * -1;
 
     private int selectedTool = 0;
+
+    [SerializeField] private UIWarning uiWarning;
     
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
@@ -156,11 +158,11 @@ public class UserLevelCreator : MonoBehaviour
             }
             else if (x + 1 >= levelWidth)
             {
-                endPos = new Vector3(levelWidth * gridSize - 0.9f, 0.5f, z * gridSize);
+                endPos = new Vector3(levelWidth * gridSize - 0.9f, 0.5f, (levelDepth - z - 1) * gridSize);
             }
             else if (x - 1 < 0)
             {
-                endPos = new Vector3(-1.1f, 0.5f, z * gridSize);
+                endPos = new Vector3(-1.1f, 0.5f, (levelDepth - z - 1) * gridSize);
             }
         }
 
@@ -403,6 +405,79 @@ public class UserLevelCreator : MonoBehaviour
             case 2:
                 UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.Mountain);
                 break;
+            //path tool
+            case 3:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.Path);
+                break;
+            //start tool
+            case 4:
+                if (start.Equals(Vector2Int.one * -1))
+                {
+                    start = selectedTile;
+                    UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.Start);
+                }
+                else if (!selectedTile.Equals(start))
+                {
+                    uiWarning.SetActive("Start already exists!");
+                }
+                break;
+            //end tool
+            case 5:
+                if (end.Equals(Vector2Int.one * -1))
+                {
+                    end = selectedTile;
+                    UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.End);
+                }
+                else if (!selectedTile.Equals(end))
+                {
+                    uiWarning.SetActive("End already exists!");
+                }
+                break;
+            //archery range obstacle tool
+            case 6:
+                break;
+            //barracks obstacle tool
+            case 7:
+                break;
+            //castle obstacle tool
+            case 8:
+                break;
+            //farm obstacle tool
+            case 9:
+                break;
+            //forest obstacle tool
+            case 10:
+                break;
+            //house obstacle tool
+            case 11:
+                break;
+            //lumbermill obstacle tool
+            case 12:
+                break;
+            //market obstacle tool
+            case 13:
+                break;
+            //mill obstacle tool
+            case 14:
+                break;
+            //mine obstacle tool
+            case 15:
+                break;
+            //mountain obstacle tool
+            case 16:
+                break;
+            //rocks obstacle tool
+            case 17:
+                break;
+            //watchtower obstacle tool
+            case 18:
+                break;
+            //watermill obstacle tool
+            case 19:
+                break;
+            //well obstacle tool
+            case 20:
+                break;
         }
     }
 
@@ -410,6 +485,18 @@ public class UserLevelCreator : MonoBehaviour
     {
         if (grid[x, z] != newTile)
         {
+            if (start.x == x && start.y == z && newTile != GridTile.Start)
+            {
+                start = Vector2Int.one * -1;
+                uiWarning.SetActive("Start tile has been removed!");
+            }
+            
+            if (end.x == x && end.y == z && newTile != GridTile.End)
+            {
+                end = Vector2Int.one * -1;
+                uiWarning.SetActive("End tile has been removed!");
+            }
+            
             grid[x, z] = newTile;
             Destroy(gridGameobjects[x, z]);
             SetGridPoint(x, z);
