@@ -8721,6 +8721,10 @@ PrefabInstance:
       propertyPath: pathManager
       value: 
       objectReference: {fileID: 4376931925939605402}
+    - target: {fileID: 5722577683324988591, guid: f17bee49d032b364491ba094693b0279, type: 3}
+      propertyPath: damagePopup
+      value: 
+      objectReference: {fileID: 2455623765056259641, guid: 89c212e704afc9f4b8e87d449fbc8a76, type: 3}
     - target: {fileID: 5722577683324988592, guid: f17bee49d032b364491ba094693b0279, type: 3}
       propertyPath: manaManager
       value: 
