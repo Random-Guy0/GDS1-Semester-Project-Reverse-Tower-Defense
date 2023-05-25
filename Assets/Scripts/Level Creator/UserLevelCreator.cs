@@ -17,14 +17,20 @@ public class UserLevelCreator : MonoBehaviour
     [SerializeField] private int defaultLevelWidth;
     [SerializeField] private int defaultLevelDepth;
 
+    [SerializeField] private float stepHeight = 0.5f;
     private float[,] heights;
     private float[,] defaultHeights;
 
-    private int start = -1;
-    private int end = -1;
+    private Vector2Int start = Vector2Int.one * -1;
+    private Vector2Int end = Vector2Int.one * -1;
 
     private GameObject levelParent;
-    private GameObject[] gridGameobjects;
+    private GameObject borderParent;
+    private GameObject[,] gridGameobjects;
+
+    private Vector2Int selectedTile = Vector2Int.one * -1;
+
+    private int selectedTool = 0;
     
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
@@ -35,6 +41,7 @@ public class UserLevelCreator : MonoBehaviour
     {
         defaultGrid = new GridTile[defaultLevelWidth, defaultLevelDepth];
         defaultHeights = new float[defaultLevelWidth, defaultLevelDepth];
+        gridGameobjects = new GameObject[defaultLevelWidth, defaultLevelDepth];
         for (int i = 0; i < defaultLevelWidth; i++)
         {
             for (int j = 0; j < defaultLevelDepth; j++)
@@ -63,6 +70,8 @@ public class UserLevelCreator : MonoBehaviour
                 SetGridPoint(i, j);
             }
         }
+        CreateBorder();
+        UpdatePathTiles();
     }
 
     private void SetGridPoint(int x, int z)
@@ -89,7 +98,7 @@ public class UserLevelCreator : MonoBehaviour
         Vector3 position = new Vector3(x * gridSize, objectToInstantiate.transform.position.y,
             (levelDepth - z - 1) * gridSize);
 
-        GameObject newTile =
+        gridGameobjects[x, z] =
             Instantiate(objectToInstantiate, position, Quaternion.Euler(rotation), levelParent.transform);
     }
 
@@ -107,6 +116,313 @@ public class UserLevelCreator : MonoBehaviour
 
     public void SetSelectedTile(Vector3 position)
     {
+        selectedTile = GetIndexFromPosition(position);
+    }
+    
+    public Vector2Int GetIndexFromPosition(Vector3 position)
+    {
+        int x = GetXFromPosition(position);
+        int z = GetZFromPosition(position);
+        return new Vector2Int(x, z);
+    }
+
+    private int GetXFromPosition(Vector3 position)
+    {
+        return (int)(Mathf.RoundToInt(position.x) / gridSize);
+    }
+
+    private int GetZFromPosition(Vector3 position)
+    {
+        return (int)(levelDepth - 1 - Mathf.RoundToInt(position.z) / gridSize);
+    }
+    
+    private void CreateBorder()
+    {
+        Destroy(borderParent);
+        borderParent = new GameObject("Border Parent Object");
         
+        Vector3 endPos = Vector3.one * -1f;
+        if (!end.Equals(Vector2Int.one * -1))
+        {
+            int x = GetXFromPosition(gridGameobjects[end.x, end.y].transform.position);
+            int z = GetZFromPosition(gridGameobjects[end.x, end.y].transform.position);
+            if (z + 1 >= levelDepth)
+            {
+                endPos = new Vector3(x * gridSize, 0.5f, -1.1f);
+            }
+            else if (z - 1 < 0)
+            {
+                endPos = new Vector3(x * gridSize, 0.5f, levelDepth * gridSize - 0.9f);
+            }
+            else if (x + 1 >= levelWidth)
+            {
+                endPos = new Vector3(levelWidth * gridSize - 0.9f, 0.5f, z * gridSize);
+            }
+            else if (x - 1 < 0)
+            {
+                endPos = new Vector3(-1.1f, 0.5f, z * gridSize);
+            }
+        }
+
+        for (int i = 0; i < levelWidth; i++)
+        {
+            Vector3 wallPos1 = new Vector3(i * gridSize, 0.5f, -1.1f);
+            if (!wallPos1.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos1, Quaternion.identity, borderParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.identity, borderParent.transform);
+            }
+
+            Vector3 wallPos2 = new Vector3(i * gridSize, 0.5f, levelDepth * gridSize - 0.9f);
+            if (!wallPos2.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos2, Quaternion.identity, borderParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.identity, borderParent.transform);
+            }
+        }
+
+        for (int i = 0; i < levelDepth; i++)
+        {
+            Vector3 wallPos1 = new Vector3(-1.1f, 0.5f, i * gridSize);
+            if (!wallPos1.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos1, Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
+            }
+
+            Vector3 wallPos2 = new Vector3(levelWidth * gridSize - 0.9f, 0.5f, i * gridSize);
+            if (!wallPos2.Equals(endPos))
+            {
+                Instantiate(borderPrefabs[0], wallPos2, Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
+            }
+            else
+            {
+                Instantiate(borderPrefabs[1], endPos, Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
+            }
+        }
+
+        Instantiate(borderPrefabs[2], new Vector3(-1.1f, 0.5f, -1.1f), Quaternion.Euler(Vector3.up * -90.0f), borderParent.transform);
+        Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
+        Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, -1.1f), Quaternion.Euler(Vector3.up * 180.0f), borderParent.transform);
+        Instantiate(borderPrefabs[2], new Vector3(-1.1f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.identity, borderParent.transform);
+    }
+    
+    private void UpdatePathTiles()
+    {
+        for (int i = 0; i < levelWidth; i++)
+        {
+            for (int j = 0; j < levelDepth; j++)
+            {
+                if ((int)grid[i, j] >= 2 && (int)grid[i, j] < 5)
+                {
+                    Vector3 position = gridGameobjects[i, j].transform.position;
+                    bool top = j + 1 < levelDepth && (int)grid[i, j + 1] >= 2 && (int)grid[i, j + 1] < 5 && Mathf.Abs(MeshHeight(i, j) - MeshHeight(i, j + 1)) <= stepHeight;
+                    bool bottom = j - 1 >= 0 && (int)grid[i, j - 1] >= 2 && (int)grid[i, j - 1] < 5 && Mathf.Abs(MeshHeight(i, j) - MeshHeight(i, j - 1)) <= stepHeight;
+                    bool left = i - 1 >= 0 && (int)grid[i - 1, j] >= 2 && (int)grid[i - 1, j] < 5 && Mathf.Abs(MeshHeight(i, j) - MeshHeight(i - 1, j)) <= stepHeight;
+                    bool right = i + 1 < levelWidth && (int)grid[i + 1, j] >= 2 && (int)grid[i + 1, j] < 5 && Mathf.Abs(MeshHeight(i, j) - MeshHeight(i + 1, j)) <= stepHeight;
+
+                    int countTrue = 0;
+                    if (top)
+                    {
+                        countTrue++;
+                    }
+
+                    if (bottom)
+                    {
+                        countTrue++;
+                    }
+
+                    if (left)
+                    {
+                        countTrue++;
+                    }
+
+                    if (right)
+                    {
+                        countTrue++;
+                    }
+
+                    Vector3 rotation = Vector3.zero;
+                    GameObject newTile;
+
+                    switch (countTrue)
+                    {
+                        case 0:
+                            if (i + 1 >= levelWidth)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (i - 1 < 0)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (j - 1 < 0)
+                            {
+                                rotation.y = 180f;
+                            }
+                            
+                            newTile = Instantiate(pathTilePrefabs[0],
+                                new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
+                                    position.z),
+                                Quaternion.Euler(rotation), levelParent.transform);
+                            break;
+                        
+                        case 1:
+                            if (left)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (right)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (top)
+                            {
+                                rotation.y = 180f;
+                            }
+                            newTile = Instantiate(pathTilePrefabs[0],
+                                new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
+                                    position.z),
+                                Quaternion.Euler(rotation), levelParent.transform);
+                            break;
+
+                        case 2:
+                            if ((top && bottom) || (left && right))
+                            {
+                                if (left && right)
+                                {
+                                    rotation.y = 90f;
+                                }
+                                
+                                newTile = Instantiate(pathTilePrefabs[1],
+                                    new Vector3(position.x, pathTilePrefabs[1].transform.position.y,
+                                        position.z),
+                                    Quaternion.Euler(rotation), levelParent.transform);
+                            }
+                            else
+                            {
+                                if (bottom && right)
+                                {
+                                    rotation.y = 90f;
+                                }
+                                else if (top && left)
+                                {
+                                    rotation.y = -90f;
+                                }
+                                else if (top && right)
+                                {
+                                    rotation.y = 180f;
+                                }
+                                newTile = Instantiate(pathTilePrefabs[2],
+                                    new Vector3(position.x, pathTilePrefabs[2].transform.position.y,
+                                        position.z),
+                                    Quaternion.Euler(rotation), levelParent.transform);
+                            }
+
+                            break;
+
+                        case 3:
+                            if (!left)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (!right)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (!bottom)
+                            {
+                                rotation.y = 180f;
+                            }
+                            newTile = Instantiate(pathTilePrefabs[3],
+                                new Vector3(position.x, pathTilePrefabs[3].transform.position.y,
+                                    position.z),
+                                Quaternion.Euler(rotation), levelParent.transform);
+                            break;
+
+                        case 4:
+                            newTile = Instantiate(pathTilePrefabs[4],
+                                new Vector3(position.x, pathTilePrefabs[4].transform.position.y,
+                                    position.z),
+                                Quaternion.identity, levelParent.transform);
+                            break;
+                        default:
+                            newTile = new GameObject();
+                            break;
+                    }
+
+                    Destroy(gridGameobjects[i, j]);
+                    gridGameobjects[i, j] = newTile;
+                    Vector3 scale = gridGameobjects[i, j].transform.localScale;
+                    scale.y *= heights[i, j];
+                    gridGameobjects[i, j].transform.localScale = scale;
+                }
+            }
+        }
+    }
+    
+    private float MeshHeight(int x, int z)
+    {
+        return gridGameobjects[x, z].GetComponent<MeshRenderer>().bounds.size.y;
+    }
+
+    public void SetTool(int tool)
+    {
+        selectedTool = tool;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Mouse0) && !selectedTile.Equals(Vector2Int.one * -1))
+        {
+            MouseDown();
+        }
+    }
+
+    private void MouseDown()
+    {
+        switch (selectedTool)
+        {
+            //selection tool
+            case 0:
+                break;
+            //ground tool
+            case 1:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.Ground);
+                break;
+            //mountain tool
+            case 2:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.Mountain);
+                break;
+        }
+    }
+
+    private void UpdateGridPoint(int x, int z, GridTile newTile)
+    {
+        if (grid[x, z] != newTile)
+        {
+            grid[x, z] = newTile;
+            Destroy(gridGameobjects[x, z]);
+            SetGridPoint(x, z);
+            UpdatePathTiles();
+            CreateBorder();
+        }
+    }
+
+    public void ClearSelectedTile(Vector3 position)
+    {
+        if (selectedTile == GetIndexFromPosition(position))
+        {
+            selectedTile = Vector2Int.one * -1;
+        }
     }
 }

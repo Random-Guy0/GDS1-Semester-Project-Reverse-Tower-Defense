@@ -30,6 +30,7 @@ public class SelectTile : MonoBehaviour
 
     private void OnMouseExit()
     {
+        levelCreator.ClearSelectedTile(transform.position);
         Material[] materials = renderer.materials;
         foreach (Material material in materials)
         {
