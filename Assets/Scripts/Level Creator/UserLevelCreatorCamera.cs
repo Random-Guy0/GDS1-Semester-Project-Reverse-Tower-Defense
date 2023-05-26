@@ -18,7 +18,7 @@ public class UserLevelCreatorCamera : MonoBehaviour
     private void Start()
     {
         Vector3 position = transform.position;
-        position.x = levelCreator.GetWidth() / 2f;
+        position.x = levelCreator.GetWidth() * 0.5f;
         transform.position = position;
         
         previousMousePosition = Input.mousePosition;

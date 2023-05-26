@@ -65,6 +65,7 @@ public class UserLevelCreator : MonoBehaviour
     private void CreateGrid()
     {
         levelParent = new GameObject("Level Parent Object");
+        levelParent.layer = 14;
         for (int i = 0; i < levelWidth; i++)
         {
             for (int j = 0; j < levelDepth; j++)
@@ -102,6 +103,9 @@ public class UserLevelCreator : MonoBehaviour
 
         gridGameobjects[x, z] =
             Instantiate(objectToInstantiate, position, Quaternion.Euler(rotation), levelParent.transform);
+        gridGameobjects[x, z].layer = 14;
+        
+        SetLayerInChildren(gridGameobjects[x, z]);
     }
 
     public Vector3 GetCenter()
@@ -142,7 +146,8 @@ public class UserLevelCreator : MonoBehaviour
     {
         Destroy(borderParent);
         borderParent = new GameObject("Border Parent Object");
-        
+        borderParent.layer = 14;
+
         Vector3 endPos = Vector3.one * -1f;
         if (!end.Equals(Vector2Int.one * -1))
         {
@@ -216,6 +221,8 @@ public class UserLevelCreator : MonoBehaviour
         Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
         Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, -1.1f), Quaternion.Euler(Vector3.up * 180.0f), borderParent.transform);
         Instantiate(borderPrefabs[2], new Vector3(-1.1f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.identity, borderParent.transform);
+
+        SetLayerInChildren(borderParent);
     }
     
     private void UpdatePathTiles()
@@ -510,6 +517,15 @@ public class UserLevelCreator : MonoBehaviour
         if (selectedTile == GetIndexFromPosition(position))
         {
             selectedTile = Vector2Int.one * -1;
+        }
+    }
+
+    private void SetLayerInChildren(GameObject parentObject)
+    {
+        for (int i = 0; i < parentObject.transform.childCount; i++)
+        {
+            parentObject.transform.GetChild(i).gameObject.layer = 14;
+            SetLayerInChildren(parentObject.transform.GetChild(i).gameObject);
         }
     }
 }
