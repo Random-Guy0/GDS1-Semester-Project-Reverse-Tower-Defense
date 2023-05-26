@@ -442,48 +442,63 @@ public class UserLevelCreator : MonoBehaviour
                 break;
             //archery range obstacle tool
             case 6:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.ArcheryRangeObstacle);
                 break;
             //barracks obstacle tool
             case 7:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.BarracksObstacle);
                 break;
             //castle obstacle tool
             case 8:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.CastleObstacle);
                 break;
             //farm obstacle tool
             case 9:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.FarmObstacle);
                 break;
             //forest obstacle tool
             case 10:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.ForestObstacle);
                 break;
             //house obstacle tool
             case 11:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.HouseObstacle);
                 break;
             //lumbermill obstacle tool
             case 12:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.LumbermillObstacle);
                 break;
             //market obstacle tool
             case 13:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.MarketObstacle);
                 break;
             //mill obstacle tool
             case 14:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.MillObstacle);
                 break;
             //mine obstacle tool
             case 15:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.MineObstacle);
                 break;
             //mountain obstacle tool
             case 16:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.MountainObstacle);
                 break;
             //rocks obstacle tool
             case 17:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.RocksObstacle);
                 break;
             //watchtower obstacle tool
             case 18:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.WatchtowerObstacle);
                 break;
             //watermill obstacle tool
             case 19:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.WatermillObstacle);
                 break;
             //well obstacle tool
             case 20:
+                UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.WellObstacle);
                 break;
         }
     }

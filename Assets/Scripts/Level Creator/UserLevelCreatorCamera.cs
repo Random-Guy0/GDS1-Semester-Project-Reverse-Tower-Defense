@@ -13,6 +13,9 @@ public class UserLevelCreatorCamera : MonoBehaviour
     
     private Vector3 previousMousePosition;
 
+    private float upDownKeys = 0f;
+    private Vector2 wasd = Vector2.zero;
+
     private bool rotating = false;
 
     private void Start()
@@ -25,6 +28,39 @@ public class UserLevelCreatorCamera : MonoBehaviour
         
         Vector3 lookAt = levelCreator.GetCenter();
         transform.LookAt(lookAt);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            upDownKeys += 1f;
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            upDownKeys -= 1f;
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            wasd.y += 1f;
+        }
+        
+        if (Input.GetKey(KeyCode.S))
+        {
+            wasd.y -= 1f;
+        }
+        
+        if (Input.GetKey(KeyCode.D))
+        {
+            wasd.x += 1f;
+        }
+        
+        if (Input.GetKey(KeyCode.A))
+        {
+            wasd.x -= 1f;
+        }
     }
 
     private void LateUpdate()
@@ -54,19 +90,28 @@ public class UserLevelCreatorCamera : MonoBehaviour
                 transform.Translate(Time.deltaTime * orbitSensitivity * delta);
             }
         }
-        else if (Input.GetKey(KeyCode.Mouse2))
+        else if (Input.GetKey(KeyCode.Mouse2) || !wasd.Equals(Vector2.zero))
         {
-            Vector3 delta = mouseDelta;
-            delta *= -1;
+            Vector3 delta = Vector3.zero;
+            if (Input.GetKey(KeyCode.Mouse2))
+            {
+                delta = mouseDelta;
+                delta *= -1;
+            }
+
+            delta += (Vector3)wasd;
             transform.Translate(Time.deltaTime * moveSensitivity * delta);
         }
-        else if (Input.mouseScrollDelta != Vector2.zero)
+        else if (Input.mouseScrollDelta != Vector2.zero || upDownKeys != 0f)
         {
-            Vector3 delta = Vector3.forward * Input.mouseScrollDelta.y;
+            Vector3 delta = Vector3.forward * (Input.mouseScrollDelta.y + upDownKeys);
             transform.Translate(Time.deltaTime * zoomSensitivity * delta);
         }
 
         previousMousePosition = currentMousePosition;
+
+        upDownKeys = 0f;
+        wasd = Vector2.zero;
     }
 
     private IEnumerator LerpRotation(Vector3 lookAt)
