@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class JumpToMainMenu : MonoBehaviour
 {
+    public float totalTime;
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("toMainMenu",145f);
+        Invoke("toMainMenu", totalTime);
     }
 
     // Update is called once per frame
