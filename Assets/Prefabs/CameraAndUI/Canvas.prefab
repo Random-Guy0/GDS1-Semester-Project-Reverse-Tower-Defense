@@ -767,7 +767,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Thief Monster (O)
 
-    40 Mana | 50 Health
+    40 Mana | 40 Health
 
     Fast but vulerable.'
   m_isRightToLeft: 0
@@ -1043,7 +1043,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Warrior Monster (I)
 
-    20 Mana | 100 Health
+    20 Mana | 40 Health
 
     Moves at a steady pace.'
   m_isRightToLeft: 0
@@ -2066,7 +2066,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'General Monster (P)
 
-    80 Mana | 300 Health
+    80 Mana | 500 Health
 
     Slow But Beefy.'
   m_isRightToLeft: 0
@@ -2816,7 +2816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5911949, g: 0.9151893, b: 1, a: 0.019607844}
+  m_Color: {r: 0.5911949, g: 0.9151893, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3186,7 +3186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 372, y: -46}
+  m_AnchoredPosition: {x: 371, y: -52}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3824629300637151411
@@ -3219,7 +3219,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Shield Monster (U)
 
-    120 Mana | 200 Health
+    120 Mana | 250 Health
 
     Shields Other Monsters
     from Attacks.'
@@ -4443,7 +4443,7 @@ RectTransform:
   m_GameObject: {fileID: 6628266395195134738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 8, z: 1}
+  m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5868040862205517617}
@@ -4454,7 +4454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 5}
+  m_AnchoredPosition: {x: 9, y: 60}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2681175488053575185
@@ -4817,7 +4817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 372, y: -55}
+  m_AnchoredPosition: {x: 371, y: -64}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1143704725720639241
@@ -4850,7 +4850,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Mana Monster (U)
 
-    100 Mana | 150 Health
+    100 Mana | 200 Health
 
     Collects Mana off the
     Ground.'

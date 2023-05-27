@@ -35,6 +35,8 @@ public class PathManager : MonoBehaviour
 
     private int selectedTileIndex = 0;
 
+    private bool keyDown = false;
+
     public bool PlaceOrRemove { private set; get; }
 
     private void Awake()
@@ -296,10 +298,23 @@ public class PathManager : MonoBehaviour
                     switch (countTrue)
                     {
                         case 0:
+                            if (i + 1 >= levelWidth)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (i - 1 < 0)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (j - 1 < 0)
+                            {
+                                rotation.y = 180f;
+                            }
+                            
                             newTile = Instantiate(pathTilePrefabs[0],
                                 new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
                                     position.z),
-                                Quaternion.identity, levelParent.transform);
+                                Quaternion.Euler(rotation), levelParent.transform);
                             break;
                         
                         case 1:
@@ -406,13 +421,9 @@ public class PathManager : MonoBehaviour
     //place a section of the path, returning if it was placed or not
     public void PlacePath(Vector3 position)
     {
-        if (PlaceOrRemove)
+        if (!keyDown)
         {
-            CancelInvoke(nameof(AllowRemove));
-        }
-        else
-        {
-            CancelInvoke(nameof(AllowPlace));
+            ChangePlaceMode(position);
         }
         
         int x = GetXFromPosition(position);
@@ -437,27 +448,28 @@ public class PathManager : MonoBehaviour
         SetPathSegmentText();
     }
 
-    public void ChangePlaceMode(Vector3 position)
+    private void ChangePlaceMode(Vector3 position)
     {
         if (GetGridPoint(position) == GridTile.Path)
         {
-            Invoke(nameof(AllowRemove), 0.05f);
+            PlaceOrRemove = false;
         }
 
         if (GetGridPoint(position) == GridTile.Ground)
         {
-            Invoke(nameof(AllowPlace), 0.05f);
+            PlaceOrRemove = true;
         }
     }
 
-    private void AllowPlace()
+    public void KeyDown(Vector3 position)
     {
-        PlaceOrRemove = true;
+        keyDown = true;
+        ChangePlaceMode(position);
     }
-    
-    private void AllowRemove()
+
+    public void KeyUp()
     {
-        PlaceOrRemove = false;
+        keyDown = false;
     }
     
     public List<Vector3> GetValidManaPositions()
