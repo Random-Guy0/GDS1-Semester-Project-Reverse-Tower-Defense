@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (new) Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 494950029434807759, guid: 5b362a88475141a498d90590923d30cc, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 978893834072604533, guid: 5b362a88475141a498d90590923d30cc, type: 3}
       propertyPath: m_RootOrder
       value: 0

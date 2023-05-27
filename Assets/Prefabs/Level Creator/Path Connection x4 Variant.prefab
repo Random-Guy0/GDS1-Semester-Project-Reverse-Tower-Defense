@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path Connection x4 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8440758449635012689, guid: 784c30857f4b9c24b9422cd299b71498, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 9108611311111989995, guid: 784c30857f4b9c24b9422cd299b71498, type: 3}
       propertyPath: m_RootOrder
       value: 0

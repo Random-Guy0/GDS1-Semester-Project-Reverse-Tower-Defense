@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 919132149116469106, guid: dabeed072639f2b4fa209c4d25a1c9ff, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5687575349585388337, guid: dabeed072639f2b4fa209c4d25a1c9ff, type: 3}
       propertyPath: m_Size.y
       value: 1
@@ -63,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 7962453334690812492, guid: dabeed072639f2b4fa209c4d25a1c9ff, type: 3}
       propertyPath: m_Name
       value: House Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962453334690812492, guid: dabeed072639f2b4fa209c4d25a1c9ff, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -8,6 +8,7 @@ public class UserLevelCreatorUI : MonoBehaviour
 {
     [SerializeField] private UserLevelCreator levelCreator;
     [SerializeField] private GameObject levelCreatorMenu;
+    [SerializeField] private GameObject levelSizeSubmenu;
     [SerializeField] private GameObject pathSubmenu;
     [SerializeField] private GameObject obstacleSubmenu;
     [SerializeField] private Image selectionToolButton;
@@ -21,6 +22,12 @@ public class UserLevelCreatorUI : MonoBehaviour
         levelCreator.SetTool(0);
         currentActiveButton = selectionToolButton;
         currentActiveButton.color = new Color(89f / 255f, 89f / 255f, 89f / 255f);
+    }
+
+    public void OpenLevelSizeSubmenu()
+    {
+        levelCreatorMenu.SetActive(false);
+        levelSizeSubmenu.SetActive(true);
     }
 
     public void OpenPathSubmenu()

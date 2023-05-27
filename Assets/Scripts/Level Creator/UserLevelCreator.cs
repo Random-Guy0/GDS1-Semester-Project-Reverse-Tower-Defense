@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class UserLevelCreator : MonoBehaviour
@@ -28,9 +30,16 @@ public class UserLevelCreator : MonoBehaviour
     private GameObject borderParent;
     private GameObject[,] gridGameobjects;
 
+    private List<TowerType> towers;
+    private List<Vector2Int> towerPositions;
+    private List<float> towerSpawnTimes;
+    private List<GameObject> towerGameobjects;
+
     private Vector2Int selectedTile = Vector2Int.one * -1;
 
     private int selectedTool = 0;
+    
+    public bool CanSelect { get; private set; }
 
     [SerializeField] private UIWarning uiWarning;
     
@@ -38,6 +47,15 @@ public class UserLevelCreator : MonoBehaviour
     [SerializeField] private GameObject[] pathTilePrefabs;
     [SerializeField] private GameObject[] borderPrefabs;
     [SerializeField] private GameObject[] obstaclePrefabs;
+    [SerializeField] private GameObject[] towerPrefabs;
+
+    [SerializeField] private TMP_InputField tileHeightInput;
+    [SerializeField] private TMP_InputField towerSpawnTimeInput;
+    [SerializeField] private Canvas selectionPopupCanvas;
+    [SerializeField] private GameObject selectionPopup;
+
+    [SerializeField] private GameObject towerSpawnTimeSettings;
+    [FormerlySerializedAs("deleteButton")] [SerializeField] private GameObject towerDeleteButton;
 
     private void Awake()
     {
@@ -60,6 +78,13 @@ public class UserLevelCreator : MonoBehaviour
         heights = defaultHeights;
         
         CreateGrid();
+
+        towers = new List<TowerType>();
+        towerPositions = new List<Vector2Int>();
+        towerSpawnTimes = new List<float>();
+        towerGameobjects = new List<GameObject>();
+
+        CanSelect = true;
     }
 
     private void CreateGrid()
@@ -103,9 +128,27 @@ public class UserLevelCreator : MonoBehaviour
 
         gridGameobjects[x, z] =
             Instantiate(objectToInstantiate, position, Quaternion.Euler(rotation), levelParent.transform);
-        gridGameobjects[x, z].layer = 14;
+    }
+
+    private void ScaleGridPoint(int x, int z)
+    {
+        float prefabHeight = 1f;
+        if (grid[x, z] == GridTile.Mountain)
+        {
+            prefabHeight = 4f;
+        }
         
-        SetLayerInChildren(gridGameobjects[x, z]);
+        Vector3 scale = gridGameobjects[x, z].transform.localScale;
+        scale.y = prefabHeight * heights[x, z];
+        gridGameobjects[x, z].transform.localScale = scale;
+
+        for (int i = 0; i < gridGameobjects[x, z].transform.childCount; i++)
+        {
+            Transform child = gridGameobjects[x, z].transform.GetChild(i);
+            Vector3 childScale = child.transform.localScale;
+            childScale.y /= heights[x, z];
+            child.transform.localScale = childScale;
+        }
     }
 
     public Vector3 GetCenter()
@@ -221,8 +264,6 @@ public class UserLevelCreator : MonoBehaviour
         Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.Euler(Vector3.up * 90.0f), borderParent.transform);
         Instantiate(borderPrefabs[2], new Vector3(levelWidth * gridSize - 0.9f, 0.5f, -1.1f), Quaternion.Euler(Vector3.up * 180.0f), borderParent.transform);
         Instantiate(borderPrefabs[2], new Vector3(-1.1f, 0.5f, levelDepth * gridSize - 0.9f), Quaternion.identity, borderParent.transform);
-
-        SetLayerInChildren(borderParent);
     }
     
     private void UpdatePathTiles()
@@ -386,6 +427,10 @@ public class UserLevelCreator : MonoBehaviour
 
     public void SetTool(int tool)
     {
+        if (selectedTool == 0)
+        {
+            ClearSelection();
+        }
         selectedTool = tool;
     }
 
@@ -403,6 +448,11 @@ public class UserLevelCreator : MonoBehaviour
         {
             //selection tool
             case 0:
+                if (!selectedTile.Equals(Vector2Int.one * -1))
+                {
+                    Select(selectedTile.x, selectedTile.y);
+                }
+
                 break;
             //ground tool
             case 1:
@@ -500,6 +550,122 @@ public class UserLevelCreator : MonoBehaviour
             case 20:
                 UpdateGridPoint(selectedTile.x, selectedTile.y, GridTile.WellObstacle);
                 break;
+            //archer tower tool
+            case 21:
+                PlaceTower(selectedTile.x, selectedTile.y, TowerType.Archer);
+                break;
+            //knight tower tool
+            case 22:
+                PlaceTower(selectedTile.x, selectedTile.y, TowerType.Knight);
+                break;
+            //wizard tower tool
+            case 23:
+                PlaceTower(selectedTile.x, selectedTile.y, TowerType.Wizard);
+                break;
+            //ballista tower tool
+            case 24:
+                PlaceTower(selectedTile.x, selectedTile.y, TowerType.Ballista);
+                break;
+        }
+    }
+
+    private void Select(int x, int z)
+    {
+        if (CanSelect)
+        {
+            CanSelect = false;
+
+            selectionPopup.SetActive(true);
+            Vector2 positon;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(selectionPopupCanvas.transform as RectTransform,
+                Input.mousePosition, selectionPopupCanvas.worldCamera, out positon);
+
+            selectionPopup.transform.position = selectionPopupCanvas.transform.TransformPoint(positon);
+
+            tileHeightInput.text = gridGameobjects[x, z].transform.localScale.y.ToString();
+
+            RectTransform selectionTransform = selectionPopup.transform as RectTransform;
+
+            int towerIndex = CheckForTower(x, z);
+            if (towerIndex != -1)
+            {
+                towerSpawnTimeInput.text = towerSpawnTimes[towerIndex].ToString();
+                towerSpawnTimeSettings.SetActive(true);
+                towerDeleteButton.SetActive(true);
+                selectionTransform.sizeDelta = new Vector2(200f, 210f);
+            }
+            else
+            {
+                towerSpawnTimeSettings.SetActive(false);
+                towerDeleteButton.SetActive(false);
+                selectionTransform.sizeDelta = new Vector2(200f, 110f);
+            }
+        }
+    }
+
+    public void SetHeight(string heightString)
+    {
+        float height = ValidateTileHeightInput(heightString);
+
+        float prefabHeight = 1f;
+        if (grid[selectedTile.x, selectedTile.y] == GridTile.Mountain)
+        {
+            prefabHeight = 4f;
+        }
+
+        heights[selectedTile.x, selectedTile.y] = height / prefabHeight;
+        Debug.Log(heights[selectedTile.x, selectedTile.y]);
+        ScaleGridPoint(selectedTile.x, selectedTile.y);
+    }
+
+    private float ValidateTileHeightInput(string tileHeightString)
+    {
+        float tileHeight = float.Parse(tileHeightString);
+        if (tileHeight < 0.5f)
+        {
+            uiWarning.SetActive("Tile height cannot be less than 0.5!");
+            tileHeightInput.text = "0.5";
+            tileHeight = 0.5f;
+        }
+        else if (tileHeight > 5.0f)
+        {
+            uiWarning.SetActive("Tile height cannot be greater than 5!");
+            tileHeightInput.text = "5";
+            tileHeight = 5f;
+        }
+
+        return tileHeight;
+    }
+
+    private float ValidateTowerSpawnTimeInput(string spawnTimeString)
+    {
+        float spawnTime = float.Parse(spawnTimeString);
+        if (spawnTime < 0f)
+        {
+            uiWarning.SetActive("Tower spawn time must be positive!");
+            towerSpawnTimeInput.text = "0";
+            spawnTime = 0f;
+        }
+
+        return spawnTime;
+    }
+
+    public void SetTowerSpawnTime(string spawnTimeString)
+    {
+        float spawnTime = ValidateTowerSpawnTimeInput(spawnTimeString);
+        int towerIndex = CheckForTower(selectedTile.x, selectedTile.y);
+        if (towerIndex != -1)
+        {
+            towerSpawnTimes[towerIndex] = spawnTime;
+        }
+    }
+
+    public void DeleteTower()
+    {
+        int towerIndex = CheckForTower(selectedTile.x, selectedTile.y);
+        if (towerIndex != -1)
+        {
+            RemoveTower(towerIndex);
         }
     }
 
@@ -518,6 +684,15 @@ public class UserLevelCreator : MonoBehaviour
                 end = Vector2Int.one * -1;
                 uiWarning.SetActive("End tile has been removed!");
             }
+
+            if (grid[x, z] == GridTile.Mountain)
+            {
+                int towerIndex = CheckForTower(x, z);
+                if(towerIndex != -1)
+                {
+                    RemoveTower(towerIndex);
+                }
+            }
             
             grid[x, z] = newTile;
             Destroy(gridGameobjects[x, z]);
@@ -525,6 +700,18 @@ public class UserLevelCreator : MonoBehaviour
             UpdatePathTiles();
             CreateBorder();
         }
+    }
+
+    public void ClearSelection()
+    {
+        CanSelect = true;
+
+        if (!selectedTile.Equals(Vector2Int.one * -1))
+        {
+            gridGameobjects[selectedTile.x, selectedTile.y].GetComponent<SelectTile>().ClearSelection();
+        }
+        
+        selectionPopup.SetActive(false);
     }
 
     public void ClearSelectedTile(Vector3 position)
@@ -535,12 +722,146 @@ public class UserLevelCreator : MonoBehaviour
         }
     }
 
-    private void SetLayerInChildren(GameObject parentObject)
+    private void PlaceTower(int x, int z, TowerType tower)
     {
-        for (int i = 0; i < parentObject.transform.childCount; i++)
+        if (grid[x, z] == GridTile.Mountain)
         {
-            parentObject.transform.GetChild(i).gameObject.layer = 14;
-            SetLayerInChildren(parentObject.transform.GetChild(i).gameObject);
+            if (!CheckForTowerAndReplace(x, z, tower))
+            {
+                towers.Add(tower);
+                towerPositions.Add(new Vector2Int(x, z));
+                towerSpawnTimes.Add(30f);
+
+                GameObject newTower = Instantiate(towerPrefabs[(int)tower],
+                    new Vector3(x  * gridSize, MeshHeight(x, z) + 1, (levelDepth - z - 1)  * gridSize),
+                    towerPrefabs[(int)tower].transform.rotation);
+                towerGameobjects.Add(newTower);
+            }
+        }
+        else
+        {
+            uiWarning.SetActive("Towers can only be placed on mountains!");
+        }
+    }
+
+    private void RemoveTower(int index)
+    {
+        Destroy(towerGameobjects[index]);
+        towerGameobjects.RemoveAt(index);
+        towers.RemoveAt(index);
+        towerPositions.RemoveAt(index);
+        towerSpawnTimes.RemoveAt(index);
+    }
+
+    private bool CheckForTowerAndReplace(int x, int z, TowerType tower)
+    {
+        bool exists = false;
+        for (int i = 0; i < towerPositions.Count; i++)
+        {
+            if (towerPositions[i].x == x && towerPositions[i].y == z)
+            {
+                if (towers[i] == tower)
+                {
+                    exists = true;
+                }
+                else
+                {
+                    RemoveTower(i);
+                }
+
+                break;
+            }
+        }
+
+        return exists;
+    }
+
+    private int CheckForTower(int x, int z)
+    {
+        int index = -1;
+        for (int i = 0; i < towerPositions.Count; i++)
+        {
+            if (towerPositions[i].x == x && towerPositions[i].y == z)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public void IncreaseLevelWidth()
+    {
+        levelWidth++;
+        grid = ArrayHelper.ResizeArray(grid, levelWidth, levelDepth);
+        gridGameobjects = ArrayHelper.ResizeArray(gridGameobjects, levelWidth, levelDepth);
+        for (int i = 0; i < levelDepth; i++)
+        {
+            SetGridPoint(levelWidth - 1, i);
+        }
+        CreateBorder();
+    }
+
+    public void DecreaseLevelWidth()
+    {
+        if (levelWidth > 2)
+        {
+            for (int i = 0; i < levelDepth; i++)
+            {
+                Destroy(gridGameobjects[levelWidth - 1, i]);
+                int towerIndex = CheckForTower(levelWidth - 1, i);
+                if (towerIndex != -1)
+                {
+                    RemoveTower(towerIndex);
+                }
+            }
+
+            levelWidth--;
+            grid = ArrayHelper.RemoveColumnFromArray(grid, levelWidth);
+            gridGameobjects = ArrayHelper.RemoveColumnFromArray(gridGameobjects, levelWidth);
+            CreateBorder();
+        }
+        else
+        {
+            uiWarning.SetActive("You cannot make the width of your level smaller!");
+        }
+    }
+
+    public void IncreaseLevelDepth()
+    {
+        levelDepth++;
+        grid = ArrayHelper.InsertRowIntoArray(grid, 0);
+        gridGameobjects = ArrayHelper.InsertRowIntoArray(gridGameobjects, 0);
+        for (int i = 0; i < levelWidth; i++)
+        {
+            SetGridPoint(i, 0);
+        }
+        CreateBorder();
+    }
+
+    public void DecreaseLevelDepth()
+    {
+        if (levelDepth > 2)
+        {
+            for (int i = 0; i < levelWidth; i++)
+            {
+                Destroy(gridGameobjects[i, 0]);
+                int towerIndex = CheckForTower(i, 0);
+                if (towerIndex != -1)
+                {
+                    RemoveTower(towerIndex);
+                }
+            }
+
+            levelDepth--;
+            grid = ArrayHelper.RemoveRowFromArray(grid, 0);
+            gridGameobjects = ArrayHelper.RemoveRowFromArray(gridGameobjects, 0);
+            CreateBorder();
+        }
+        else
+        {
+            uiWarning.SetActive("You cannot make the depth of your level smaller!");
         }
     }
 }

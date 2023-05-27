@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 919132148122239275, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929463296184706982, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5232776265284115424, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
       propertyPath: m_Size.y
       value: 1
@@ -63,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 7561698747290888861, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
       propertyPath: m_Name
       value: Farm Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7561698747290888861, guid: 401372cf998171146a98756bee5a2ed1, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

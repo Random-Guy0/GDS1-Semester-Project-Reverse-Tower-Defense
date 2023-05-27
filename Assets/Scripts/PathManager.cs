@@ -13,10 +13,10 @@ public class PathManager : MonoBehaviour
     [SerializeField] private Shader outlineShader;
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
-    [SerializeField] private float gridSize;
+    [SerializeField] private float gridSize = 2f;
     [SerializeField] private GridTile[] grid;
     [SerializeField] private float[] heights;
-    [SerializeField] private float stepHeight;
+    [SerializeField] private float stepHeight = 0.5f;
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;

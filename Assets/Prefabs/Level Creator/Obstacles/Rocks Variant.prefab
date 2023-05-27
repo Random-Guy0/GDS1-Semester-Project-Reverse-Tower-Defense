@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocks Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 341617128009137277, guid: e9414a5a0ca884f418c2a795d04a6521, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132148482517423, guid: e9414a5a0ca884f418c2a795d04a6521, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1150241287553427143, guid: e9414a5a0ca884f418c2a795d04a6521, type: 3}
       propertyPath: m_RootOrder
       value: 0

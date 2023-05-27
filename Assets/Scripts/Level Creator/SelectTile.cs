@@ -14,21 +14,32 @@ public class SelectTile : MonoBehaviour
         levelCreator = FindObjectOfType<UserLevelCreator>();
     }
 
-    private void OnMouseEnter()
+    private void OnMouseOver()
     {
-        levelCreator.SetSelectedTile(transform.position);
-        Material[] materials = renderer.materials;
-        foreach (Material material in materials)
+        if (levelCreator.CanSelect)
         {
-            material.shader = Shader.Find("Custom/Outline");
-            material.SetColor("_OutlineColor", new Color(1.0f, 1.0f, 0.0f));
-            material.SetFloat("_OutlineWidth", 1.1f);
-        }
+            levelCreator.SetSelectedTile(transform.position);
+            Material[] materials = renderer.materials;
+            foreach (Material material in materials)
+            {
+                material.shader = Shader.Find("Custom/Outline");
+                material.SetColor("_OutlineColor", new Color(1.0f, 1.0f, 0.0f));
+                material.SetFloat("_OutlineWidth", 1.1f);
+            }
 
-        renderer.materials = materials;
+            renderer.materials = materials;
+        }
     }
 
     private void OnMouseExit()
+    {
+        if (levelCreator.CanSelect)
+        {
+            ClearSelection();
+        }
+    }
+
+    public void ClearSelection()
     {
         levelCreator.ClearSelectedTile(transform.position);
         Material[] materials = renderer.materials;

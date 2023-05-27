@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Path Connection x3 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3368037432578759052, guid: 124e1000ae7ab4045b9e9367a951017a, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -8246175179295462492, guid: 124e1000ae7ab4045b9e9367a951017a, type: 3}
     - {fileID: 3469136094572688878, guid: 124e1000ae7ab4045b9e9367a951017a, type: 3}

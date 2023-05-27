@@ -16,9 +16,17 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 919132148825218423, guid: e8f26aa75a1143e4bbd71c9325fde591, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2317782896640653157, guid: e8f26aa75a1143e4bbd71c9325fde591, type: 3}
       propertyPath: m_Name
       value: Watchtower Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317782896640653157, guid: e8f26aa75a1143e4bbd71c9325fde591, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3125986252450278879, guid: e8f26aa75a1143e4bbd71c9325fde591, type: 3}
       propertyPath: m_RootOrder
