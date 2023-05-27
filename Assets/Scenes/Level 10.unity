@@ -71426,10 +71426,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: PlacePath
       objectReference: {fileID: 0}
-    - target: {fileID: 397562179099753451, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 397562179132596391, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -71438,9 +71434,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SpawnMonster
       objectReference: {fileID: 0}
-    - target: {fileID: 397562179181714528, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 397562179419645176, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: 'Thief Monster (2)
+
+        40 Mana | 40 Health
+
+        Fast but vulerable.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 397562179910704982, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: 'Warrior Monster (1)
+
+        20 Mana | 40 Health
+
+        Moves at
+        a steady pace.'
       objectReference: {fileID: 0}
     - target: {fileID: 397562179920874197, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -71449,10 +71458,6 @@ PrefabInstance:
     - target: {fileID: 397562179920874197, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SpawnMonster
-      objectReference: {fileID: 0}
-    - target: {fileID: 397562179922523786, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 397562180015577010, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_Pivot.x
@@ -71554,6 +71559,15 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SpawnMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 397562180353476685, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: 'General Monster (3)
+
+        80 Mana | 500 Health
+
+        Slow But
+        Beefy.'
+      objectReference: {fileID: 0}
     - target: {fileID: 932596508573714293, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -71586,6 +71600,19 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Ability, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3909312408301568753, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: 'Mana Monster (4)
+
+        100 Mana | 200 Health
+
+        Collects Mana
+        off the Ground.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915593749683005798, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: "Heal Skill (8)\n100 Mana \nHeal to full Health."
+      objectReference: {fileID: 0}
     - target: {fileID: 4597232751791770793, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -71598,13 +71625,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 4642191450501510283, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5752143275616772275, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 5226753373616233212, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: 'Shield Monster (5)
+
+        120 Mana | 250 Health
+
+        Shields
+        Other Monsters from Attacks.'
       objectReference: {fileID: 0}
     - target: {fileID: 7384335068468395013, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -71617,6 +71645,16 @@ PrefabInstance:
     - target: {fileID: 7384335068468395013, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935682576002419676, guid: 990ed6260aca06c42a0e9b70acb47d01, type: 3}
+      propertyPath: m_text
+      value: 'Stop Skill (7)
+
+        50 Mana
+
+        Stop Attack of Nearby Towers.
+
+'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -82609,7 +82647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2003639070cf0174481be7ae5350dbf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPiecesAvailable: 20
+  pathPiecesAvailable: 10
   defaultShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   outlineShader: {fileID: 4800000, guid: 8532d714e733bd34884f9a859ff5deeb, type: 3}
   levelWidth: 21

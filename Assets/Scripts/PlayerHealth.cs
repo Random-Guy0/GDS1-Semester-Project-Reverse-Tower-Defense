@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
     public int health;
     public int maxHealth;
     public HPBar healthBar;
+    public AudioClip MonDeathSound;
+    private bool isPlayed;
+    public GameObject PopupDamager;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +52,9 @@ public class PlayerHealth : MonoBehaviour
     {
         health -= damage;
 
+        GameObject gameObject = Instantiate(PopupDamager,transform.position, Quaternion.identity);
+        gameObject.GetComponent<damagePopup>().Setup(damage);
+
         if (gameObject.CompareTag("Monster"))
         {
             // Start the coroutine that waits for the animation to finish
@@ -66,6 +72,12 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator WaitForDeathAnimation(string animationName)
     {
+        if (MonDeathSound != null && !isPlayed)
+        {
+            AudioInstance.Play(MonDeathSound);
+            isPlayed = true;
+        }
+        Debug.Log("DeathSound");
         Monster test = GetComponent<Monster>();
 
         // Wait until the current animation is finished playing

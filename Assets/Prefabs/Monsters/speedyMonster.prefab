@@ -939,6 +939,8 @@ MonoBehaviour:
   health: 0
   maxHealth: 40
   healthBar: {fileID: 3238322051522107931}
+  MonDeathSound: {fileID: 8300000, guid: c1d28d7fe3433674cbf0ebe797790dba, type: 3}
+  PopupDamager: {fileID: 2455623765056259641, guid: 89c212e704afc9f4b8e87d449fbc8a76, type: 3}
 --- !u!54 &3238322051593471798
 Rigidbody:
   m_ObjectHideFlags: 0
