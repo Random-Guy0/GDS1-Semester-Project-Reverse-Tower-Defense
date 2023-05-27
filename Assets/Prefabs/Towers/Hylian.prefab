@@ -196,6 +196,10 @@ PrefabInstance:
       propertyPath: presitgeClass
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
+      propertyPath: prestigeClass
+      value: 
+      objectReference: {fileID: 4154693050672460349, guid: 038d5b5ee18affa44be78c9882f9764e, type: 3}
     - target: {fileID: 5342128696690041570, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: viewRadius
       value: 5
