@@ -1946,7 +1946,6 @@ MonoBehaviour:
   levelCreator: {fileID: 1540627372}
   moveSensitivity: 5
   orbitSensitivity: 5
-  orbitSnapSpeed: 0.1
   zoomSensitivity: 25
 --- !u!1 &330726260
 GameObject:
@@ -10514,10 +10513,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Orbit using The Right Mouse Button
 
-    Zoom using the scroll wheel or
-    the up and down arrow keys
+    Zoom using the scroll wheel
 
-    Move using [WASD] or the middle mouse button'
+    Move
+    using [WASD] or the middle mouse button
+
+    [R] to reset camera'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
   m_sharedMaterial: {fileID: -5883391799012419892, guid: f5242b8714466674eb32e3403e124ef4, type: 2}
@@ -15746,10 +15747,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelCreator: {fileID: 1540627372}
-  moveSensitivity: 5
-  orbitSensitivity: 5
-  orbitSnapSpeed: 0.1
-  zoomSensitivity: 25
+  moveSensitivity: 10
+  orbitSensitivity: 15
+  zoomSensitivity: 50
 --- !u!20 &2084419105
 Camera:
   m_ObjectHideFlags: 0

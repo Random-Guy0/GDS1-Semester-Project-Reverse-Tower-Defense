@@ -55,7 +55,7 @@ public class UserLevelCreator : MonoBehaviour
     [SerializeField] private GameObject selectionPopup;
 
     [SerializeField] private GameObject towerSpawnTimeSettings;
-    [FormerlySerializedAs("deleteButton")] [SerializeField] private GameObject towerDeleteButton;
+    [SerializeField] private GameObject towerDeleteButton;
 
     private void Awake()
     {
