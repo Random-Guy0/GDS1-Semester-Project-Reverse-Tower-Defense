@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class UserLevelCreator : MonoBehaviour
 {
+    private string levelName;
+    [SerializeField] private TMP_Text levelNameText;
+    
     private const int gridSize = 2;
     
     private GridTile[,] grid;
@@ -57,19 +61,72 @@ public class UserLevelCreator : MonoBehaviour
     [SerializeField] private GameObject towerSpawnTimeSettings;
     [SerializeField] private GameObject towerDeleteButton;
 
+    [SerializeField] private Camera renderCamera;
+    [SerializeField] private RenderTexture rt;
+
     private void Awake()
     {
-        defaultGrid = new GridTile[defaultLevelWidth, defaultLevelDepth];
-        defaultHeights = new float[defaultLevelWidth, defaultLevelDepth];
-        gridGameobjects = new GameObject[defaultLevelWidth, defaultLevelDepth];
-        for (int i = 0; i < defaultLevelWidth; i++)
+        LevelName levelName = FindObjectOfType<LevelName>();
+
+        if (levelName != null && System.IO.File.Exists(Application.persistentDataPath + "/User Levels/" + levelName.GetLevelName() + "/level.json"))
         {
-            for (int j = 0; j < defaultLevelDepth; j++)
+            string levelJSON =
+                System.IO.File.ReadAllText(Application.persistentDataPath + "/User Levels/" + levelName.GetLevelName() +
+                                           "/level.json");
+            UserLevel level = JsonUtility.FromJson<UserLevel>(levelJSON);
+
+            defaultLevelWidth = level.levelWidth;
+            defaultLevelDepth = level.levelDepth;
+            defaultGrid = new GridTile[defaultLevelWidth, defaultLevelDepth];
+            defaultHeights = new float[defaultLevelWidth, defaultLevelDepth];
+            gridGameobjects = new GameObject[defaultLevelWidth, defaultLevelDepth];
+            for (int i = 0; i < defaultLevelWidth; i++)
             {
-                defaultGrid[i, j] = GridTile.Ground;
-                defaultHeights[i, j] = 1f;
+                for (int j = 0; j < defaultLevelDepth; j++)
+                {
+                    defaultGrid[i, j] = (GridTile)level.grid[j * defaultLevelWidth + i];
+                    defaultHeights[i, j] = level.heights[j * defaultLevelWidth + i];
+                }
             }
+
+            int[] towerIntArray = level.towers;
+            towers = new List<TowerType>();
+
+            for (int i = 0; i < towerIntArray.Length; i++)
+            {
+                towers.Add((TowerType)towerIntArray[i]);
+            }
+
+            int[] towerPositionsX = level.towerPositionsX;
+            int[] towerPositionsZ = level.towerPositionsZ;
+            
+            towerPositions = new List<Vector2Int>();
+            for (int i = 0; i < towerPositionsX.Length; i++)
+            {
+                towerPositions.Add(new Vector2Int(towerPositionsX[i], towerPositionsZ[i]));
+            }
+            
+            towerSpawnTimes = new List<float>(level.towerSpawnTimes);
         }
+        else
+        {
+            defaultGrid = new GridTile[defaultLevelWidth, defaultLevelDepth];
+            defaultHeights = new float[defaultLevelWidth, defaultLevelDepth];
+            gridGameobjects = new GameObject[defaultLevelWidth, defaultLevelDepth];
+            for (int i = 0; i < defaultLevelWidth; i++)
+            {
+                for (int j = 0; j < defaultLevelDepth; j++)
+                {
+                    defaultGrid[i, j] = GridTile.Ground;
+                    defaultHeights[i, j] = 1f;
+                }
+            }
+            towers = new List<TowerType>();
+            towerPositions = new List<Vector2Int>();
+            towerSpawnTimes = new List<float>();
+        }
+        
+        towerGameobjects = new List<GameObject>();
 
         levelWidth = defaultLevelWidth;
         levelDepth = defaultLevelDepth;
@@ -79,12 +136,18 @@ public class UserLevelCreator : MonoBehaviour
         
         CreateGrid();
 
-        towers = new List<TowerType>();
-        towerPositions = new List<Vector2Int>();
-        towerSpawnTimes = new List<float>();
-        towerGameobjects = new List<GameObject>();
+        for (int i = 0; i < towers.Count; i++)
+        {
+            SpawnTower(towerPositions[i].x, towerPositions[i].y, towers[i]);
+        }
 
         CanSelect = true;
+    }
+
+    public void SetLevelName(string levelName)
+    {
+        this.levelName = levelName;
+        levelNameText.SetText(levelName);
     }
 
     private void CreateGrid()
@@ -114,6 +177,14 @@ public class UserLevelCreator : MonoBehaviour
         else if ((int)tileToInstantiate >= 2 && (int)tileToInstantiate < 5)
         {
             objectToInstantiate = pathTilePrefabs[0];
+            if (tileToInstantiate == GridTile.Start)
+            {
+                start = new Vector2Int(x, z);
+            }
+            else if (tileToInstantiate == GridTile.End)
+            {
+                end = new Vector2Int(x, z);
+            }
         }
         else
         {
@@ -732,16 +803,21 @@ public class UserLevelCreator : MonoBehaviour
                 towerPositions.Add(new Vector2Int(x, z));
                 towerSpawnTimes.Add(30f);
 
-                GameObject newTower = Instantiate(towerPrefabs[(int)tower],
-                    new Vector3(x  * gridSize, MeshHeight(x, z) + 1, (levelDepth - z - 1)  * gridSize),
-                    towerPrefabs[(int)tower].transform.rotation);
-                towerGameobjects.Add(newTower);
+                SpawnTower(x, z, tower);
             }
         }
         else
         {
             uiWarning.SetActive("Towers can only be placed on mountains!");
         }
+    }
+
+    private void SpawnTower(int x, int z, TowerType tower)
+    {
+        GameObject newTower = Instantiate(towerPrefabs[(int)tower],
+            new Vector3(x  * gridSize, MeshHeight(x, z) + 1, (levelDepth - z - 1)  * gridSize),
+            towerPrefabs[(int)tower].transform.rotation);
+        towerGameobjects.Add(newTower);
     }
 
     private void RemoveTower(int index)
@@ -796,6 +872,18 @@ public class UserLevelCreator : MonoBehaviour
         levelWidth++;
         grid = ArrayHelper.ResizeArray(grid, levelWidth, levelDepth);
         gridGameobjects = ArrayHelper.ResizeArray(gridGameobjects, levelWidth, levelDepth);
+        heights = ArrayHelper.ResizeArray(heights, levelWidth, levelDepth);
+        for (int i = 0; i > levelWidth; i++)
+        {
+            for (int j = 0; j > levelDepth; j++)
+            {
+                if (heights[i, j] == 0f)
+                {
+                    heights[i, j] = 1f;
+                }
+            }
+        }
+        
         for (int i = 0; i < levelDepth; i++)
         {
             SetGridPoint(levelWidth - 1, i);
@@ -820,6 +908,7 @@ public class UserLevelCreator : MonoBehaviour
             levelWidth--;
             grid = ArrayHelper.RemoveColumnFromArray(grid, levelWidth);
             gridGameobjects = ArrayHelper.RemoveColumnFromArray(gridGameobjects, levelWidth);
+            heights = ArrayHelper.RemoveColumnFromArray(heights, levelWidth);
             CreateBorder();
         }
         else
@@ -833,6 +922,18 @@ public class UserLevelCreator : MonoBehaviour
         levelDepth++;
         grid = ArrayHelper.InsertRowIntoArray(grid, 0);
         gridGameobjects = ArrayHelper.InsertRowIntoArray(gridGameobjects, 0);
+        heights = ArrayHelper.InsertRowIntoArray(heights, 0);
+        for (int i = 0; i > levelWidth; i++)
+        {
+            for (int j = 0; j > levelDepth; j++)
+            {
+                if (heights[i, j] == 0f)
+                {
+                    heights[i, j] = 1f;
+                }
+            }
+        }
+        
         for (int i = 0; i < levelWidth; i++)
         {
             SetGridPoint(i, 0);
@@ -857,11 +958,52 @@ public class UserLevelCreator : MonoBehaviour
             levelDepth--;
             grid = ArrayHelper.RemoveRowFromArray(grid, 0);
             gridGameobjects = ArrayHelper.RemoveRowFromArray(gridGameobjects, 0);
+            heights = ArrayHelper.RemoveRowFromArray(heights, 0);
             CreateBorder();
         }
         else
         {
             uiWarning.SetActive("You cannot make the depth of your level smaller!");
+        }
+    }
+
+    public bool Save()
+    {
+        if (start.Equals(Vector2Int.one * -1))
+        {
+            uiWarning.SetActive("You must have one start tile in your level!");
+            return false;
+        }
+
+        if (end.Equals(Vector2Int.one * -1))
+        {
+            uiWarning.SetActive("You must have one end tile in your level!");
+            return false;
+        }
+        
+        renderCamera.transform.position = new Vector3(-levelWidth, levelWidth + levelDepth, -levelDepth);
+        renderCamera.transform.LookAt(GetCenter());
+        UserLevelSaveHandler.Save(levelName, levelWidth, levelDepth, grid, heights, towers.ToArray(), towerPositions.ToArray(), towerSpawnTimes.ToArray(), renderCamera, rt);
+        return true;
+    }
+
+    public void Quit()
+    {
+        if (Save())
+        {
+            SceneManager.LoadScene("UserLevels");
+        }
+    }
+
+    public void Play()
+    {
+        if (Save())
+        {
+            GameObject levelNameObject = new GameObject("Level Name");
+            LevelName levelNameComponent = levelNameObject.AddComponent<LevelName>();
+            levelNameComponent.SetLevelName(levelName);
+            DontDestroyOnLoad(levelNameObject);
+            SceneManager.LoadScene("UserLevelPlayer");
         }
     }
 }

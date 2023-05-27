@@ -41,6 +41,39 @@ public class PathManager : MonoBehaviour
 
     private void Awake()
     {
+        LevelName levelName = FindObjectOfType<LevelName>();
+
+        if (levelName != null && System.IO.File.Exists(Application.persistentDataPath + "/User Levels/" +
+                                                       levelName.GetLevelName() + "/level.json"))
+        {
+            string levelJSON =
+                System.IO.File.ReadAllText(Application.persistentDataPath + "/User Levels/" + levelName.GetLevelName() +
+                                           "/level.json");
+            UserLevel level = JsonUtility.FromJson<UserLevel>(levelJSON);
+
+            GridTile[] grid = new GridTile[level.grid.Length];
+            for (int i = 0; i < grid.Length; i++)
+            {
+                grid[i] = (GridTile)level.grid[i];
+            }
+            
+            CreateGrid(level.levelWidth, level.levelDepth, grid, level.heights);
+
+            GameObject player = GameObject.FindWithTag("Player");
+            Vector3 playerPos = gridGameobjects[start].transform.position;
+            playerPos.y = MeshHeight(start);
+            player.transform.position = playerPos;
+
+            TowerType[] towers = new TowerType[level.towers.Length];
+            Vector2Int[] towerPositions = new Vector2Int[level.towerPositionsX.Length];
+            for (int i = 0; i < towers.Length; i++)
+            {
+                towers[i] = (TowerType)level.towers[i];
+                towerPositions[i] = new Vector2Int(level.towerPositionsX[i], level.towerPositionsZ[i]);
+            }
+            FindObjectOfType<TowerSpawner>().SpawnTowers(towers, towerPositions, level.towerSpawnTimes, this);
+        }
+        
         manaPositions = new bool[grid.Length];
         for (int i = 0; i < manaPositions.Length; i++)
         {
@@ -693,5 +726,10 @@ public class PathManager : MonoBehaviour
     public float[] GetHeights()
     {
         return heights;
+    }
+
+    public float GetGridSize()
+    {
+        return gridSize;
     }
 }
