@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Cutscene.unity
+    guid: 550a50848898a4f4b893a183af31f4a5
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 43464e4d5322dcf48afbb5827f631042
   - enabled: 1
@@ -27,9 +30,30 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 6.unity
     guid: a8576ca5ec10d364e8774576d35c98a2
   - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: e8cfd459559078a4abcd496bad30ee33
+  - enabled: 1
+    path: Assets/Scenes/Level 8.unity
+    guid: 7733adaba7b9fe44aae3de1edd8ef653
+  - enabled: 1
+    path: Assets/Scenes/Level 9.unity
+    guid: 2fa7f2fa377149c4c987ae44278549ed
+  - enabled: 1
+    path: Assets/Scenes/Level 10.unity
+    guid: 1d2204f4cb0742b408e4546f66650ee2
+  - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: 68e12b3be48ce2e49a167c7292f9d53a
   - enabled: 1
     path: Assets/Scenes/LoseScreen.unity
     guid: 497f5feee9fb69149abfc3708ce4285d
+  - enabled: 1
+    path: Assets/Scenes/UserLevels.unity
+    guid: b8747414ce623cc4ea2760c9c18a9065
+  - enabled: 1
+    path: Assets/Scenes/LevelCreator.unity
+    guid: 09f4c5f02866b694fb4f7f4bb541d8eb
+  - enabled: 1
+    path: Assets/Scenes/UserLevelPlayer.unity
+    guid: d1b7f27a50a578747b736f437b7617c3
   m_configObjects: {}

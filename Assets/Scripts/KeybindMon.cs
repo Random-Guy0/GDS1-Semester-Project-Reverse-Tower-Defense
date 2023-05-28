@@ -67,6 +67,7 @@ public class KeybindMon : MonoBehaviour
         if (PathActionCoroutine == null && !isSpaceKeyDown)
         {
             isSpaceKeyDown = true;
+            FindObjectOfType<PathBeacon>().KeyDown();
             PathActionCoroutine = PerformPathAction();
             StartCoroutine(PathActionCoroutine);
         }
@@ -76,6 +77,7 @@ public class KeybindMon : MonoBehaviour
     {
         if (PathActionCoroutine != null)
         {
+            FindObjectOfType<PathManager>().KeyUp();
             isSpaceKeyDown = false;
             StopCoroutine(PathActionCoroutine);
             PathActionCoroutine = null;

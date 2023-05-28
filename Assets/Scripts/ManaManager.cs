@@ -84,4 +84,10 @@ public class ManaManager : MonoBehaviour
         
         Invoke("SpawnMana", timeToSpawn);
     }
+
+    public void SetMana(int startingMana, int maxMana)
+    {
+        this.currentMana = startingMana;
+        this.maxMana = maxMana;
+    }
 }

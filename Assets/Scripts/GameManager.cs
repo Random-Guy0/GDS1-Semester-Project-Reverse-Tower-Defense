@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int levelHealth;
     [SerializeField] private Animator PlayerAni;
     [SerializeField] GameObject originalGameObject;
+    [SerializeField] private GameObject fireworksEffect;
     
     public bool HasWon { get; private set; }
 
@@ -19,6 +20,11 @@ public class GameManager : MonoBehaviour
         SetHealthText();
         originalGameObject = GameObject.Find("Player");
         PlayerAni = originalGameObject.transform.GetChild(1).gameObject.GetComponent<Animator>();
+    }
+
+    public void SetGateHealth(int levelHealth)
+    {
+        this.levelHealth = levelHealth;
     }
 
     public void TakeDamage(int damage)
@@ -32,6 +38,7 @@ public class GameManager : MonoBehaviour
         if (levelHealth <= 0)
         {
             HasWon = true;
+            fireworksEffect.SetActive(true);
             originalGameObject.GetComponent<Movement>().playerSpeed = 0;
             Invoke("loadWin", 3.5f);
         }

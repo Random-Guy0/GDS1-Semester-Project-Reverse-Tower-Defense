@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
     {
         Camera = GameObject.Find("Main Camera");
         controller = gameObject.AddComponent<CharacterController>();
-        controller.stepOffset = 0.2f;
+        controller.stepOffset = 0.5f;
         cameraS = Camera.GetComponent<camera>().getCurrentCamera();
         gateHp = GameObject.Find("Game Manager").GetComponent<GameManager>().getLevelHealth();
     }

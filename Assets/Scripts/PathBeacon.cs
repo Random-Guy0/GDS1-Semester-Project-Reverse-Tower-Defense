@@ -18,9 +18,9 @@ public class PathBeacon : MonoBehaviour
         }*/
     }
 
-    private void LateUpdate()
+    public void KeyDown()
     {
-        pathManager.ChangePlaceMode(transform.position);
+        pathManager.KeyDown(transform.position);
     }
 
     public void PlacePath()

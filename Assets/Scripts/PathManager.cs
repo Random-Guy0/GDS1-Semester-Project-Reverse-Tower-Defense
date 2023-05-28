@@ -13,10 +13,10 @@ public class PathManager : MonoBehaviour
     [SerializeField] private Shader outlineShader;
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
-    [SerializeField] private float gridSize;
+    [SerializeField] private float gridSize = 2f;
     [SerializeField] private GridTile[] grid;
     [SerializeField] private float[] heights;
-    [SerializeField] private float stepHeight;
+    [SerializeField] private float stepHeight = 0.5f;
     [SerializeField] private GameObject[] gridGameobjects;
     [SerializeField] private GameObject[] tilePrefabs;
     [SerializeField] private GameObject[] pathTilePrefabs;
@@ -35,10 +35,49 @@ public class PathManager : MonoBehaviour
 
     private int selectedTileIndex = 0;
 
+    private bool keyDown = false;
+
     public bool PlaceOrRemove { private set; get; }
 
     private void Awake()
     {
+        LevelName levelName = FindObjectOfType<LevelName>();
+
+        if (levelName != null && System.IO.File.Exists(Application.persistentDataPath + "/User Levels/" +
+                                                       levelName.GetLevelName() + "/level.json"))
+        {
+            string levelJSON =
+                System.IO.File.ReadAllText(Application.persistentDataPath + "/User Levels/" + levelName.GetLevelName() +
+                                           "/level.json");
+            UserLevel level = JsonUtility.FromJson<UserLevel>(levelJSON);
+
+            GridTile[] grid = new GridTile[level.grid.Length];
+            for (int i = 0; i < grid.Length; i++)
+            {
+                grid[i] = (GridTile)level.grid[i];
+            }
+            
+            CreateGrid(level.levelWidth, level.levelDepth, grid, level.heights);
+
+            GameObject player = GameObject.FindWithTag("Player");
+            Vector3 playerPos = gridGameobjects[start].transform.position;
+            playerPos.y = MeshHeight(start);
+            player.transform.position = playerPos;
+
+            TowerType[] towers = new TowerType[level.towers.Length];
+            Vector2Int[] towerPositions = new Vector2Int[level.towerPositionsX.Length];
+            for (int i = 0; i < towers.Length; i++)
+            {
+                towers[i] = (TowerType)level.towers[i];
+                towerPositions[i] = new Vector2Int(level.towerPositionsX[i], level.towerPositionsZ[i]);
+            }
+            FindObjectOfType<TowerSpawner>().SpawnTowers(towers, towerPositions, level.towerSpawnTimes, this);
+
+            pathPiecesAvailable = level.pathPieces;
+            FindObjectOfType<GameManager>().SetGateHealth(level.gateHealth);
+            FindObjectOfType<ManaManager>().SetMana(level.startingMana, level.maxMana);
+        }
+        
         manaPositions = new bool[grid.Length];
         for (int i = 0; i < manaPositions.Length; i++)
         {
@@ -296,10 +335,23 @@ public class PathManager : MonoBehaviour
                     switch (countTrue)
                     {
                         case 0:
+                            if (i + 1 >= levelWidth)
+                            {
+                                rotation.y = -90f;
+                            }
+                            else if (i - 1 < 0)
+                            {
+                                rotation.y = 90f;
+                            }
+                            else if (j - 1 < 0)
+                            {
+                                rotation.y = 180f;
+                            }
+                            
                             newTile = Instantiate(pathTilePrefabs[0],
                                 new Vector3(position.x, pathTilePrefabs[0].transform.position.y,
                                     position.z),
-                                Quaternion.identity, levelParent.transform);
+                                Quaternion.Euler(rotation), levelParent.transform);
                             break;
                         
                         case 1:
@@ -406,13 +458,9 @@ public class PathManager : MonoBehaviour
     //place a section of the path, returning if it was placed or not
     public void PlacePath(Vector3 position)
     {
-        if (PlaceOrRemove)
+        if (!keyDown)
         {
-            CancelInvoke(nameof(AllowRemove));
-        }
-        else
-        {
-            CancelInvoke(nameof(AllowPlace));
+            ChangePlaceMode(position);
         }
         
         int x = GetXFromPosition(position);
@@ -437,27 +485,28 @@ public class PathManager : MonoBehaviour
         SetPathSegmentText();
     }
 
-    public void ChangePlaceMode(Vector3 position)
+    private void ChangePlaceMode(Vector3 position)
     {
         if (GetGridPoint(position) == GridTile.Path)
         {
-            Invoke(nameof(AllowRemove), 0.05f);
+            PlaceOrRemove = false;
         }
 
         if (GetGridPoint(position) == GridTile.Ground)
         {
-            Invoke(nameof(AllowPlace), 0.05f);
+            PlaceOrRemove = true;
         }
     }
 
-    private void AllowPlace()
+    public void KeyDown(Vector3 position)
     {
-        PlaceOrRemove = true;
+        keyDown = true;
+        ChangePlaceMode(position);
     }
-    
-    private void AllowRemove()
+
+    public void KeyUp()
     {
-        PlaceOrRemove = false;
+        keyDown = false;
     }
     
     public List<Vector3> GetValidManaPositions()
@@ -682,28 +731,9 @@ public class PathManager : MonoBehaviour
     {
         return heights;
     }
-}
 
-public enum GridTile
-{
-    Ground,
-    Mountain,
-    Path,
-    Start,
-    End,
-    ArcheryRangeObstacle,
-    BarracksObstacle,
-    CastleObstacle,
-    FarmObstacle,
-    ForestObstacle,
-    HouseObstacle,
-    LumbermillObstacle,
-    MarketObstacle,
-    MillObstacle,
-    MineObstacle,
-    MountainObstacle,
-    RocksObstacle,
-    WatchtowerObstacle,
-    WatermillObstacle,
-    WellObstacle
+    public float GetGridSize()
+    {
+        return gridSize;
+    }
 }
