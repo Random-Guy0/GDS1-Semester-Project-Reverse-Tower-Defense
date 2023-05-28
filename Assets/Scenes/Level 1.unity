@@ -25148,7 +25148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentManaCount: {fileID: 791313687}
-  currentMana: 100
+  currentMana: 300
   maxMana: 500
   minMana: 0
   manaPerCollection: 20

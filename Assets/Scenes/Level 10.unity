@@ -2384,7 +2384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 947131474527615645, guid: 0bb940466458ae048ab7cfadd7de26b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.89
+      value: 12.73
       objectReference: {fileID: 0}
     - target: {fileID: 947131474527615645, guid: 0bb940466458ae048ab7cfadd7de26b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45980,7 +45980,7 @@ MonoBehaviour:
   manaPerCollection: 50
   pathManager: {fileID: 4376931925939605402}
   manaPrefab: {fileID: 7238413195012913397, guid: f9befe9da55f71d4eb4e61d0a4da3fbd, type: 3}
-  timeToSpawn: 3
+  timeToSpawn: 2
   maxToSpawn: 50
 --- !u!4 &1265316274
 Transform:
@@ -78936,7 +78936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 947131474527615645, guid: 0bb940466458ae048ab7cfadd7de26b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.89
+      value: 12.72
       objectReference: {fileID: 0}
     - target: {fileID: 947131474527615645, guid: 0bb940466458ae048ab7cfadd7de26b2, type: 3}
       propertyPath: m_LocalPosition.z
