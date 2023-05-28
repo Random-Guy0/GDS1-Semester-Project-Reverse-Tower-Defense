@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: fireDelay
-      value: 1.2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 4097123166505329941, guid: acaf11e2bf77504468a2082847e79f79, type: 3}
       propertyPath: prestigeTime
