@@ -1,0 +1,23 @@
+﻿public enum GridTile
+{
+    Ground,
+    Mountain,
+    Path,
+    Start,
+    End,
+    ArcheryRangeObstacle,
+    BarracksObstacle,
+    CastleObstacle,
+    FarmObstacle,
+    ForestObstacle,
+    HouseObstacle,
+    LumbermillObstacle,
+    MarketObstacle,
+    MillObstacle,
+    MineObstacle,
+    MountainObstacle,
+    RocksObstacle,
+    WatchtowerObstacle,
+    WatermillObstacle,
+    WellObstacle
+}

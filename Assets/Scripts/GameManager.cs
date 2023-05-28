@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
         PlayerAni = originalGameObject.transform.GetChild(1).gameObject.GetComponent<Animator>();
     }
 
+    public void SetGateHealth(int levelHealth)
+    {
+        this.levelHealth = levelHealth;
+    }
+
     public void TakeDamage(int damage)
     {
         levelHealth -= damage;
