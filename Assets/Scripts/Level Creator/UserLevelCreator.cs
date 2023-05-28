@@ -1034,9 +1034,16 @@ public class UserLevelCreator : MonoBehaviour
             towerPositions[i] = pos;
         }
 
-        start.y += 1;
-        end.y += 1;
-        
+        if (!start.Equals(Vector2Int.one * -1))
+        {
+            start.y += 1;
+        }
+
+        if (!end.Equals(Vector2Int.one * -1))
+        {
+            end.y += 1;
+        }
+
         for (int i = 0; i < levelWidth; i++)
         {
             SetGridPoint(i, 0);
@@ -1073,7 +1080,7 @@ public class UserLevelCreator : MonoBehaviour
             {
                 start = Vector2Int.one * -1;
             }
-            else
+            else if(!start.Equals(Vector2Int.one * -1))
             {
                 start.y -= 1;
             }
@@ -1082,7 +1089,7 @@ public class UserLevelCreator : MonoBehaviour
             {
                 end = Vector2Int.one * -1;
             }
-            else
+            else if(!end.Equals(Vector2Int.one * -1))
             {
                 end.y -= 1;
             }
