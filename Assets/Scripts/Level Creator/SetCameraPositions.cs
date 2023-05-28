@@ -9,6 +9,7 @@ public class SetCameraPositions : MonoBehaviour
     [SerializeField] private GameObject angle2;
     [SerializeField] private GameObject angle3;
     [SerializeField] private GameObject angle4;
+    [SerializeField] private GameObject celebrationEffect;
 
     private void Start()
     {
@@ -44,5 +45,11 @@ public class SetCameraPositions : MonoBehaviour
         angle4Pos.y = h;
         angle4Pos.z = levelDepth * gridSize * 0.5f;
         angle4.transform.position = angle4Pos;
+
+        Vector3 celebrationEffectPos = celebrationEffect.transform.position;
+        celebrationEffectPos.x = levelWidth * gridSize * 0.5f;
+        celebrationEffectPos.y = 0f;
+        celebrationEffectPos.z = levelDepth * gridSize * 0.5f;
+        celebrationEffect.transform.position = celebrationEffectPos;
     }
 }
