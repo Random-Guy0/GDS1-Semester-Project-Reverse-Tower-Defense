@@ -583,7 +583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(I)
+  m_text: '(1)
 
 '
   m_isRightToLeft: 0
@@ -1638,7 +1638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Y)
+  m_text: '(5)
 
 '
   m_isRightToLeft: 0
@@ -3646,7 +3646,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(P)
+  m_text: '(3)
 
 '
   m_isRightToLeft: 0
@@ -3995,7 +3995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(J)
+  m_text: '(7)
 
 '
   m_isRightToLeft: 0
@@ -5726,7 +5726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(O)
+  m_text: '(2)
 
 '
   m_isRightToLeft: 0
@@ -6819,7 +6819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(H)
+  m_text: '(8)
 
 '
   m_isRightToLeft: 0
@@ -9225,7 +9225,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(U)
+  m_text: '(4)
 
 '
   m_isRightToLeft: 0
@@ -9319,7 +9319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2001082787
 Transform:
   m_ObjectHideFlags: 0
@@ -9902,7 +9902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2120316268
 MonoBehaviour:
   m_ObjectHideFlags: 0
