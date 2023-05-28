@@ -297,7 +297,7 @@
                 {
                     "name": "",
                     "id": "bb114be8-f9e1-473f-8b2e-1d42a3866b56",
-                    "path": "<Keyboard>/numpad8",
+                    "path": "<Keyboard>/8",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -308,7 +308,7 @@
                 {
                     "name": "",
                     "id": "e8fe9bf8-eb9e-4120-8a58-90b51d8ef5bc",
-                    "path": "<Keyboard>/8",
+                    "path": "<Keyboard>/numpad8",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -996,7 +996,7 @@
                 {
                     "name": "",
                     "id": "85097858-fcea-483a-bb8e-0b131690764b",
-                    "path": "<Keyboard>/numpad5",
+                    "path": "<Keyboard>/5",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1007,7 +1007,7 @@
                 {
                     "name": "",
                     "id": "56dd4802-4df2-46c6-b481-c20edcb2a335",
-                    "path": "<Keyboard>/5",
+                    "path": "<Keyboard>/numpad5",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

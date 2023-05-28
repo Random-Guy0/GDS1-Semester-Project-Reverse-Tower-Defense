@@ -7312,6 +7312,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 81110192}
     - target: {fileID: 4049605857945829890, guid: 322ce0a2fc224464f94e2fc61ebd7765, type: 3}
+      propertyPath: Shield
+      value: 
+      objectReference: {fileID: 201642576}
+    - target: {fileID: 4049605857945829890, guid: 322ce0a2fc224464f94e2fc61ebd7765, type: 3}
       propertyPath: Speedy
       value: 
       objectReference: {fileID: 218497038}
