@@ -285,8 +285,8 @@ public class UserLevelCreator : MonoBehaviour
         Vector3 endPos = Vector3.one * -1f;
         if (!end.Equals(Vector2Int.one * -1))
         {
-            int x = GetXFromPosition(gridGameobjects[end.x, end.y].transform.position);
-            int z = GetZFromPosition(gridGameobjects[end.x, end.y].transform.position);
+            int x = end.x;
+            int z = end.y;
             if (z + 1 >= levelDepth)
             {
                 endPos = new Vector3(x * gridSize, 0.5f, -1.1f);
@@ -993,6 +993,15 @@ public class UserLevelCreator : MonoBehaviour
             grid = ArrayHelper.RemoveColumnFromArray(grid, levelWidth);
             gridGameobjects = ArrayHelper.RemoveColumnFromArray(gridGameobjects, levelWidth);
             heights = ArrayHelper.RemoveColumnFromArray(heights, levelWidth);
+            if (start.x == levelWidth)
+            {
+                start = Vector2Int.one * -1;
+            }
+
+            if (end.x == levelWidth)
+            {
+                end = Vector2Int.one * -1;
+            }
             CreateBorder();
         }
         else
@@ -1043,6 +1052,15 @@ public class UserLevelCreator : MonoBehaviour
             grid = ArrayHelper.RemoveRowFromArray(grid, 0);
             gridGameobjects = ArrayHelper.RemoveRowFromArray(gridGameobjects, 0);
             heights = ArrayHelper.RemoveRowFromArray(heights, 0);
+            if (start.y == 0)
+            {
+                start = Vector2Int.one * -1;
+            }
+
+            if (end.y == 0)
+            {
+                end = Vector2Int.one * -1;
+            }
             CreateBorder();
         }
         else

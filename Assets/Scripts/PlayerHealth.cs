@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public HPBar healthBar;
     public AudioClip MonDeathSound;
     private bool isPlayed;
+    public GameObject PopupDamager;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,9 @@ public class PlayerHealth : MonoBehaviour
     public void DamageTake(int damage)
     {
         health -= damage;
+
+        GameObject gameObject = Instantiate(PopupDamager,transform.position, Quaternion.identity);
+        gameObject.GetComponent<damagePopup>().Setup(damage);
 
         if (gameObject.CompareTag("Monster"))
         {
