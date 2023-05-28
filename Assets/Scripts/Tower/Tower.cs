@@ -36,11 +36,13 @@ public class Tower : MonoBehaviour
     private float fireDelayMod = 1;
     private bool shooting;
     private LineRenderer lr;
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
-    {
+    {     
         pm = GameObject.Find("Path Manager").GetComponent<PathManager>();
-        Model = transform.GetChild(1);      
+        Model = transform.GetChild(1);
+        anim = Model.gameObject.GetComponent<Animator>();
         shootPoint = transform.GetChild(0);
         lr = shootPoint.GetComponent<LineRenderer>();
         fov = GetComponent<FieldOfView>();
@@ -245,6 +247,22 @@ public class Tower : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(0f);
+        }
+        if (projectile.name == "Hit")
+        {
+            anim.SetTrigger("KnightAttack");
+        }
+        else if (projectile.name == "BIG Hit")
+        {
+            anim.SetTrigger("Hylian");
+        }
+        else if (projectile.name == "FireBall")
+        {
+            anim.SetTrigger("Magic");
+        }
+        else if (projectile.name != "Balista Bolt")
+        {
+            anim.SetTrigger("Shoot");
         }
         Instantiate(projectile,shootPoint.position, shootPoint.rotation);
         curTarget = null;
