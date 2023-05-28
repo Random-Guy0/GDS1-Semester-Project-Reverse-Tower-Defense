@@ -285,11 +285,33 @@
                 },
                 {
                     "name": "",
+                    "id": "0e546bf8-2aef-4d6f-92db-2c27173d39b5",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SlowSkill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bb114be8-f9e1-473f-8b2e-1d42a3866b56",
-                    "path": "<Keyboard>/numpad8",
+                    "path": "<Keyboard>/8",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "HealSkill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8fe9bf8-eb9e-4120-8a58-90b51d8ef5bc",
+                    "path": "<Keyboard>/numpad8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "HealSkill",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -885,6 +907,17 @@
                 },
                 {
                     "name": "",
+                    "id": "62541e7a-9f98-42f6-a62b-9aa93683a9f7",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Speedy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "04a315d1-a997-45eb-ae1e-cc0e4c7a4166",
                     "path": "<Keyboard>/numpad1",
                     "interactions": "",
@@ -896,11 +929,33 @@
                 },
                 {
                     "name": "",
+                    "id": "b106c52a-935d-4acd-abdf-46b5ec52270c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Normal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "01e89629-05d1-4931-b141-7bbef75229a3",
                     "path": "<Keyboard>/numpad3",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Tanky",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c959fc1b-94b4-46b1-ae80-d75e201326b9",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Tanky",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -929,7 +984,29 @@
                 },
                 {
                     "name": "",
+                    "id": "f0cf4e06-5196-4214-831b-87e175f1195d",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ManaCollector",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "85097858-fcea-483a-bb8e-0b131690764b",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "56dd4802-4df2-46c6-b481-c20edcb2a335",
                     "path": "<Keyboard>/numpad5",
                     "interactions": "",
                     "processors": "",
