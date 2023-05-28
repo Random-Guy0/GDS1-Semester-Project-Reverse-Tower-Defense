@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 919132148071936398, guid: c7260a6911b94ef4ea39f3bdd4bfe37f, type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2016073996369967131, guid: c7260a6911b94ef4ea39f3bdd4bfe37f, type: 3}
       propertyPath: m_Size.y
@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4293208239414724966, guid: c7260a6911b94ef4ea39f3bdd4bfe37f, type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

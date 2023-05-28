@@ -49,6 +49,11 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene("Level 10");
     }
+
+    public void LoadLevelCreator()
+    {
+        SceneManager.LoadScene("UserLevels");
+    }
     
     public void SelectMainMenu()
     {
@@ -84,10 +89,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.sceneLoaded -= nextLevel.OnSceneLoad;
         int index = nextLevel.SceneIndex + 1;
         Destroy(nextLevel.gameObject);
-        
-        if(index <= 10)
-        {
-            SceneManager.LoadScene(index);
-        }
+
+        SceneManager.LoadScene(index);
     }
 }

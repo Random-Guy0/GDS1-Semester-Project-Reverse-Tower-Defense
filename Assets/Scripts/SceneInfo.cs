@@ -36,7 +36,7 @@ public class SceneInfo : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (scene.name.Equals("WinScreen"))
+        if (scene.name.Equals("WinScreen") && SceneIndex > 10)
         {
             GameObject.Find("Next Level").SetActive(false);
             GameObject mainMenuButton = GameObject.Find("Main Menu");

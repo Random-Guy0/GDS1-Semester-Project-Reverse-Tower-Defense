@@ -957,9 +957,9 @@ public class UserLevelCreator : MonoBehaviour
         grid = ArrayHelper.ResizeArray(grid, levelWidth, levelDepth);
         gridGameobjects = ArrayHelper.ResizeArray(gridGameobjects, levelWidth, levelDepth);
         heights = ArrayHelper.ResizeArray(heights, levelWidth, levelDepth);
-        for (int i = 0; i > levelWidth; i++)
+        for (int i = 0; i < levelWidth; i++)
         {
-            for (int j = 0; j > levelDepth; j++)
+            for (int j = 0; j < levelDepth; j++)
             {
                 if (heights[i, j] == 0f)
                 {
@@ -1016,9 +1016,9 @@ public class UserLevelCreator : MonoBehaviour
         grid = ArrayHelper.InsertRowIntoArray(grid, 0);
         gridGameobjects = ArrayHelper.InsertRowIntoArray(gridGameobjects, 0);
         heights = ArrayHelper.InsertRowIntoArray(heights, 0);
-        for (int i = 0; i > levelWidth; i++)
+        for (int i = 0; i < levelWidth; i++)
         {
-            for (int j = 0; j > levelDepth; j++)
+            for (int j = 0; j < levelDepth; j++)
             {
                 if (heights[i, j] == 0f)
                 {
@@ -1026,6 +1026,16 @@ public class UserLevelCreator : MonoBehaviour
                 }
             }
         }
+        
+        for (int i = 0; i < towerPositions.Count; i++)
+        {
+            Vector2Int pos = towerPositions[i];
+            pos.y += 1;
+            towerPositions[i] = pos;
+        }
+
+        start.y += 1;
+        end.y += 1;
         
         for (int i = 0; i < levelWidth; i++)
         {
@@ -1048,6 +1058,13 @@ public class UserLevelCreator : MonoBehaviour
                 }
             }
 
+            for (int i = 0; i < towerPositions.Count; i++)
+            {
+                Vector2Int pos = towerPositions[i];
+                pos.y -= 1;
+                towerPositions[i] = pos;
+            }
+
             levelDepth--;
             grid = ArrayHelper.RemoveRowFromArray(grid, 0);
             gridGameobjects = ArrayHelper.RemoveRowFromArray(gridGameobjects, 0);
@@ -1056,10 +1073,18 @@ public class UserLevelCreator : MonoBehaviour
             {
                 start = Vector2Int.one * -1;
             }
+            else
+            {
+                start.y -= 1;
+            }
 
             if (end.y == 0)
             {
                 end = Vector2Int.one * -1;
+            }
+            else
+            {
+                end.y -= 1;
             }
             CreateBorder();
         }
