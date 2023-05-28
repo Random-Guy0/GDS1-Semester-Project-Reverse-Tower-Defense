@@ -72,6 +72,10 @@ public class PathManager : MonoBehaviour
                 towerPositions[i] = new Vector2Int(level.towerPositionsX[i], level.towerPositionsZ[i]);
             }
             FindObjectOfType<TowerSpawner>().SpawnTowers(towers, towerPositions, level.towerSpawnTimes, this);
+
+            pathPiecesAvailable = level.pathPieces;
+            FindObjectOfType<GameManager>().SetGateHealth(level.gateHealth);
+            FindObjectOfType<ManaManager>().SetMana(level.startingMana, level.maxMana);
         }
         
         manaPositions = new bool[grid.Length];

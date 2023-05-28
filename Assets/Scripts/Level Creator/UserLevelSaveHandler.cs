@@ -7,7 +7,7 @@ public class UserLevelSaveHandler : MonoBehaviour
 {
     private static string userLevelsFolder = Application.persistentDataPath + "/User Levels";
 
-    public static void Save(string levelName, int levelWidth, int levelDepth, GridTile[,] grid, float[,] heights, TowerType[] towers, Vector2Int[] towerPositions, float[] towerSpawnTimes, Camera renderCamera, RenderTexture rt)
+    public static void Save(string levelName, int levelWidth, int levelDepth, GridTile[,] grid, float[,] heights, TowerType[] towers, Vector2Int[] towerPositions, float[] towerSpawnTimes, int pathPieces, int gateHealth, int startingMana, int maxMana, Camera renderCamera, RenderTexture rt)
     {
         int[] intGrid = new int[levelWidth * (levelDepth - 1) + levelWidth];
         float[] newHeights = new float[levelWidth * (levelDepth - 1) + levelWidth];
@@ -36,7 +36,7 @@ public class UserLevelSaveHandler : MonoBehaviour
         }
 
         UserLevel level = new UserLevel(levelWidth, levelDepth, intGrid, newHeights, intTowers, towerPositionsX, towerPositionsZ,
-            towerSpawnTimes);
+            towerSpawnTimes, pathPieces, gateHealth, startingMana, maxMana);
 
         string levelJSON = JsonUtility.ToJson(level);
 

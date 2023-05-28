@@ -9,6 +9,7 @@ public class UserLevelCreatorUI : MonoBehaviour
     [SerializeField] private UserLevelCreator levelCreator;
     [SerializeField] private GameObject levelCreatorMenu;
     [SerializeField] private GameObject levelSizeSubmenu;
+    [SerializeField] private GameObject propertiesSubmenu;
     [SerializeField] private GameObject pathSubmenu;
     [SerializeField] private GameObject obstacleSubmenu;
     [SerializeField] private Image selectionToolButton;
@@ -28,6 +29,12 @@ public class UserLevelCreatorUI : MonoBehaviour
     {
         levelCreatorMenu.SetActive(false);
         levelSizeSubmenu.SetActive(true);
+    }
+
+    public void OpenPropertiesSubmenu()
+    {
+        levelCreatorMenu.SetActive(false);
+        propertiesSubmenu.SetActive(true);
     }
 
     public void OpenPathSubmenu()

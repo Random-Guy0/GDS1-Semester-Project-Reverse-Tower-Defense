@@ -23,6 +23,11 @@ public class UserLevelCreator : MonoBehaviour
     [SerializeField] private int defaultLevelWidth;
     [SerializeField] private int defaultLevelDepth;
 
+    [SerializeField] private int pathPieces;
+    [SerializeField] private int gateHealth;
+    [SerializeField] private int startingMana;
+    [SerializeField] private int maxMana;
+
     [SerializeField] private float stepHeight = 0.5f;
     private float[,] heights;
     private float[,] defaultHeights;
@@ -63,6 +68,11 @@ public class UserLevelCreator : MonoBehaviour
 
     [SerializeField] private Camera renderCamera;
     [SerializeField] private RenderTexture rt;
+
+    [SerializeField] private TMP_InputField pathPiecesInput;
+    [SerializeField] private TMP_InputField gateHealthInput;
+    [SerializeField] private TMP_InputField startingManaInput;
+    [SerializeField] private TMP_InputField maxManaInput;
 
     private void Awake()
     {
@@ -107,6 +117,11 @@ public class UserLevelCreator : MonoBehaviour
             }
             
             towerSpawnTimes = new List<float>(level.towerSpawnTimes);
+
+            pathPieces = level.pathPieces;
+            gateHealth = level.gateHealth;
+            startingMana = level.startingMana;
+            maxMana = level.maxMana;
         }
         else
         {
@@ -142,6 +157,11 @@ public class UserLevelCreator : MonoBehaviour
         }
 
         CanSelect = true;
+
+        pathPiecesInput.text = pathPieces.ToString();
+        gateHealthInput.text = gateHealth.ToString();
+        startingManaInput.text = startingMana.ToString();
+        maxManaInput.text = maxMana.ToString();
     }
 
     public void SetLevelName(string levelName)
@@ -731,6 +751,70 @@ public class UserLevelCreator : MonoBehaviour
         }
     }
 
+    public void SetPathPieces(string pathPiecesString)
+    {
+        int newPathPieces = int.Parse(pathPiecesString);
+        if (newPathPieces < 0)
+        {
+            uiWarning.SetActive("Path pieces must be positive!");
+            newPathPieces = 0;
+            pathPiecesInput.text = "0";
+        }
+        
+        pathPieces = newPathPieces;
+    }
+
+    public void SetGateHealth(string gateHealthString)
+    {
+        int newGateHealth = int.Parse(gateHealthString);
+        if (newGateHealth < 1)
+        {
+            uiWarning.SetActive("Gate health must be 1 or greater!");
+            newGateHealth = 1;
+            gateHealthInput.text = "1";
+        }
+        
+        gateHealth = newGateHealth;
+    }
+
+    public void SetStartingMana(string startingManaString)
+    {
+        int newStartingMana = int.Parse(startingManaString);
+        if (newStartingMana < 0)
+        {
+            uiWarning.SetActive("Starting mana must be positive!");
+            newStartingMana = 0;
+            startingManaInput.text = "0";
+        }
+        
+        startingMana = newStartingMana;
+
+        if (startingMana > maxMana)
+        {
+            maxMana = startingMana;
+            maxManaInput.text = maxMana.ToString();
+        }
+    }
+
+    public void SetMaxMana(string maxManaString)
+    {
+        int newMaxMana = int.Parse(maxManaString);
+        if (newMaxMana < 20)
+        {
+            uiWarning.SetActive("Max mana must be 20 or greater!");
+            newMaxMana = 20;
+            maxManaInput.text = "20";
+        }
+        
+        maxMana = newMaxMana;
+
+        if (maxMana < startingMana)
+        {
+            startingMana = maxMana;
+            startingManaInput.text = startingMana.ToString();
+        }
+    }
+
     public void DeleteTower()
     {
         int towerIndex = CheckForTower(selectedTile.x, selectedTile.y);
@@ -983,7 +1067,7 @@ public class UserLevelCreator : MonoBehaviour
         
         renderCamera.transform.position = new Vector3(-levelWidth, levelWidth + levelDepth, -levelDepth);
         renderCamera.transform.LookAt(GetCenter());
-        UserLevelSaveHandler.Save(levelName, levelWidth, levelDepth, grid, heights, towers.ToArray(), towerPositions.ToArray(), towerSpawnTimes.ToArray(), renderCamera, rt);
+        UserLevelSaveHandler.Save(levelName, levelWidth, levelDepth, grid, heights, towers.ToArray(), towerPositions.ToArray(), towerSpawnTimes.ToArray(), pathPieces, gateHealth, startingMana, maxMana, renderCamera, rt);
         return true;
     }
 
