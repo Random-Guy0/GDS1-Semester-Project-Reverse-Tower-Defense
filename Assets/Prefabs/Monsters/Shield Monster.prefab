@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6822693876211296053}
   - component: {fileID: 1911465959830287749}
   - component: {fileID: 5074226791153962683}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: character_jackHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4147332215153628871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: handSlotLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7863610158630506001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KayKit Animated Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 3238322051098888131}
   - component: {fileID: 3238322051098888140}
   - component: {fileID: 8923967408705768930}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 3238322051237918514}
   - component: {fileID: 3238322051237918512}
   - component: {fileID: 3238322051237918513}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: maxHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 3238322051522107930}
   - component: {fileID: 3238322051522107929}
   - component: {fileID: 3238322051522107931}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HB bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 3238322051568174902}
   - component: {fileID: 3238322051568174903}
   - component: {fileID: 3238322051568174896}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: currentHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 3238322052982607402}
   - component: {fileID: 3238322052982607400}
   - component: {fileID: 3238322052982607401}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +776,7 @@ GameObject:
   - component: {fileID: 4217230618283132194}
   - component: {fileID: 948367751702235783}
   - component: {fileID: 3084315091138854477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: character_jack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,7 +860,7 @@ GameObject:
   - component: {fileID: 2354536357616715157}
   - component: {fileID: 5672240808111545051}
   - component: {fileID: 9137286302557941014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: character_jackArmRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,7 +942,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3122253705255393724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,7 +1084,7 @@ GameObject:
   - component: {fileID: 3758309132689945418}
   - component: {fileID: 77890144292280304}
   - component: {fileID: 2580822178262531777}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: character_jackArmLeft.
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3715727629793282676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: armLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1199,7 +1199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2205186581391217535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: armRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6560060711604369409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KayKit Animated Character_v1.2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1263,7 +1263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 68766526862574601}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 7248098702474785258}
   - component: {fileID: 5471305338444663221}
   - component: {fileID: 3464894657131481034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: character_jackHat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
