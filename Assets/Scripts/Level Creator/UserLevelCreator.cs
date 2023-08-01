@@ -12,7 +12,7 @@ public class UserLevelCreator : MonoBehaviour
     private string levelName;
     [SerializeField] private TMP_Text levelNameText;
     
-    private const int gridSize = 2;
+    private float gridSize = 2f;
     
     private GridTile[,] grid;
     private GridTile[,] defaultGrid;
@@ -249,7 +249,7 @@ public class UserLevelCreator : MonoBehaviour
         return new Vector3(x, 0, z);
     }
 
-    public int GetWidth()
+    public float GetWidth()
     {
         return levelWidth * gridSize;
     }

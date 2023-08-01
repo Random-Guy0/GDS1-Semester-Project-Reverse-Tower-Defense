@@ -9,8 +9,6 @@ using Random = UnityEngine.Random;
 public class PathManager : MonoBehaviour
 {
     [SerializeField] private int pathPiecesAvailable;
-    [SerializeField] private Shader defaultShader;
-    [SerializeField] private Shader outlineShader;
     [SerializeField] private int levelWidth;
     [SerializeField] private int levelDepth;
     [SerializeField] private float gridSize = 2f;
@@ -646,7 +644,7 @@ public class PathManager : MonoBehaviour
 
                 for (int i = 0; i < mats.Length; i++)
                 {
-                    mats[i].shader = defaultShader;
+                    mats[i].shader = Shader.Find("Standard");
                 }
 
                 renderer.materials = mats;
@@ -661,7 +659,7 @@ public class PathManager : MonoBehaviour
 
             for (int i = 0; i < mats.Length; i++)
             {
-                mats[i].shader = outlineShader;
+                mats[i].shader = Shader.Find("Custom/Outline");
                 mats[i].SetColor("_OutlineColor", new Color(1.0f, 1.0f, 0.0f));
                 mats[i].SetFloat("_OutlineWidth", 1.1f);
             }
