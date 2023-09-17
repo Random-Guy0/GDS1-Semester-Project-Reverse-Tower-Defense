@@ -25911,6 +25911,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4748730236579392647, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748730237043515783, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748730237065758793, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4748730237764839956, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
       propertyPath: m_Name
       value: Tutorial
@@ -26002,6 +26014,10 @@ PrefabInstance:
     - target: {fileID: 4748730237764839961, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748730237858511633, guid: 5fcc733066a2d104e93debdcc33631b2, type: 3}
+      propertyPath: m_RaycastPadding.w
+      value: 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
