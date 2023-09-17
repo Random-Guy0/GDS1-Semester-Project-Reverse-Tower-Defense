@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
@@ -50,6 +51,22 @@ public class KeybindMon : MonoBehaviour
         shieldAction.performed += OnShield;
     }
 
+    private void OnDestroy()
+    {
+        if (PathActionCoroutine != null)
+        {
+            StopCoroutine(PathActionCoroutine);
+        }
+        
+        normalAction.performed -= OnNormal;
+        speedyAction.performed -= OnSpeedy;
+        tankyAction.performed -= OnTanky;
+        pathAction.performed -= OnPathStarted;
+        pathAction.canceled -= OnPathCanceled;
+        manaCollectorAction.performed -= OnManaCollector;
+        shieldAction.performed -= OnShield;
+    }
+
     private void OnEnable()
     {
         // Enable the action map
@@ -77,7 +94,13 @@ public class KeybindMon : MonoBehaviour
     {
         if (PathActionCoroutine != null)
         {
-            FindObjectOfType<PathManager>().KeyUp();
+            PathManager pathManager = FindObjectOfType<PathManager>();
+
+            if (pathManager != null)
+            {
+                pathManager.KeyUp();
+            }
+
             isSpaceKeyDown = false;
             StopCoroutine(PathActionCoroutine);
             PathActionCoroutine = null;
